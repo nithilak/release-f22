@@ -12,11 +12,17 @@ class Image: public cs225::PNG {
     public:
     void lighten();
     void lighten(double amount);
+    // void darken();
     void darken(double amount);
     void saturate();
     void saturate(double amount);
-    void rotateColor(int degrees);
+    // void desaturate();
+    // void desaturate(double amount);
+    // void grayscale();
+    void rotateColor(double degrees);
+    // void Illinify();
     void scale(double factor);
+    // void scale(unsigned w, unsigned h);
 
     //getters
     unsigned int width() const;
