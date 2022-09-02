@@ -8,17 +8,22 @@
 
 class StickerSheet {
     public:
-    StickerSheet(const Image& image, int amount);
-    void addSticker(Image& image, int x, int y) const;
+    StickerSheet(const Image& picture, unsigned max);
+    // ~StickerSheet();
+    // StickerSheet(const StickerSheet& other);
+    // const StickerSheet& operator=(const StickerSheet& other);
+    int addSticker(Image& sticker, unsigned x, unsigned y);
     Image render() const; //&?
-    void changeMaxStickers(int num);
-    void removeSticker(int num);
+    void changeMaxStickers(unsigned max);
+    void removeSticker(unsigned index);
     bool translate(int num, int x, int y);
 
     //getters
-    Image* getSticker(int num);
+    Image* getSticker(unsigned index);
 
     //setters
 
     private:
+    // Image picture_;
+    // unsigned max_;
 };
