@@ -10,9 +10,9 @@ void Image::saturate(double amount) {}
 // void Image::desaturate(double amount) {}
 // void Image::grayscale();
 void Image::rotateColor(double degrees) {}
-// void Image::Illinify() {}
+// void Image::illinify() {}
 void Image::scale(double factor) {}
-// void scale(unsigned w, unsigned h) {}
+// void Image::scale(unsigned w, unsigned h) {}
 
 //getters
 unsigned int Image::width() const { return width_; }

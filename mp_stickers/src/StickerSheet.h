@@ -12,11 +12,11 @@ class StickerSheet {
     // ~StickerSheet();
     // StickerSheet(const StickerSheet& other);
     // const StickerSheet& operator=(const StickerSheet& other);
-    int addSticker(Image& sticker, unsigned x, unsigned y);
-    Image render() const; //&?
     void changeMaxStickers(unsigned max);
-    void removeSticker(unsigned index);
+    int addSticker(Image& sticker, unsigned x, unsigned y);
     bool translate(int num, int x, int y);
+    void removeSticker(unsigned index);
+    Image render() const; //&?
 
     //getters
     Image* getSticker(unsigned index);

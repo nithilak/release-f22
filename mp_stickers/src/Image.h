@@ -20,7 +20,7 @@ class Image: public cs225::PNG {
     // void desaturate(double amount);
     // void grayscale();
     void rotateColor(double degrees);
-    // void Illinify();
+    // void illinify();
     void scale(double factor);
     // void scale(unsigned w, unsigned h);
 
