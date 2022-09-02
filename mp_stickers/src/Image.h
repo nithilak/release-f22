@@ -24,14 +24,10 @@ class Image: public cs225::PNG {
     void scale(double factor);
     // void scale(unsigned w, unsigned h);
 
-    //getters
-    unsigned int width() const;
-    unsigned int height() const;
-
-    //setters
-
-    private:
-    unsigned int width_;
-    unsigned int height_;
-
+    //helpers
+    void adjustLuminance(double amount); //copied from lighten(double amount), change 2 things
+    void errorCheckAmount(double amount, double max); //does not include max in valid range
+    void adjustSaturation(double amount); //copied from adjustLuminance, changed l -> s
+    void adjustHue(double amount); //copied from adjustLuminance, changed l -> h
+    void setHue(double value); //copied from setHue, changed two things (removed error checking and set elem to be value)
 };
