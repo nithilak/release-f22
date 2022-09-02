@@ -8,6 +8,7 @@
 
 class StickerSheet {
     public:
+    StickerSheet();
     StickerSheet(const Image& picture, unsigned max);
     // ~StickerSheet();
     // StickerSheet(const StickerSheet& other);
@@ -20,10 +21,11 @@ class StickerSheet {
 
     //getters
     Image* getSticker(unsigned index);
+    //unsigned getMax();
 
     //setters
 
     private:
-    // Image picture_;
-    // unsigned max_;
+    const Image* picture_;
+    unsigned max_;
 };
