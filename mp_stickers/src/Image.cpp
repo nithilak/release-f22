@@ -73,6 +73,12 @@ void Image::illinify() {
 }
 void Image::scale(double factor) {
     // factor = factor + 1; //this was there so that this function could compile at the start
+    if (factor == 1) {
+        return;
+    }
+    // if (factor <= 0) {
+    //     throw std::invalid_argument("factor cannot be less than or equal to zero: " + std::to_string(factor));
+    // }
     //each x value (col) starts in its corresponding location of 2x
     //each y value (row) starts in its corresponding location of 2y
 
@@ -80,6 +86,16 @@ void Image::scale(double factor) {
     //make a new image with 2x width and 2y height
     const unsigned kWidth = this->width();
     const unsigned kHeight = this->height();
+    if (factor == 0) {
+        for (unsigned row = 0; row < kHeight; row ++) {
+            for (unsigned col = 0; col < kWidth; col++) {
+                this->getPixel(col, row) = cs225::HSLAPixel(0, 0, 0);
+            }
+        }
+        // resize(1, 1); //so that the file does not crash
+        resize(0, 0);
+        return;
+    }
     const unsigned kArea = kWidth * kHeight;
     const unsigned kscaled_width = (kWidth * factor);
     const unsigned kscaled_height = (kHeight * factor);
@@ -90,64 +106,67 @@ void Image::scale(double factor) {
     //store this on the free store later
     cs225::HSLAPixel* scaled_image = new cs225::HSLAPixel[kscaled_area]; //this is an array
 
+    if (factor > 1 || factor < 1) {
+        //iterate through original image
+        unsigned count = 0;
+        for (unsigned row = 0; row < kHeight; row ++) {
+            for (unsigned col = 0; col < kWidth; col++) {
+                //make each starting col be 2x
+                cs225::HSLAPixel current_pixel= this->getPixel(col, row); //makes a copy, here each time
+                original_image[count] = current_pixel;
+                count++;
+                //fill in the square formed by 2x by 2y
+                //2*col --- before 2*(col + 1)
+                //2*row --- before 2*(row + 1)
 
-    //iterate through original image
-    unsigned count = 0;
-    for (unsigned row = 0; row < kHeight; row ++) {
-        for (unsigned col = 0; col < kWidth; col++) {
-            //make each starting col be 2x
-            cs225::HSLAPixel current_pixel= this->getPixel(col, row); //makes a copy, here each time
-            original_image[count] = current_pixel;
-            count++;
-            //fill in the square formed by 2x by 2y
-            //2*col --- before 2*(col + 1)
-            //2*row --- before 2*(row + 1)
-
-            // unsigned col_start = factor * col;
-            // unsigned col_end = factor * (col + 1);
-            // unsigned row_start = factor * row;
-            // unsigned row_end = factor * (row + 1);
-            // for (unsigned x = col_start; x < col_end; x++) {
-            //     for (unsigned y = row_start; y < row_end; y++) {
-            //         //scaled_array at (x, y) should be filled in with 
-            //         //the current color at (row, col)
-            //                             //current row    //current col
-            //         unsigned current_xy = (factor * (y)) + x;
-            //         scaled_image[current_xy] = current_pixel;
-            //     }
-            // }
-        }
-    }
-
-    //update imageData_;
-    // delete imageData_;
-    // imageData_ = scaled_image; //not on the free store
-    //update width_;
-    // width_ = scaled_width;
-    //update height_;
-    // height_ = scaled_height;
-
-    //resize the image with scaled_width and scaled_height
-    resize(kscaled_width, kscaled_height);
-    //update image to match scaled_image
-    unsigned current_pos = 0;
-    // for (unsigned row = 0; row < kscaled_height; row++) {
-    //     for (unsigned col = 0; col < kscaled_width; col++) {
-    //         this->getPixel(col, row) = scaled_image[current_pos]; //cs225::HSLAPixel(0, 5, 7)
-    //         current_pos++;
-    //     }
-    // }
-
-    current_pos = 0;
-    for (unsigned row = 0; row < kHeight; row++) {
-        for (unsigned col = 0; col < kWidth; col++) {
-            for (unsigned y = 2*row; y < 2*(row + 1); y++) {
-                for (unsigned x = 2*col; x < 2*(col + 1); x++) {
-                    this->getPixel(x, y) = original_image[current_pos]; // cs225::HSLAPixel(0, 5, 7)
-                }
+                // unsigned col_start = factor * col;
+                // unsigned col_end = factor * (col + 1);
+                // unsigned row_start = factor * row;
+                // unsigned row_end = factor * (row + 1);
+                // for (unsigned x = col_start; x < col_end; x++) {
+                //     for (unsigned y = row_start; y < row_end; y++) {
+                //         //scaled_array at (x, y) should be filled in with 
+                //         //the current color at (row, col)
+                //                             //current row    //current col
+                //         unsigned current_xy = (factor * (y)) + x;
+                //         scaled_image[current_xy] = current_pixel;
+                //     }
+                // }
             }
-            current_pos++;
         }
+
+        //update imageData_;
+        // delete imageData_;
+        // imageData_ = scaled_image; //not on the free store
+        //update width_;
+        // width_ = scaled_width;
+        //update height_;
+        // height_ = scaled_height;
+
+        //resize the image with scaled_width and scaled_height
+        resize(kscaled_width, kscaled_height);
+        //update image to match scaled_image
+        unsigned current_pos = 0;
+        // for (unsigned row = 0; row < kscaled_height; row++) {
+        //     for (unsigned col = 0; col < kscaled_width; col++) {
+        //         this->getPixel(col, row) = scaled_image[current_pos]; //cs225::HSLAPixel(0, 5, 7)
+        //         current_pos++;
+        //     }
+        // }
+
+        current_pos = 0;
+        for (unsigned row = 0; row < kHeight; row++) {
+            for (unsigned col = 0; col < kWidth; col++) {
+                for (unsigned y = factor*row; y < factor*(row + 1); y++) {
+                    for (unsigned x = factor*col; x < factor*(col + 1); x++) {
+                        this->getPixel(x, y) = original_image[current_pos]; // cs225::HSLAPixel(0, 5, 7)
+                    }
+                }
+                current_pos++;
+            }
+        }
+    } else if (factor > 0 && factor < 1) {
+
     }
 
     // current_pos = 0;
