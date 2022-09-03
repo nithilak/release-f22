@@ -10,9 +10,9 @@ class StickerSheet {
     public:
     StickerSheet();
     StickerSheet(const Image& picture, unsigned max);
-    // ~StickerSheet();
-    // StickerSheet(const StickerSheet& other);
-    // const StickerSheet& operator=(const StickerSheet& other);
+    ~StickerSheet();
+    StickerSheet(const StickerSheet& other);
+    const StickerSheet& operator=(const StickerSheet& other);
     void changeMaxStickers(unsigned max);
     int addSticker(Image& sticker, unsigned x, unsigned y);
     bool translate(int num, int x, int y);
@@ -21,9 +21,13 @@ class StickerSheet {
 
     //getters
     Image* getSticker(unsigned index);
-    //unsigned getMax();
+    unsigned getMax() const;
 
     //setters
+
+    //helpers
+    // Image* getImage(unsigned index) const { return nullptr; }
+    Image* getStickerConst(unsigned index) const;
 
     private:
     const Image* picture_;
