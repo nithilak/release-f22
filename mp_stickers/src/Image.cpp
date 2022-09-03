@@ -92,32 +92,32 @@ void Image::scale(double factor) {
 
 
     //iterate through original image
-    // unsigned count = 0;
-    // for (unsigned row = 0; row < kHeight; row ++) {
-    //     for (unsigned col = 0; col < kWidth; col++) {
-    //         //make each starting col be 2x
-    //         cs225::HSLAPixel current_pixel= this->getPixel(col, row); //makes a copy, here each time
-    //         original_image[count] = current_pixel;
-    //         count++;
-    //         //fill in the square formed by 2x by 2y
-    //         //2*col --- before 2*(col + 1)
-    //         //2*row --- before 2*(row + 1)
+    unsigned count = 0;
+    for (unsigned row = 0; row < kHeight; row ++) {
+        for (unsigned col = 0; col < kWidth; col++) {
+            //make each starting col be 2x
+            cs225::HSLAPixel current_pixel= this->getPixel(col, row); //makes a copy, here each time
+            original_image[count] = current_pixel;
+            count++;
+            //fill in the square formed by 2x by 2y
+            //2*col --- before 2*(col + 1)
+            //2*row --- before 2*(row + 1)
 
-    //         // unsigned col_start = factor * col;
-    //         // unsigned col_end = factor * (col + 1);
-    //         // unsigned row_start = factor * row;
-    //         // unsigned row_end = factor * (row + 1);
-    //         // for (unsigned x = col_start; x < col_end; x++) {
-    //         //     for (unsigned y = row_start; y < row_end; y++) {
-    //         //         //scaled_array at (x, y) should be filled in with 
-    //         //         //the current color at (row, col)
-    //         //                             //current row    //current col
-    //         //         unsigned current_xy = (factor * (y)) + x;
-    //         //         scaled_image[current_xy] = current_pixel;
-    //         //     }
-    //         // }
-    //     }
-    // }
+            // unsigned col_start = factor * col;
+            // unsigned col_end = factor * (col + 1);
+            // unsigned row_start = factor * row;
+            // unsigned row_end = factor * (row + 1);
+            // for (unsigned x = col_start; x < col_end; x++) {
+            //     for (unsigned y = row_start; y < row_end; y++) {
+            //         //scaled_array at (x, y) should be filled in with 
+            //         //the current color at (row, col)
+            //                             //current row    //current col
+            //         unsigned current_xy = (factor * (y)) + x;
+            //         scaled_image[current_xy] = current_pixel;
+            //     }
+            // }
+        }
+    }
 
     //update imageData_;
     // delete imageData_;
@@ -141,10 +141,9 @@ void Image::scale(double factor) {
     current_pos = 0;
     for (unsigned row = 0; row < kHeight; row++) {
         for (unsigned col = 0; col < kWidth; col++) {
-            // this->getPixel(col, row) = scaled_image[current_pos]; //cs225::HSLAPixel(0, 5, 7);
             for (unsigned y = 2*row; y < 2*(row + 1); y++) {
                 for (unsigned x = 2*col; x < 2*(col + 1); x++) {
-                    this->getPixel(x, y) = cs225::HSLAPixel(0, 5, 7);
+                    this->getPixel(x, y) = original_image[current_pos]; // cs225::HSLAPixel(0, 5, 7)
                 }
             }
             current_pos++;
