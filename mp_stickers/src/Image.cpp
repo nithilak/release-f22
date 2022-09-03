@@ -76,9 +76,9 @@ void Image::scale(double factor) {
     if (factor == 1) {
         return;
     }
-    // if (factor <= 0) {
-    //     throw std::invalid_argument("factor cannot be less than or equal to zero: " + std::to_string(factor));
-    // }
+    if (factor < 0) {
+        throw std::invalid_argument("factor cannot be less than or equal to zero: " + std::to_string(factor));
+    }
     //each x value (col) starts in its corresponding location of 2x
     //each y value (row) starts in its corresponding location of 2y
 
@@ -165,9 +165,9 @@ void Image::scale(double factor) {
                 current_pos++;
             }
         }
-    } else if (factor > 0 && factor < 1) {
+    } // else if (factor > 0 && factor < 1) {
 
-    }
+    // }
 
     // current_pos = 0;
     // for (unsigned row = 0; row < kHeight; row++) {
