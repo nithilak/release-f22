@@ -85,7 +85,7 @@ Image StickerSheet::render() const {
             for (unsigned col = 0; col < sticker.width(); col++) {
                 const cs225::HSLAPixel& kcurrent_pixel = sticker.getPixel(col, row);
                 if (kcurrent_pixel.a != 0) {
-                    // layer.getPixel(x + col, y + row) = kcurrent_pixel;
+                    layer.getPixel(x + col, y + row) = kcurrent_pixel;
                 }
             }
         }
