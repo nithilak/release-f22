@@ -18,8 +18,25 @@ int main() {
   StickerSheet sticker_sheet(myImage, 1);
   Image i_sticker;
   i_sticker.readFromFile("../i.png");
-  // sticker_sheet.addSticker(i_sticker, 0, 0);
-  // // myImage = sticker_sheet.render();
+  sticker_sheet.addSticker(i_sticker, 0, 0);
+  sticker_sheet.changeMaxStickers(2);
+  sticker_sheet.addSticker(i_sticker, 1000, 0);
+  // sticker_sheet.addSticker(i_sticker, 0, 100);
+  // sticker_sheet.addSticker(i_sticker, 0, 1000);
+  // sticker_sheet.changeMaxStickers(3);
+  // sticker_sheet.addSticker(i_sticker, 0, 1000);
+  // sticker_sheet.addSticker(i_sticker, 20, 40);
+  // // sticker_sheet.changeMaxStickers(1);
+  myImage = sticker_sheet.render();
+  
+  //copied from test case "StickerSheet::changeMaxStickers() does not discard original stickers when resized smaller"
+  // StickerSheet sheet(myImage, 5); //changed alma -> myImage
+  // sheet.addSticker(i_sticker, 20, 200); //changed i -> i_sticker
+
+  // sheet.changeMaxStickers(3);
+  //end copy
+  
+  // myImage = sheet.render();
   myImage.scale(300, 500);
   myImage.writeToFile("../myImage2.png");
 

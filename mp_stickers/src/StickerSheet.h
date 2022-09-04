@@ -7,6 +7,19 @@
 #include "Image.h"
 #include <vector>
 
+struct Point {
+    unsigned x;
+    unsigned y;
+    Point() : x(0), y(0) {}
+    Point(unsigned x2,  unsigned y2) : x(x2), y(y2) {}
+};
+
+struct ImagePoint {
+    Image image;
+    Point point;
+    ImagePoint(Image image2, Point point2) : image(image2), point(point2) {}
+};
+
 class StickerSheet {
     public:
     StickerSheet();
@@ -16,24 +29,25 @@ class StickerSheet {
     const StickerSheet& operator=(const StickerSheet& other);
     void changeMaxStickers(unsigned max);
     int addSticker(Image& sticker, unsigned x, unsigned y);
-    bool translate(int num, int x, int y);
+    bool translate(unsigned index, unsigned x, unsigned y);
     void removeSticker(unsigned index);
     Image render() const; //&?
 
     //getters
     Image* getSticker(unsigned index);
     unsigned getMax() const;
+    std::vector<ImagePoint> getLayers(); //returns a copy, not a const reference
+    const Image getPicture() const;
 
     //setters
 
     //helpers
     // Image* getImage(unsigned index) const { return nullptr; }
-    Image* getStickerConst(unsigned index) const;
+    const Image* getStickerConst(unsigned index) const;
+    void copyConstructor(const StickerSheet& other);
 
     private:
     unsigned max_;
     Image* picture_;
-    unsigned current_layer_;
-    Image render_;
-    std::vector<Image> layers_;
+    std::vector<ImagePoint> layers_;
 };
