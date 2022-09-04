@@ -73,6 +73,7 @@ void Image::illinify() {
 }
 void Image::scale(double factor) {
     // factor = factor + 1; //this was there so that this function could compile at the start
+    std::cout << "factor: " << std::to_string(factor) << std::endl;
     if (factor == 1) {
         return;
     }
@@ -181,29 +182,32 @@ void Image::scale(double factor) {
     delete[] original_image;
 }
 void Image::scale(unsigned w, unsigned h) {
-    
-    unsigned num = w * h;
-    unsigned width = this->width();
-    unsigned height = this->height();
+    // unsigned num = w * h;
+    double width = this->width();
+    double height = this->height();
+    double w2 = w;
+    double h2 = h;
     if (w == width && h == height) {
         return;
     }
     if (w > width && h > height) {
         if (w > h) {
-            scale(w/width);
+            scale(w2/width);
         } else {
-            scale(h/height);
+            scale(h2/height);
         }
     } else if (w <= width && h <= height) {
         if (w > h) {
-            scale(w/width);
+            scale(w2/width);
         } else { //(h >= w)
-            scale(h/height);
+            scale(h2/height);
         }
     } else if (w > width) {
-        scale(h/height);
+        scale(h2/height);
     } else if (h > height) {
-        scale(w/width);
+        scale(w2/width);
+    } else {
+        throw std::runtime_error("something went wrong");
     }
 }
 
