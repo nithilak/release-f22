@@ -79,6 +79,7 @@ void Image::illinify() { //assume valid input
     }
     //}
 }
+
 void Image::scale(double factor) {
     // factor = factor + 1; //this was there so that this function could compile at the start
     // std::cout << "factor: " << std::to_string(factor) << std::endl;
