@@ -150,6 +150,7 @@ const Image* StickerSheet::getStickerConst(unsigned index) const {
 }
 
 void StickerSheet::copyConstructor(const StickerSheet& other) {
+    delete picture_;
     // if (*picture_ != other.getPicture()) {
         picture_ = new Image();
         Image copy = other.getPicture();
