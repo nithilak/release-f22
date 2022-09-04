@@ -6,7 +6,7 @@ void Image::lighten() {
     adjustLuminance(0.1, kMax);
 }
 void Image::lighten(double amount) {
-    std::cout << "amount lighten: " << amount << std::endl;
+    // std::cout << "amount lighten: " << amount << std::endl;
     if (amount == 0) {
         return;
     }
@@ -19,7 +19,7 @@ void Image::darken() {
    adjustLuminance(-0.1, kMax);
 }
 void Image::darken(double amount) { //copied from lighten(double amount), change 2 things
-    std::cout << "amount darken: " << amount << std::endl;
+    // std::cout << "amount darken: " << amount << std::endl;
     if (amount == 0) {
         return;
     }
@@ -81,7 +81,7 @@ void Image::illinify() { //assume valid input
 }
 void Image::scale(double factor) {
     // factor = factor + 1; //this was there so that this function could compile at the start
-    std::cout << "factor: " << std::to_string(factor) << std::endl;
+    // std::cout << "factor: " << std::to_string(factor) << std::endl;
     if (factor == 1) {
         return;
     }
