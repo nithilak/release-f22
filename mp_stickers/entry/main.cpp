@@ -40,5 +40,23 @@ int main() {
   myImage.scale(300, 500);
   myImage.writeToFile("../myImage2.png");
 
+  //copied from test case "StickerSheet's copy constructor makes an independent copy"
+  Image alma; alma.readFromFile("../tests/alma.png");
+  Image i;    i.readFromFile("../tests/i.png");
+  Image expected; expected.readFromFile("../tests/expected.png");
+  Image expected2; expected2.readFromFile("../tests/expected-2.png");
+
+  StickerSheet s1(alma, 5);
+  s1.addSticker(i, 20, 200);
+  s1.addSticker(i, 40, 200);
+
+  StickerSheet s2(s1);
+  s2.removeSticker(1);
+
+  myImage = s1.render();
+  myImage.writeToFile("../myImage2.png");
+  myImage = s2.render();
+  myImage.writeToFile("../myImage3.png");
+
   return 0;
 }

@@ -224,13 +224,13 @@ void Image::scale(unsigned w, unsigned h) {
 void Image::adjustLuminance(double amount, double max) { //copied from lighten(double amount), change 2 things
     for (unsigned row = 0; row < height(); row++) {
         for (unsigned col = 0; col < width(); col++) {
-            double elem = getPixel(col, row).l;
+            double& elem = getPixel(col, row).l;
             if (elem + amount >= 1) {
-                getPixel(col, row).l = 1;
+                elem = 1;
             } else if (elem + amount <= 0) {
-                getPixel(col, row).l = 0;
+                elem = 0;
             } else {
-                getPixel(col, row).l += amount;
+                elem += amount;
             }
         }
     }
@@ -239,14 +239,14 @@ void Image::adjustLuminance(double amount, double max) { //copied from lighten(d
 void Image::adjustSaturation(double amount, double max) { //copied from adjustLuminance, changed l -> s
     for (unsigned row = 0; row < height(); row++) {
         for (unsigned col = 0; col < width(); col++) {
-            double elem = getPixel(col, row).s;
+            double& elem = getPixel(col, row).s;
             if (elem + amount >= 1) {
-                getPixel(col, row).s = 1;
+                elem = 1;
             } else if (elem + amount <= 0) {
-                getPixel(col, row).s = 0;
+                elem = 0;
             } else {
-                getPixel(col, row).s += amount;
-            }      
+                elem += amount;
+            }     
         }
     }
 }
@@ -254,18 +254,18 @@ void Image::adjustSaturation(double amount, double max) { //copied from adjustLu
 void Image::adjustHue(double amount, double max) { //copied from adjustLuminance, changed l -> h
     for (unsigned row = 0; row < height(); row++) {
         for (unsigned col = 0; col < width(); col++) {
-            double elem = getPixel(col, row).h;
+            double& elem = getPixel(col, row).h;
             // if (checkElemWithinBoundsZeroAndMax(elem + amount, max)) {
-                getPixel(col, row).h = (elem + amount);
+                elem = (elem + amount);
                 while (getPixel(col, row).h > 360) {
-                    getPixel(col, row).h -= 360;
-                    if (getPixel(col, row).h < 0) {
+                    elem -= 360;
+                    if (elem < 0) {
                         throw std::runtime_error("getPixel(" + std::to_string(col) + ", " + std::to_string(row) + ").h is less than 0");
                     }
                 }
-                while (getPixel(col, row).h < 0) {
-                    getPixel(col, row).h += 360;
-                    if (getPixel(col, row).h > 360) {
+                while (elem < 0) {
+                    elem += 360;
+                    if (elem > 360) {
                         throw std::runtime_error("getPixel(" + std::to_string(col) + ", " + std::to_string(row) + ").h is less than 0");
                     }
                 }

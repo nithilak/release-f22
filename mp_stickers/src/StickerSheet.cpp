@@ -137,8 +137,8 @@ Image* StickerSheet::getSticker(unsigned index) {
     return &(layers_.at(index).image);
 }
 unsigned StickerSheet::getMax() const { return max_; }
-std::vector<ImagePoint> StickerSheet::getLayers() { return layers_; }
-const Image StickerSheet::getPicture() const { return *picture_; }
+const std::vector<ImagePoint>& StickerSheet::getLayers() const { return layers_; }
+const Image& StickerSheet::getPicture() const { return *picture_; }
 
 //helpers
 const Image* StickerSheet::getStickerConst(unsigned index) const { 
@@ -150,9 +150,11 @@ const Image* StickerSheet::getStickerConst(unsigned index) const {
 }
 
 void StickerSheet::copyConstructor(const StickerSheet& other) {
-    picture_ = new Image();
-    Image temp = other.getPicture();
-    *picture_ = (temp);
+    if (*picture_ != other.getPicture()) {
+        picture_ = new Image();
+        Image copy = other.getPicture();
+        *picture_ = copy;
+    }
     changeMaxStickers(other.getMax());
-    layers_ = getLayers();
+    layers_ = other.getLayers();
 }
