@@ -23,9 +23,9 @@ int main() {
   sticker_sheet.addSticker(i_sticker, 1000, 0);
   // sticker_sheet.addSticker(i_sticker, 0, 100);
   // sticker_sheet.addSticker(i_sticker, 0, 1000);
-  // sticker_sheet.changeMaxStickers(3);
+  sticker_sheet.changeMaxStickers(3);
   // sticker_sheet.addSticker(i_sticker, 0, 1000);
-  // sticker_sheet.addSticker(i_sticker, 20, 40);
+  sticker_sheet.addSticker(i_sticker, 20, 40);
   // // sticker_sheet.changeMaxStickers(1);
   myImage = sticker_sheet.render();
   
@@ -38,25 +38,26 @@ int main() {
   
   // myImage = sheet.render();
   myImage.scale(300, 500);
-  myImage.writeToFile("../myImage2.png");
+  myImage.writeToFile("../myImage.png");
 
   //copied from test case "StickerSheet's copy constructor makes an independent copy"
-  Image alma; alma.readFromFile("../tests/alma.png");
-  Image i;    i.readFromFile("../tests/i.png");
-  Image expected; expected.readFromFile("../tests/expected.png");
-  Image expected2; expected2.readFromFile("../tests/expected-2.png");
+  // Image alma; alma.readFromFile("../tests/alma.png");
+  // Image i;    i.readFromFile("../tests/i.png");
+  // Image expected; expected.readFromFile("../tests/expected.png");
+  // Image expected2; expected2.readFromFile("../tests/expected-2.png");
 
-  StickerSheet s1(alma, 5);
-  s1.addSticker(i, 20, 200);
-  s1.addSticker(i, 40, 200);
+  // StickerSheet s1(alma, 5);
+  // s1.addSticker(i, 20, 200);
+  // s1.addSticker(i, 40, 200);
 
-  StickerSheet s2(s1);
-  s2.removeSticker(1);
+  // StickerSheet s2(s1);
+  // s2.removeSticker(1);
+//end copy
 
-  myImage = s1.render();
-  myImage.writeToFile("../myImage2.png");
-  myImage = s2.render();
-  myImage.writeToFile("../myImage3.png");
+  // myImage = s1.render();
+  // myImage.writeToFile("../myImage2.png");
+  // myImage = s2.render();
+  // myImage.writeToFile("../myImage3.png");
 
   return 0;
 }

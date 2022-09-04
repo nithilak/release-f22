@@ -17,7 +17,7 @@ struct Point {
 struct ImagePoint {
     Image image;
     Point point;
-    ImagePoint(Image image2, Point point2) : image(image2), point(point2) {}
+    ImagePoint(const Image& image2, const Point& point2) : image(image2), point(point2) {}
 };
 
 class StickerSheet {
