@@ -59,24 +59,24 @@ Image StickerSheet::render() const {
         std::cout << "height(): " << layer.height() << std::endl;
 
         // int row_diff = s_h - (h - y2);
-        int max_row = y + s_h;
+        unsigned max_row = y + sticker.height();
         // std::cout << "row_diff: " << row_diff << std::endl;
         std::cout << "max_row: " << max_row << std::endl;
         // int col_diff = s_w - (w - x2);
-        int max_col = x + s_w;
+        unsigned max_col = x + sticker.width();
         // std::cout << "col_diff: " << col_diff << std::endl;
         std::cout << "max_col: " << max_col << std::endl;
-        // if (max_row <= s_h ||  max_col <= s_w) {
-        //     // removeSticker(i);
-        //     // i--;
-        //     continue;
-        // }
-        if (max_row > s_h && max_col > s_w) {
+        if (max_row <= layer.height() && max_col <= layer.width()) {
+            // removeSticker(i);
+            // i--;
+            // continue;
+            // break;
+        } else if (max_row > layer.height() && max_col > layer.width()) {
             layer.resize(max_col, max_row);
-        } else if (max_row > s_h) {
-            layer.resize(w, max_row);
-        } else if (max_col > s_w) {
-            layer.resize(max_col, h);
+        } else if (max_row > layer.height()) {
+            layer.resize(layer.width(), max_row);
+        } else if (max_col > layer.height()) {
+            layer.resize(max_col, layer.height());
         }
         // layer.resize(10000, 10000); //this is here for testing purposes only
         std::cout << "width(): " << layer.width() << std::endl;
@@ -85,7 +85,7 @@ Image StickerSheet::render() const {
             for (unsigned col = 0; col < sticker.width(); col++) {
                 const cs225::HSLAPixel& kcurrent_pixel = sticker.getPixel(col, row);
                 if (kcurrent_pixel.a != 0) {
-                    layer.getPixel(x + col, y + row) = kcurrent_pixel;
+                    // layer.getPixel(x + col, y + row) = kcurrent_pixel;
                 }
             }
         }
@@ -95,11 +95,11 @@ Image StickerSheet::render() const {
 void StickerSheet::changeMaxStickers(unsigned max) { 
     // int max_2 = max_;
     // int max2 = max;
-    if (max < max_) {
+    while (max < layers_.size()) {
         //because the layers are all not necessarily filled to the max_ quantity
-        for (unsigned i = max; (i < max_) && (layers_.size() > 0); i++) { //int conversion here
-            layers_.pop_back();
-        }
+        // for (int i = max_2 - 1; (i >= max2) && (layers_.size() > 0); i--) { //int conversion here
+            layers_.erase(layers_.begin() + max);
+        // }
     }
     max_ = max; 
 }
