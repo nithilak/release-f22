@@ -15,7 +15,7 @@ struct Point {
 };
 
 struct ImagePoint {
-    Image image;
+    Image image; //could make these pointers, but that could be a bad idea
     Point point;
     ImagePoint(const Image& image2, const Point& point2) : image(image2), point(point2) {}
 };
