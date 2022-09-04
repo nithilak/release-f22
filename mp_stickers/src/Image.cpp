@@ -56,7 +56,7 @@ void Image::rotateColor(double degrees) {
     // }
     adjustHue(degrees, kMax);
 }
-void Image::illinify() {
+void Image::illinify() { //assume valid input
     //copied from adjustHue(double amount), changed one thing (set elem to 11 or 216 based on closeness)
     //void Image::adjustHue(double amount) { //copied from adjustLuminance, changed l -> h
     for (unsigned row = 0; row < height(); row++) {
@@ -108,12 +108,12 @@ void Image::scale(double factor) {
     const unsigned kArea = kWidth * kHeight;
     const unsigned kscaled_width = (kWidth * factor);
     const unsigned kscaled_height = (kHeight * factor);
-    const unsigned kscaled_area = kscaled_width * kscaled_height;
+    // const unsigned kscaled_area = kscaled_width * kscaled_height;
 
     cs225::HSLAPixel* original_image = new cs225::HSLAPixel[kArea]; //this is an array
 
     //store this on the free store later
-    cs225::HSLAPixel* scaled_image = new cs225::HSLAPixel[kscaled_area]; //this is an array
+    // cs225::HSLAPixel* scaled_image = new cs225::HSLAPixel[kscaled_area]; //this is an array
 
     if (factor > 1 || factor < 1) {
         //iterate through original image
@@ -121,7 +121,7 @@ void Image::scale(double factor) {
         for (unsigned row = 0; row < kHeight; row ++) {
             for (unsigned col = 0; col < kWidth; col++) {
                 //make each starting col be 2x
-                cs225::HSLAPixel current_pixel= this->getPixel(col, row); //makes a copy, here each time
+                const cs225::HSLAPixel& current_pixel = this->getPixel(col, row); //makes a copy, here each time //not anymore
                 original_image[count] = current_pixel;
                 count++;
                 //fill in the square formed by 2x by 2y
@@ -186,7 +186,7 @@ void Image::scale(double factor) {
     //     }
     // }
 
-    delete[] scaled_image;
+    // delete[] scaled_image;
     delete[] original_image;
 }
 void Image::scale(unsigned w, unsigned h) {
