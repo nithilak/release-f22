@@ -26,7 +26,7 @@ class Image: public cs225::PNG {
 
     //helpers
     void adjustLuminance(double amount, double max); //copied from lighten(double amount), change 2 things
-    void errorCheckAmount(double amount, double max); //does not include max in valid range
+    void errorCheckAmount(double amount); //does not include max in valid range, used to have an upper check of unsigned max
     void adjustSaturation(double amount, double max); //copied from adjustLuminance, changed l -> s
     void adjustHue(double amount, double max); //copied from adjustLuminance, changed l -> h
     void setHue(double value); //copied from setHue, changed two things (removed error checking and set elem to be value)

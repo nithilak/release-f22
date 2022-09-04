@@ -6,8 +6,12 @@ void Image::lighten() {
     adjustLuminance(0.1, kMax);
 }
 void Image::lighten(double amount) {
+    std::cout << "amount lighten: " << amount << std::endl;
+    if (amount == 0) {
+        return;
+    }
     double kMax = 1;
-    errorCheckAmount(amount, kMax);
+    // errorCheckAmount(amount);
     adjustLuminance(amount, kMax);
 }
 void Image::darken() {
@@ -15,8 +19,12 @@ void Image::darken() {
    adjustLuminance(-0.1, kMax);
 }
 void Image::darken(double amount) { //copied from lighten(double amount), change 2 things
+    std::cout << "amount darken: " << amount << std::endl;
+    if (amount == 0) {
+        return;
+    }
     double kMax = 1;
-    errorCheckAmount(amount, kMax);
+    // errorCheckAmount(amount);
     adjustLuminance(-1*amount, kMax);
 }
 void Image::saturate() {
@@ -25,7 +33,7 @@ void Image::saturate() {
 }
 void Image::saturate(double amount) {
     double kMax = 1;
-    errorCheckAmount(amount, kMax);
+    // errorCheckAmount(amount);
     adjustSaturation(amount, kMax);
 }
 void Image::desaturate() {
@@ -34,7 +42,7 @@ void Image::desaturate() {
 }
 void Image::desaturate(double amount) {
    double kMax = 1;
-   errorCheckAmount(amount, kMax);
+//    errorCheckAmount(amount);
    adjustSaturation(amount, kMax);
 }
 void Image::grayscale() { //copied from adjustLuminance(double amount), then adjusted/slightly modified to fit this function
@@ -217,9 +225,13 @@ void Image::adjustLuminance(double amount, double max) { //copied from lighten(d
     for (unsigned row = 0; row < height(); row++) {
         for (unsigned col = 0; col < width(); col++) {
             double elem = getPixel(col, row).l;
-            if (checkElemWithinBoundsZeroAndMax(elem + amount, max)) {
+            if (elem + amount >= 1) {
+                getPixel(col, row).l = 1;
+            } else if (elem + amount <= 0) {
+                getPixel(col, row).l = 0;
+            } else {
                 getPixel(col, row).l += amount;
-            }       
+            }
         }
     }
 }
@@ -228,9 +240,13 @@ void Image::adjustSaturation(double amount, double max) { //copied from adjustLu
     for (unsigned row = 0; row < height(); row++) {
         for (unsigned col = 0; col < width(); col++) {
             double elem = getPixel(col, row).s;
-            if (checkElemWithinBoundsZeroAndMax(elem + amount, max)) {
+            if (elem + amount >= 1) {
+                getPixel(col, row).s = 1;
+            } else if (elem + amount <= 0) {
+                getPixel(col, row).s = 0;
+            } else {
                 getPixel(col, row).s += amount;
-            }       
+            }      
         }
     }
 }
@@ -268,13 +284,14 @@ void Image::setHue(double value) { //copied from setHue, changed two things (rem
     }
 }
 
-void Image::errorCheckAmount(double amount, double max) {
+void Image::errorCheckAmount(double amount) {
     if (amount < 0) {
-        throw std::invalid_argument("amount " + std::to_string(amount) + " must be a non-negative value and less than or equal to " + std::to_string(max) + ", to stay in the range [0, 1]");
+        // throw std::invalid_argument("amount " + std::to_string(amount) + " must be a non-negative value and greater than zero and less than or equal to " + std::to_string(max) + ", to stay in the range [0, 1]");
+        throw std::invalid_argument("amount " + std::to_string(amount) + " must be a non-negative value and greater than zero");
     }
-    if (amount > max) {
-        throw std::invalid_argument("amount " + std::to_string(amount) +  " must be less than or equal to " + std::to_string(max) + " and a non-negative value, to stay in the range [0, 1]");
-    }
+    // if (amount > max) {
+    //     throw std::invalid_argument("amount " + std::to_string(amount) +  " must be less than or equal to " + std::to_string(max) + " and a non-negative value, to stay in the range [0, 1]");
+    // }
 }
 
 bool Image::checkElemWithinBoundsZeroAndMax(double elem, double max) { //could be unsigned max instead
