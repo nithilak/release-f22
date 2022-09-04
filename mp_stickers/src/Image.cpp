@@ -181,6 +181,7 @@ void Image::scale(double factor) {
     delete[] original_image;
 }
 void Image::scale(unsigned w, unsigned h) {
+    
     unsigned num = w * h;
     unsigned width = this->width();
     unsigned height = this->height();
