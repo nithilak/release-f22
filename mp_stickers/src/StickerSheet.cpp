@@ -1,8 +1,10 @@
 #include "StickerSheet.h"
 
-StickerSheet::StickerSheet() : picture_(new Image()), max_(0) {
+StickerSheet::StickerSheet() : max_(0), picture_(new Image[max_ + 1]), current_layer_(0) {
 }
-StickerSheet::StickerSheet(const Image& picture, unsigned max) : picture_(&picture), max_(max) {}
+StickerSheet::StickerSheet(const Image& picture, unsigned max) : max_(max), picture_(new Image[max_ + 1]), current_layer_(0) {
+    picture_[0] = picture;
+}
 StickerSheet::~StickerSheet() {
     //delete picture_;
     picture_ = nullptr;
@@ -19,7 +21,22 @@ const StickerSheet& StickerSheet::operator=(const StickerSheet& other) {
     }
     return *this;
 }
-int StickerSheet::addSticker(Image& sticker, unsigned x, unsigned y) { return 0; }
+int StickerSheet::addSticker(Image& sticker, unsigned x, unsigned y) { 
+    //iterate through all of sticker
+    if (current_layer_ + 1 > max_) {
+        return -1;
+    } else {
+        current_layer_++;
+    }
+    // Image layer;
+    // for (unsigned row = 0; row < sticker.height(); row++) {
+    //     for (unsigned col = 0; col < sticker.width(); col++) {
+    //         layer.getPixel(x + col, y + row) = sticker.getPixel(x + col, y + row);
+    //     }
+    // }
+    // picture_[current_layer_] = layer;
+    return current_layer_; 
+}
 Image StickerSheet::render() const { return Image(); } //&?
 void StickerSheet::changeMaxStickers(unsigned max) { max_ = max; }
 void StickerSheet::removeSticker(unsigned index) {}

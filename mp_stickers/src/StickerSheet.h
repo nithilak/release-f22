@@ -30,6 +30,7 @@ class StickerSheet {
     Image* getStickerConst(unsigned index) const;
 
     private:
-    const Image* picture_;
     unsigned max_;
+    Image* picture_ ;
+    unsigned current_layer_;
 };

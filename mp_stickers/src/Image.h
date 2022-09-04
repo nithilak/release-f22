@@ -25,10 +25,10 @@ class Image: public cs225::PNG {
     void scale(unsigned w, unsigned h);
 
     //helpers
-    void adjustLuminance(double amount, unsigned max); //copied from lighten(double amount), change 2 things
+    void adjustLuminance(double amount, double max); //copied from lighten(double amount), change 2 things
     void errorCheckAmount(double amount, double max); //does not include max in valid range
-    void adjustSaturation(double amount, unsigned max); //copied from adjustLuminance, changed l -> s
-    void adjustHue(double amount, unsigned max); //copied from adjustLuminance, changed l -> h
+    void adjustSaturation(double amount, double max); //copied from adjustLuminance, changed l -> s
+    void adjustHue(double amount, double max); //copied from adjustLuminance, changed l -> h
     void setHue(double value); //copied from setHue, changed two things (removed error checking and set elem to be value)
-    bool checkElemWithinBoundsZeroAndMax(double elem, unsigned max);
+    bool checkElemWithinBoundsZeroAndMax(double elem, double max);
 };

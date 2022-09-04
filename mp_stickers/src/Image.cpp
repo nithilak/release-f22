@@ -2,38 +2,38 @@
 #include <iostream>
 
 void Image::lighten() {
-    unsigned kMax = 1;
+    double kMax = 1;
     adjustLuminance(0.1, kMax);
 }
 void Image::lighten(double amount) {
-    unsigned kMax = 1;
+    double kMax = 1;
     errorCheckAmount(amount, kMax);
     adjustLuminance(amount, kMax);
 }
 void Image::darken() {
-   unsigned kMax = 1;
+   double kMax = 1;
    adjustLuminance(-0.1, kMax);
 }
 void Image::darken(double amount) { //copied from lighten(double amount), change 2 things
-    unsigned kMax = 1;
+    double kMax = 1;
     errorCheckAmount(amount, kMax);
     adjustLuminance(-1*amount, kMax);
 }
 void Image::saturate() {
-    unsigned kMax = 1;
+    double kMax = 1;
     adjustSaturation(0.1, kMax); //no need to error check here, but just to make sure, here is a note
 }
 void Image::saturate(double amount) {
-    unsigned kMax = 1;
+    double kMax = 1;
     errorCheckAmount(amount, kMax);
     adjustSaturation(amount, kMax);
 }
 void Image::desaturate() {
-   unsigned kMax = 1;
+   double kMax = 1;
    adjustSaturation(0.1, kMax);
 }
 void Image::desaturate(double amount) {
-   unsigned kMax = 1;
+   double kMax = 1;
    errorCheckAmount(amount, kMax);
    adjustSaturation(amount, kMax);
 }
@@ -41,7 +41,7 @@ void Image::grayscale() { //copied from adjustLuminance(double amount), then adj
    setHue(0); //no need to error check here, but here is a note just to make sure
 }
 void Image::rotateColor(double degrees) {
-    unsigned kMax = 360;
+    double kMax = 360;
     errorCheckAmount(degrees, kMax);
     // while (degrees > kMax) {
     //     degrees -= 360;
@@ -189,43 +189,37 @@ void Image::scale(unsigned w, unsigned h) {
     }
     if (w > width && h > height) {
         if (w > h) {
-            scale(w);
+            scale(w/width);
         } else {
-            scale(h);
+            scale(h/height);
         }
     } else if (w <= width && h <= height) {
         if (w > h) {
-            scale(w);
+            scale(w/width);
         } else { //(h >= w)
-            scale(h);
+            scale(h/height);
         }
     } else if (w > width) {
-        scale(h);
+        scale(h/height);
     } else if (h > height) {
-        scale(w);
+        scale(w/width);
     }
 }
 
 //helpers
 
-void Image::adjustLuminance(double amount, unsigned max) { //copied from lighten(double amount), change 2 things
+void Image::adjustLuminance(double amount, double max) { //copied from lighten(double amount), change 2 things
     for (unsigned row = 0; row < height(); row++) {
         for (unsigned col = 0; col < width(); col++) {
-            std::cout << "row: " << row << " col: " << col << std::endl;
             double elem = getPixel(col, row).l;
-            std::cout << "elem: " << elem << std::endl;
-            std::cout << "elem + amount" << elem + amount << std::endl;
             if (checkElemWithinBoundsZeroAndMax(elem + amount, max)) {
-                double& elem2 = getPixel(col, row).l;
-                elem2 += amount;
-                std::cout << "updated elem: " << elem2 << std::endl;
-            }
-
+                getPixel(col, row).l += amount;
+            }       
         }
     }
 }
 
-void Image::adjustSaturation(double amount, unsigned max) { //copied from adjustLuminance, changed l -> s
+void Image::adjustSaturation(double amount, double max) { //copied from adjustLuminance, changed l -> s
     for (unsigned row = 0; row < height(); row++) {
         for (unsigned col = 0; col < width(); col++) {
             double elem = getPixel(col, row).s;
@@ -236,13 +230,13 @@ void Image::adjustSaturation(double amount, unsigned max) { //copied from adjust
     }
 }
 
-void Image::adjustHue(double amount, unsigned max) { //copied from adjustLuminance, changed l -> h
+void Image::adjustHue(double amount, double max) { //copied from adjustLuminance, changed l -> h
     for (unsigned row = 0; row < height(); row++) {
         for (unsigned col = 0; col < width(); col++) {
             double elem = getPixel(col, row).h;
             if (checkElemWithinBoundsZeroAndMax(elem + amount, max)) {
                 getPixel(col, row).h += amount;
-            }
+            }       
         }
     }
 }
@@ -266,7 +260,7 @@ void Image::errorCheckAmount(double amount, double max) {
     }
 }
 
-bool Image::checkElemWithinBoundsZeroAndMax(double elem, unsigned max) {
+bool Image::checkElemWithinBoundsZeroAndMax(double elem, double max) { //could be unsigned max instead
     // if (elem < 0) {
     //     // throw std::runtime_error("l of pixel " + std::to_string(col) + ", " + std::to_string(row) + " is below 0.");
     // }
