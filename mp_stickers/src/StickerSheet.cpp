@@ -10,6 +10,9 @@ StickerSheet::~StickerSheet() {
     picture_ = nullptr;
 }
 StickerSheet::StickerSheet(const StickerSheet& other) {
+    if (this == &other) {
+        return;
+    }
     copyConstructor(other);
 }
 const StickerSheet& StickerSheet::operator=(const StickerSheet& other) {
@@ -46,14 +49,14 @@ Image StickerSheet::render() const {
     for (size_t i = 0; i < layers_.size(); i++) {
         ImagePoint pair = (layers_.at(i));
         Image sticker = pair.image;
-        int h = layer.height();
-        int w = layer.width();
-        int s_h = sticker.height();
-        int s_w = sticker.width();
+        // int h = layer.height();
+        // int w = layer.width();
+        // int s_h = sticker.height();
+        // int s_w = sticker.width();
         unsigned x = pair.point.x;
         unsigned y = pair.point.y;
-        int x2 = pair.point.x;
-        int y2 = pair.point.y;
+        // int x2 = pair.point.x;
+        // int y2 = pair.point.y;
 
         std::cout << "width(): " << layer.width() << std::endl;
         std::cout << "height(): " << layer.height() << std::endl;

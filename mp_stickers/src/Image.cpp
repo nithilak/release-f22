@@ -42,7 +42,7 @@ void Image::grayscale() { //copied from adjustLuminance(double amount), then adj
 }
 void Image::rotateColor(double degrees) {
     double kMax = 360;
-    errorCheckAmount(degrees, kMax);
+    // errorCheckAmount(degrees, kMax); //negative values are allowed here
     // while (degrees > kMax) {
     //     degrees -= 360;
     // }
@@ -239,9 +239,21 @@ void Image::adjustHue(double amount, double max) { //copied from adjustLuminance
     for (unsigned row = 0; row < height(); row++) {
         for (unsigned col = 0; col < width(); col++) {
             double elem = getPixel(col, row).h;
-            if (checkElemWithinBoundsZeroAndMax(elem + amount, max)) {
-                getPixel(col, row).h += amount;
-            }       
+            // if (checkElemWithinBoundsZeroAndMax(elem + amount, max)) {
+                getPixel(col, row).h = (elem + amount);
+                while (getPixel(col, row).h > 360) {
+                    getPixel(col, row).h -= 360;
+                    if (getPixel(col, row).h < 0) {
+                        throw std::runtime_error("getPixel(" + std::to_string(col) + ", " + std::to_string(row) + ").h is less than 0");
+                    }
+                }
+                while (getPixel(col, row).h < 0) {
+                    getPixel(col, row).h += 360;
+                    if (getPixel(col, row).h > 360) {
+                        throw std::runtime_error("getPixel(" + std::to_string(col) + ", " + std::to_string(row) + ").h is less than 0");
+                    }
+                }
+            // }       
         }
     }
 }
