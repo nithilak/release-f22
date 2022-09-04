@@ -171,7 +171,7 @@ void Image::scale(double factor) {
                 for (unsigned col = 0; col < kWidth; col++) {
                     for (unsigned y = factor*row; y < factor*(row + 1); y++) {
                         for (unsigned x = factor*col; x < factor*(col + 1); x++) {
-                            // this->getPixel(x, y) = cs225::HSLAPixel(1, 1, 1, 1);
+                            this->getPixel(x, y) = cs225::HSLAPixel(1, 1, 1, 1);
                             //original_image[current_pos]; // cs225::HSLAPixel(0, 5, 7)
                         }
                     }
@@ -188,12 +188,11 @@ void Image::scale(double factor) {
             unsigned current_pos = 0;
             for (unsigned row = 0; row < kHeight;) {
                 for (unsigned col = 0; col < kWidth;) {
-                    for (unsigned y = factor*row; y < factor*(row + 1); y++) {
-                        for (unsigned x = factor*col; x < factor*(col + 1); x++) {
-                            this->getPixel(x, y) = cs225::HSLAPixel(1, 1, 1, 1);
-                            //original_image[current_pos]; // cs225::HSLAPixel(0, 5, 7)
-                        }
-                    }
+                    // for (unsigned y = factor*row; y < factor*(row + 1); y++) {
+                    //     for (unsigned x = factor*col; x < factor*(col + 1); x++) {
+                    //         this->getPixel(x, y) = original_image[current_pos]; // cs225::HSLAPixel(0, 5, 7)
+                    //     }
+                    // }
                     // if (row + col > 500) {
                         std::cout << "row: " << row << " col: " << col << std::endl;
                     // }
