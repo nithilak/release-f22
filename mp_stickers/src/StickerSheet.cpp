@@ -150,11 +150,11 @@ const Image* StickerSheet::getStickerConst(unsigned index) const {
 }
 
 void StickerSheet::copyConstructor(const StickerSheet& other) {
-    if (*picture_ != other.getPicture()) {
+    // if (*picture_ != other.getPicture()) {
         picture_ = new Image();
         Image copy = other.getPicture();
         *picture_ = copy;
-    }
+    // }
     changeMaxStickers(other.getMax());
     layers_ = other.getLayers();
 }
