@@ -215,7 +215,7 @@ void Image::scale(double factor) {
         resize(kscaled_width, kscaled_height);
         for (unsigned row = 0; row < kscaled_height; row++) {
             for (unsigned col = 0; col < kscaled_width; col++) {
-                this->getPixel(col, row) = cs225::HSLAPixel(current_pos2, current_pos2, current_pos2);
+                this->getPixel(col, row) = cs225::HSLAPixel(col, current_pos2, row);
                 current_pos2++;
             }
         }
