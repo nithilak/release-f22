@@ -15,9 +15,9 @@ int main() {
   //   }
   // }
   // myImage.darken(0.2);
-  // StickerSheet sticker_sheet(myImage, 1);
-  // Image i_sticker;
-  // i_sticker.readFromFile("../i.png");
+  StickerSheet sticker_sheet(myImage, 1);
+  Image i_sticker;
+  i_sticker.readFromFile("../i.png");
   // sticker_sheet.addSticker(i_sticker, 0, 0);
   // // myImage = sticker_sheet.render();
   myImage.scale(300, 500);

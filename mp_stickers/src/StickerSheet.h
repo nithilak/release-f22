@@ -5,6 +5,7 @@
 #pragma once
 
 #include "Image.h"
+#include <vector>
 
 class StickerSheet {
     public:
@@ -31,6 +32,8 @@ class StickerSheet {
 
     private:
     unsigned max_;
-    Image* picture_ ;
+    Image* picture_;
     unsigned current_layer_;
+    Image render_;
+    std::vector<Image> layers_;
 };
