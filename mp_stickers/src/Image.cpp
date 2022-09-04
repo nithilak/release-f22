@@ -1,5 +1,6 @@
 #include "Image.h"
 #include <iostream>
+#include <cmath>
 
 void Image::lighten() {
     double kMax = 1;
@@ -115,7 +116,7 @@ void Image::scale(double factor) {
     //store this on the free store later
     // cs225::HSLAPixel* scaled_image = new cs225::HSLAPixel[kscaled_area]; //this is an array
 
-    if (factor > 1) {
+    // if (factor > 1) {
         const unsigned kArea = kWidth * kHeight;
         cs225::HSLAPixel* original_image = new cs225::HSLAPixel[kArea]; //this is an array
         //iterate through original image
@@ -145,7 +146,7 @@ void Image::scale(double factor) {
                 // }
             }
         }
-    // if (factor > 1) {
+    if (factor > 1) {
         //update imageData_;
         // delete imageData_;
         // imageData_ = scaled_image; //not on the free store
@@ -180,57 +181,46 @@ void Image::scale(double factor) {
         }
         delete[] original_image;
     } else if (factor > 0 && factor < 1) {
-        const unsigned kscaled_area = kscaled_width * kscaled_height;
-        cs225::HSLAPixel* scaled_image = new cs225::HSLAPixel[kscaled_area]; //this is an array
-        // // else { //if (factor < 1)
-            const double kfactor = factor;
-            unsigned current_pos = 0;
-            for (unsigned row = 0; row < kHeight;) {
-                for (unsigned col = 0; col < kWidth;) {
-                    // for (unsigned y = factor*row; y < factor*(row + 1); y++) {
-                    //     for (unsigned x = factor*col; x < factor*(col + 1); x++) {
-                    //         this->getPixel(x, y) = original_image[current_pos]; // cs225::HSLAPixel(0, 5, 7)
-                    //     }
-                    // }
-                    // if (row + col > 500) {
-                        std::cout << "row: " << row << " col: " << col << std::endl;
-                    // }
-                    scaled_image[current_pos] = this->getPixel(col, row);
-                    current_pos++;
-                    for (int i = 0; i < 1/kfactor; i++) {
-                        // std::cout << "i: " << i << " 1/kfactor: " << 1/kfactor << std::endl;
-                        col++;
-                    }
-                }
-                for (int i = 0; i < 1/kfactor; i++) {
-                    std::cout << "i: " << i << " 1/kfactor: " << 1/kfactor << std::endl;
-                    row++;
-                }
-            }
+        // const unsigned kscaled_area = kscaled_width * kscaled_height;
+        // cs225::HSLAPixel* scaled_image = new cs225::HSLAPixel[kscaled_area]; //this is an array
+        // // // else { //if (factor < 1)
+        //     const double kfactor = factor;
+        //     unsigned current_pos = 0;
+        //     for (double row = 0; row < kHeight;) {
+        //         for (double col = 0; col < kWidth;) {
+        //             // for (unsigned y = factor*row; y < factor*(row + 1); y++) {
+        //             //     for (unsigned x = factor*col; x < factor*(col + 1); x++) {
+        //             //         this->getPixel(x, y) = original_image[current_pos]; // cs225::HSLAPixel(0, 5, 7)
+        //             //     }
+        //             // }
+        //             // if (row + col > 500) {
+        //                 std::cout << "row: " << row << " col: " << col << std::endl;
+        //             // }
+        //             scaled_image[current_pos] = this->getPixel(std::floor(col), std::floor(row));
+        //             current_pos++;
+        //             for (int i = 0; i < std::floor(1/kfactor); i++) {
+        //                 // std::cout << "i: " << i << " 1/kfactor: " << 1/kfactor << " std::floor(1/kfactor): " << std::floor(1/kfactor) << std::endl;
+        //                 // std::cout << "col/factor " << col/factor << std::endl;
+        //                 col += std::floor(1/factor);
+        //             }
+        //         }
+        //         for (int i = 0; i < std::floor(1/kfactor); i++) {
+        //             // std::cout << "i: " << i << " 1/kfactor: " << 1/kfactor << " std::floor(1/kfactor): " << std::floor(1/kfactor) << std::endl;
+        //             // std::cout << "row/factor " << row/factor << std::endl;
+        //             row += std::floor(1/factor);
+        //         }
+        //     }
         // }
         unsigned current_pos2 = 0;
         resize(kscaled_width, kscaled_height);
         for (unsigned row = 0; row < kscaled_height; row++) {
             for (unsigned col = 0; col < kscaled_width; col++) {
-                this->getPixel(col, row) = cs225::HSLAPixel(0, row, col); // scaled_image[current_pos2];
+                this->getPixel(col, row) = cs225::HSLAPixel(current_pos2, current_pos2, current_pos2);
                 current_pos2++;
             }
         }
-        // if (factor < 1) {
-        //     for (unsigned row = 0; row < kHeight; row /= factor) {
-        //         for (unsigned col = 0; col < kWidth; col /= factor) {
-        //             // for (unsigned y = factor*row; y < factor*(row + 1); y++) {
-        //             //     for (unsigned x = factor*col; x < factor*(col + 1); x++) {
-        //                     std::cout << "row: " << row << " col: " << col << std::endl;
-        //                     scaled_image[current_pos] = this->getPixel(col, factor); // cs225::HSLAPixel(0, 5, 7)
-        //             //     }
-        //             // }
-        //             current_pos++;
-        //         }
-        //     }
-        // }
-        // resize(kscaled_width, kscaled_height);
-        delete[] scaled_image;
+        delete[] original_image;
+        // delete[] scaled_image;
     }
 
     // current_pos = 0;
