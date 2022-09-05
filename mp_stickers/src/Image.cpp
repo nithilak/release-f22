@@ -208,13 +208,19 @@ void Image::scale(unsigned w, unsigned h) {
     double width = this->width();
     double height = this->height();
     double w2 = w;
-    double h2 = h;
-    if ((w == width && h == height) || width == 0 || height == 0) {
+    double h2 = h; //not sure which one is more common here, zero is true migh t return a faster result
+    if ((width == 0 && height == 0) || (w == width && h == height)) {
         return; // 0 times 0 is still 0,
                 // also a factor of 1 does not change the original scale of the image
     }
-    if (w == 0 || h == 0) {
+    if (w == 0 && h == 0) {
         scale(0);
+    } else if (width == 0 || height == 0) {
+        if (width > 0) {
+            scale(w2/width);
+        } else if (height > 0) {
+            scale(h2/height);
+        }
     } else if (w > width && h > height) {
         if (w > h) {
             scale(w2/width);
