@@ -32,13 +32,13 @@ int StickerSheet::addSticker(Image& sticker, unsigned x, unsigned y) {
     // Image layer = *picture_;
     // int h = layer.height();
     // int w = layer.width();
-    // int s_h = sticker.height();
-    // int s_w = sticker.width();
+    // int sticker_height = sticker.height();
+    // int sticker_width = sticker.width();
     // int x2 = x;
     // int y2 = y;
-    // int row_diff = s_h - (h - y2);
-    // int col_diff = s_w - (w - x2);
-    // if (row_diff >= s_h || col_diff >= s_w) {
+    // int row_diff = sticker_height - (h - y2);
+    // int col_diff = sticker_width - (w - x2);
+    // if (row_diff >= sticker_height || col_diff >= sticker_width) {
     //     return -1;
     // }
     layers_.push_back(ImagePoint(sticker, Point(x, y)));
@@ -49,10 +49,10 @@ Image StickerSheet::render() const {
     for (size_t i = 0; i < layers_.size(); i++) {
         ImagePoint pair = (layers_.at(i));
         Image sticker = pair.image;
-        // int h = layer.height();
-        // int w = layer.width();
-        // int s_h = sticker.height();
-        // int s_w = sticker.width();
+        unsigned layer_height = layer.height();
+        unsigned layer_width = layer.width();
+        unsigned sticker_height = sticker.height();
+        unsigned sticker_width = sticker.width();
         unsigned x = pair.point.x;
         unsigned y = pair.point.y;
         // int x2 = pair.point.x;
@@ -61,31 +61,31 @@ Image StickerSheet::render() const {
         // std::cout << "width(): " << layer.width() << std::endl;
         // std::cout << "height(): " << layer.height() << std::endl;
 
-        // int row_diff = s_h - (h - y2);
-        unsigned max_row = y + sticker.height();
+        // int row_diff = sticker_height - (h - y2);
+        unsigned max_row = y + sticker_height;
         // std::cout << "row_diff: " << row_diff << std::endl;
         // std::cout << "max_row: " << max_row << std::endl;
-        // int col_diff = s_w - (w - x2);
-        unsigned max_col = x + sticker.width();
+        // int col_diff = sticker_width - (w - x2);
+        unsigned max_col = x + sticker_width;
         // std::cout << "col_diff: " << col_diff << std::endl;
         // std::cout << "max_col: " << max_col << std::endl;
-        if (max_row <= layer.height() && max_col <= layer.width()) {
+        if (max_row <= layer_height && max_col <= layer_height) {
             // removeSticker(i);
             // i--;
             // continue;
             // break;
-        } else if (max_row > layer.height() && max_col > layer.width()) {
+        } else if (max_row > layer_height && max_col > layer_width) {
             layer.resize(max_col, max_row);
-        } else if (max_row > layer.height()) {
-            layer.resize(layer.width(), max_row);
-        } else if (max_col > layer.height()) {
-            layer.resize(max_col, layer.height());
+        } else if (max_row > layer_height) {
+            layer.resize(layer_width, max_row);
+        } else if (max_col > layer_height) {
+            layer.resize(max_col, layer_height);
         }
         // layer.resize(10000, 10000); //this is here for testing purposes only
         // std::cout << "width(): " << layer.width() << std::endl;
         // std::cout << "height(): " << layer.height() << std::endl;
-        for (unsigned row = 0; row < sticker.height(); row++) {
-            for (unsigned col = 0; col < sticker.width(); col++) {
+        for (unsigned row = 0; row < sticker_height && ((y + row) < layer_height); row++) {
+            for (unsigned col = 0; col < sticker_width && ((x + col) < layer_width); col++) {
                 const cs225::HSLAPixel& kcurrent_pixel = sticker.getPixel(col, row);
                 if (kcurrent_pixel.a != 0) {
                     layer.getPixel(x + col, y + row) = kcurrent_pixel;
