@@ -185,6 +185,7 @@ void Image::scale(double factor) {
         cs225::HSLAPixel* scaled_image = new cs225::HSLAPixel[kscaled_area]; //this is an array
         // // else { //if (factor < 1)
             const double kfactor = factor;
+            const int kinverse_factor = std::floor(1/kfactor);
             unsigned current_pos = 0;
             for (double row = 0; row < kHeight;) {
                 for (double col = 0; col < kWidth;) {
@@ -198,27 +199,27 @@ void Image::scale(double factor) {
                     // }
                     scaled_image[current_pos] = this->getPixel(std::floor(col), std::floor(row));
                     current_pos++;
-                    for (int i = 0; i < std::floor(1/kfactor); i++) {
+                    for (int i = 0; i < kinverse_factor; i++) {
                         // std::cout << "i: " << i << " 1/kfactor: " << 1/kfactor << " std::floor(1/kfactor): " << std::floor(1/kfactor) << std::endl;
                         // std::cout << "col/factor " << col/factor << std::endl;
-                        col += std::floor(1/factor);
+                        col += 1;
                     }
                 }
-                for (int i = 0; i < std::floor(1/kfactor); i++) {
+                for (int i = 0; i < kinverse_factor; i++) {
                     // std::cout << "i: " << i << " 1/kfactor: " << 1/kfactor << " std::floor(1/kfactor): " << std::floor(1/kfactor) << std::endl;
                     // std::cout << "row/factor " << row/factor << std::endl;
-                    row += std::floor(1/factor);
+                    row += 1;
                 }
             }
         // }
         unsigned current_pos2 = 0;
-        resize(kscaled_width, kscaled_height);
         for (unsigned row = 0; row < kscaled_height; row++) {
             for (unsigned col = 0; col < kscaled_width; col++) {
                 this->getPixel(col, row) = scaled_image[current_pos2];
                 current_pos2++;
             }
         }
+        resize(kscaled_width/4, kscaled_height);
         delete[] original_image;
         delete[] scaled_image;
     }
