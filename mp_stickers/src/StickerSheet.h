@@ -17,6 +17,7 @@ struct Point {
 struct ImagePoint {
     Image image; //could make these pointers, but that could be a bad idea
     Point point;
+    ImagePoint() = default;
     ImagePoint(const Image& image2, const Point& point2) : image(image2), point(point2) {
         // std::cout << "(&image2 == &image): " << (&image2 == &image) << std::endl;
         // std::cout << "(image2 == image): " << (image2 == image) << std::endl;
@@ -44,6 +45,7 @@ class StickerSheet {
     unsigned getMax() const;
     const std::vector<ImagePoint>& getLayers() const; //returns a copy, not a const reference //not anymore
     const Image& getPicture() const;
+    unsigned getLastLayer() const;
 
     //setters
 
@@ -56,4 +58,5 @@ class StickerSheet {
     unsigned max_;
     Image* picture_;
     std::vector<ImagePoint> layers_;
+    unsigned last_layer_;
 };
