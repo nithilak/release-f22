@@ -4,8 +4,11 @@ StickerSheet::StickerSheet() : max_(0), picture_(new Image()), layers_(std::vect
 }
 StickerSheet::StickerSheet(const Image& picture, unsigned max) : max_(max), picture_(new Image()), layers_(std::vector<ImagePoint>()) {
     *picture_ = picture;
+    // std::cout << "(picture_ == &picture)" << (picture_ == &picture) << std::endl;
+    // std::cout << "(*picture_ == picture)" << (*picture_ == picture) << std::endl;
 }
 StickerSheet::~StickerSheet() {
+    changeMaxStickers(0);
     delete picture_;
     picture_ = nullptr;
 }
@@ -24,8 +27,8 @@ const StickerSheet& StickerSheet::operator=(const StickerSheet& other) {
 }
 int StickerSheet::addSticker(Image& sticker, unsigned x, unsigned y) { 
     //iterate through all of sticker
-    if (layers_.size() >= max_) {
-        return -1;
+    if (layers_.size() >= max_) { //neither number here can go belows zero
+        return -1; 
     } // else {
     //     current_layer_++;
     // }
@@ -62,33 +65,35 @@ Image StickerSheet::render() const {
         // std::cout << "height(): " << layer.height() << std::endl;
 
         // int row_diff = sticker_height - (h - y2);
-        unsigned max_row = y + sticker_height;
+        unsigned max_row_size = y + sticker_height;
         // std::cout << "row_diff: " << row_diff << std::endl;
-        // std::cout << "max_row: " << max_row << std::endl;
+        // std::cout << "max_row_size: " << max_row_size << std::endl;
         // int col_diff = sticker_width - (w - x2);
-        unsigned max_col = x + sticker_width;
+        unsigned max_col_size = x + sticker_width;
         // std::cout << "col_diff: " << col_diff << std::endl;
-        // std::cout << "max_col: " << max_col << std::endl;
-        if (max_row <= layer_height && max_col <= layer_height) {
+        // std::cout << "max_col_size: " << max_col_size << std::endl;
+        if (max_row_size <= layer_height && max_col_size <= layer_height) {
             // removeSticker(i);
             // i--;
             // continue;
             // break;
-        } else if (max_row > layer_height && max_col > layer_width) {
-            layer.resize(max_col, max_row);
-        } else if (max_row > layer_height) {
-            layer.resize(layer_width, max_row);
-        } else if (max_col > layer_height) {
-            layer.resize(max_col, layer_height);
+        } else if (max_row_size > layer_height && max_col_size > layer_width) {
+            layer.resize(max_col_size, max_row_size);
+        } else if (max_row_size > layer_height) {
+            layer.resize(layer_width, max_row_size);
+        } else if (max_col_size > layer_width) {
+            layer.resize(max_col_size, layer_height);
         }
         // layer.resize(10000, 10000); //this is here for testing purposes only
         // std::cout << "width(): " << layer.width() << std::endl;
         // std::cout << "height(): " << layer.height() << std::endl;
-        for (unsigned row = 0; row < sticker_height && ((y + row) < layer.height()); row++) {
-            for (unsigned col = 0; col < sticker_width && ((x + col) < layer.width()); col++) {
+        for (unsigned row = 0; (row < sticker_height) && ((y + row) < layer.height()); row++) {
+            for (unsigned col = 0; (col < sticker_width) && ((x + col) < layer.width()); col++) {
                 const cs225::HSLAPixel& kcurrent_pixel = sticker.getPixel(col, row);
                 if (kcurrent_pixel.a != 0) {
                     layer.getPixel(x + col, y + row) = kcurrent_pixel;
+                    // std::cout << "(layer.getPixel(x + col, y + row) == kcurrent_pixel)" << (layer.getPixel(x + col, y + row) == kcurrent_pixel) << std::endl;
+                    // std::cout << "(&layer.getPixel(x + col, y + row) == &kcurrent_pixel)" << (&layer.getPixel(x + col, y + row) == &kcurrent_pixel) << std::endl;
                 }
             }
         }
@@ -115,7 +120,7 @@ void StickerSheet::removeSticker(unsigned index) {
     layers_.erase(layers_.begin() + index);
 }
 bool StickerSheet::translate(unsigned index, unsigned x, unsigned y) { 
-    if (index >= layers_.size()) {
+    if (index >= layers_.size()) { //index cannot be less than zero in this function
         // throw std::invalid_argument("index out of bounds");
         return false;
     }
@@ -130,9 +135,10 @@ bool StickerSheet::translate(unsigned index, unsigned x, unsigned y) {
 
 //getters
 Image* StickerSheet::getSticker(unsigned index) { 
-    if (index >= layers_.size()) {
+    if (index >= layers_.size()) { //index cannot be less than zero here
         // throw std::invalid_argument("index out of bounds");
-        return NULL;
+        // return NULL;
+        return nullptr;
     }
     return &(layers_.at(index).image);
 }

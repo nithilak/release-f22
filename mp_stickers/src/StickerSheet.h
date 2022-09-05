@@ -17,7 +17,13 @@ struct Point {
 struct ImagePoint {
     Image image; //could make these pointers, but that could be a bad idea
     Point point;
-    ImagePoint(const Image& image2, const Point& point2) : image(image2), point(point2) {}
+    ImagePoint(const Image& image2, const Point& point2) : image(image2), point(point2) {
+        // std::cout << "(&image2 == &image): " << (&image2 == &image) << std::endl;
+        // std::cout << "(image2 == image): " << (image2 == image) << std::endl;
+        // std::cout << "(&point2 == &point): " << (&point2 == &point) << std::endl;
+        // std::cout << "(point2.x == point.x): " << (point2.x == point.x) << std::endl;
+        // std::cout << "(point2.y == point.y): " << (point2.y == point.y) << std::endl;
+    }
 };
 
 class StickerSheet {
@@ -36,7 +42,7 @@ class StickerSheet {
     //getters
     Image* getSticker(unsigned index);
     unsigned getMax() const;
-    const std::vector<ImagePoint>& getLayers() const; //returns a copy, not a const reference
+    const std::vector<ImagePoint>& getLayers() const; //returns a copy, not a const reference //not anymore
     const Image& getPicture() const;
 
     //setters
