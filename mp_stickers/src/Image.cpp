@@ -64,10 +64,12 @@ void Image::illinify() { //assume valid input
         for (unsigned col = 0; col < width(); col++) {
             double& elem = getPixel(col, row).h;
             if (elem < 0) {
-                throw std::runtime_error("h of pixel " + std::to_string(col) + ", " + std::to_string(row) + " is below 0: " + std::to_string(elem));
+                std::cout << "h of pixel " << col << ", " << row << " is below 0: " << elem << std::endl;
+                // throw std::runtime_error("h of pixel " + std::to_string(col) + ", " + std::to_string(row) + " is below 0: " + std::to_string(elem));
             }
             if (elem > 360) {
-                throw std::runtime_error("h of pixel " + std::to_string(col) + ", " + std::to_string(row) + " is greater than 360: " + std::to_string(elem));
+                std::cout << "h of pixel " << col << ", " << row << " is greater than 360: " << elem << std::endl;
+                // throw std::runtime_error("h of pixel " + std::to_string(col) + ", " + std::to_string(row) + " is greater than 360: " + std::to_string(elem));
             }
             // if (elem <= 360) {
                 if (elem > 266.5 || elem < 113.5) { //should be greater than 0
@@ -86,8 +88,10 @@ void Image::scale(double factor) {
     if (factor == 1) {
         return;
     }
-    if (factor < 0) {
-        throw std::invalid_argument("factor cannot be less than zero: " + std::to_string(factor));
+    if (factor <= 0) {
+        std::cout << "factor cannot be less than or equal to zero: " << factor << std::endl;
+        // throw std::invalid_argument("factor cannot be less than or equal to zero: " + std::to_string(factor));
+        return;
     }
     //each x value (col) starts in its corresponding location of 2x
     //each y value (row) starts in its corresponding location of 2y
@@ -116,66 +120,7 @@ void Image::scale(double factor) {
     //store this on the free store later
     // cs225::HSLAPixel* scaled_image = new cs225::HSLAPixel[kscaled_area]; //this is an array
 
-    if (factor > 1) {
-        //iterate through original image
-        unsigned count = 0;
-        for (unsigned row = 0; row < kHeight; row ++) {
-            for (unsigned col = 0; col < kWidth; col++) {
-                //make each starting col be 2x
-                const cs225::HSLAPixel& current_pixel = this->getPixel(col, row); //makes a copy, here each time //not anymore
-                original_image[count] = current_pixel;
-                count++;
-                //fill in the square formed by 2x by 2y
-                //2*col --- before 2*(col + 1)
-                //2*row --- before 2*(row + 1)
-
-                // unsigned col_start = factor * col;
-                // unsigned col_end = factor * (col + 1);
-                // unsigned row_start = factor * row;
-                // unsigned row_end = factor * (row + 1);
-                // for (unsigned x = col_start; x < col_end; x++) {
-                //     for (unsigned y = row_start; y < row_end; y++) {
-                //         //scaled_array at (x, y) should be filled in with 
-                //         //the current color at (row, col)
-                //                             //current row    //current col
-                //         unsigned current_xy = (factor * (y)) + x;
-                //         scaled_image[current_xy] = current_pixel;
-                //     }
-                // }
-            }
-        }
-
-        //update imageData_;
-        // delete imageData_;
-        // imageData_ = scaled_image; //not on the free store
-        //update width_;
-        // width_ = scaled_width;
-        //update height_;
-        // height_ = scaled_height;
-
-        //resize the image with scaled_width and scaled_height
-        resize(kscaled_width, kscaled_height);
-        //update image to match scaled_image
-        unsigned current_pos = 0;
-        // for (unsigned row = 0; row < kscaled_height; row++) {
-        //     for (unsigned col = 0; col < kscaled_width; col++) {
-        //         this->getPixel(col, row) = scaled_image[current_pos]; //cs225::HSLAPixel(0, 5, 7)
-        //         current_pos++;
-        //     }
-        // }
-
-        current_pos = 0;
-        for (unsigned row = 0; row < kHeight; row++) {
-            for (unsigned col = 0; col < kWidth; col++) {
-                for (unsigned y = factor*row; y < factor*(row + 1); y++) {
-                    for (unsigned x = factor*col; x < factor*(col + 1); x++) {
-                        this->getPixel(x, y) = original_image[current_pos]; // cs225::HSLAPixel(0, 5, 7)
-                    }
-                }
-                current_pos++;
-            }
-        }
-    } else if (factor < 1) { //copied from if (factor > 1)
+    if (factor > 1 || factor < 1) {
         //iterate through original image
         unsigned count = 0;
         for (unsigned row = 0; row < kHeight; row ++) {
@@ -234,7 +179,9 @@ void Image::scale(double factor) {
                 current_pos++;
             }
         }
-    }
+    } // else if (factor > 0 && factor < 1) {
+
+    // }
 
     // current_pos = 0;
     // for (unsigned row = 0; row < kHeight; row++) {
@@ -273,7 +220,8 @@ void Image::scale(unsigned w, unsigned h) {
     } else if (h > height) {
         scale(w2/width);
     } else {
-        throw std::runtime_error("something went wrong");
+        std::cout << "something went wrong" << std::endl;
+        // throw std::runtime_error("something went wrong");
     }
 }
 
@@ -318,13 +266,15 @@ void Image::adjustHue(double amount, double max) { //copied from adjustLuminance
                 while (getPixel(col, row).h > 360) {
                     elem -= 360;
                     if (elem < 0) {
-                        throw std::runtime_error("getPixel(" + std::to_string(col) + ", " + std::to_string(row) + ").h is less than 0");
+                        std::cout << "getPixel(" << col << ", " << row << ").h is less than 0" << std::endl;
+                        // throw std::runtime_error("getPixel(" + std::to_string(col) + ", " + std::to_string(row) + ").h is less than 0");
                     }
                 }
                 while (elem < 0) {
                     elem += 360;
                     if (elem > 360) {
-                        throw std::runtime_error("getPixel(" + std::to_string(col) + ", " + std::to_string(row) + ").h is less than 0");
+                        std::cout << "getPixel(" << col << ", " << row << ").h is greater than 360" << std::endl;
+                        // throw std::runtime_error("getPixel(" + std::to_string(col) + ", " + std::to_string(row) + ").h is greater than 360");
                     }
                 }
             // }       
@@ -345,7 +295,8 @@ void Image::setHue(double value) { //copied from setHue, changed two things (rem
 void Image::errorCheckAmount(double amount) {
     if (amount < 0) {
         // throw std::invalid_argument("amount " + std::to_string(amount) + " must be a non-negative value and greater than zero and less than or equal to " + std::to_string(max) + ", to stay in the range [0, 1]");
-        throw std::invalid_argument("amount " + std::to_string(amount) + " must be a non-negative value and greater than zero");
+        std::cout << "amount " << amount << " must be a non-negative value and greater than zero" << std::endl;
+        // throw std::invalid_argument("amount " + std::to_string(amount) + " must be a non-negative value and greater than zero");
     }
     // if (amount > max) {
     //     throw std::invalid_argument("amount " + std::to_string(amount) +  " must be less than or equal to " + std::to_string(max) + " and a non-negative value, to stay in the range [0, 1]");

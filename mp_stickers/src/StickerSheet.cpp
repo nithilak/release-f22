@@ -143,7 +143,8 @@ const Image& StickerSheet::getPicture() const { return *picture_; }
 //helpers
 const Image* StickerSheet::getStickerConst(unsigned index) const { 
     if (index >= layers_.size()) {
-        throw std::invalid_argument("index out of bounds");
+        // throw std::invalid_argument("index out of bounds");
+        return Image();
     }
     const Image* image = &(layers_.at(index).image);
     return image; 
