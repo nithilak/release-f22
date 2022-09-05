@@ -50,8 +50,8 @@ int StickerSheet::addSticker(Image& sticker, unsigned x, unsigned y) {
 Image StickerSheet::render() const { 
     Image layer = *picture_;
     for (size_t i = 0; i < layers_.size(); i++) {
-        ImagePoint pair = (layers_.at(i));
-        Image sticker = pair.image;
+        const ImagePoint& pair = (layers_.at(i));
+        const Image& sticker = pair.image;
         unsigned layer_height = layer.height();
         unsigned layer_width = layer.width();
         unsigned sticker_height = sticker.height();
@@ -72,7 +72,7 @@ Image StickerSheet::render() const {
         unsigned max_col_size = x + sticker_width;
         // std::cout << "col_diff: " << col_diff << std::endl;
         // std::cout << "max_col_size: " << max_col_size << std::endl;
-        if (max_row_size <= layer_height && max_col_size <= layer_height) {
+        if (max_row_size <= layer_height && max_col_size <= layer_width) {
             // removeSticker(i);
             // i--;
             // continue;
