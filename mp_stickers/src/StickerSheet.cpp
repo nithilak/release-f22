@@ -16,6 +16,7 @@ StickerSheet::StickerSheet(const StickerSheet& other) {
     if (this == &other) {
         return;
     }
+    
     copyConstructor(other);
 }
 const StickerSheet& StickerSheet::operator=(const StickerSheet& other) {
