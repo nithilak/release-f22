@@ -17,6 +17,7 @@ struct Point {
 struct ImagePoint {
     Image image; //could make these pointers, but that could be a bad idea
     Point point;
+    ImagePoint() = default;
     ImagePoint(const Image& image2, const Point& point2) : image(image2), point(point2) {
         // std::cout << "(&image2 == &image): " << (&image2 == &image) << std::endl;
         // std::cout << "(image2 == image): " << (image2 == image) << std::endl;
