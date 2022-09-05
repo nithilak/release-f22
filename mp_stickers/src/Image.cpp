@@ -263,7 +263,7 @@ void Image::adjustHue(double amount, double max) { //copied from adjustLuminance
             double& elem = getPixel(col, row).h;
             // if (checkElemWithinBoundsZeroAndMax(elem + amount, max)) {
                 elem = (elem + amount);
-                while (getPixel(col, row).h > 360) {
+                while (elem > 360) {
                     elem -= 360;
                     if (elem < 0) {
                         std::cout << "getPixel(" << col << ", " << row << ").h is less than 0" << std::endl;

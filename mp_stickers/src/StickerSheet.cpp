@@ -84,8 +84,8 @@ Image StickerSheet::render() const {
         // layer.resize(10000, 10000); //this is here for testing purposes only
         // std::cout << "width(): " << layer.width() << std::endl;
         // std::cout << "height(): " << layer.height() << std::endl;
-        for (unsigned row = 0; row < sticker_height && ((y + row) < layer_height); row++) {
-            for (unsigned col = 0; col < sticker_width && ((x + col) < layer_width); col++) {
+        for (unsigned row = 0; row < sticker_height && ((y + row) < layer.height()); row++) {
+            for (unsigned col = 0; col < sticker_width && ((x + col) < layer.width()); col++) {
                 const cs225::HSLAPixel& kcurrent_pixel = sticker.getPixel(col, row);
                 if (kcurrent_pixel.a != 0) {
                     layer.getPixel(x + col, y + row) = kcurrent_pixel;
@@ -144,7 +144,7 @@ const Image& StickerSheet::getPicture() const { return *picture_; }
 const Image* StickerSheet::getStickerConst(unsigned index) const { 
     if (index >= layers_.size()) {
         // throw std::invalid_argument("index out of bounds");
-        return Image();
+        return nullptr;
     }
     const Image* image = &(layers_.at(index).image);
     return image; 
