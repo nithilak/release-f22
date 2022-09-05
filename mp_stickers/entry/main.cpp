@@ -37,7 +37,7 @@ int main() {
   //end copy
   
   // myImage = sheet.render();
-  myImage.scale(300, 500);
+  // myImage.scale(300, 500);
   myImage.writeToFile("../myImage.png");
 
   //copied from test case "StickerSheet's copy constructor makes an independent copy"

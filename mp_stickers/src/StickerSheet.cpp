@@ -48,7 +48,7 @@ int StickerSheet::addSticker(Image& sticker, unsigned x, unsigned y) {
     return layers_.size() - 1; 
 }
 Image StickerSheet::render() const { 
-    Image layer = *picture_;
+    Image layer = *picture_; //not a ref to not change *picture_
     for (size_t i = 0; i < layers_.size(); i++) {
         const ImagePoint& pair = (layers_.at(i));
         const Image& sticker = pair.image;
@@ -73,7 +73,7 @@ Image StickerSheet::render() const {
         // std::cout << "col_diff: " << col_diff << std::endl;
         // std::cout << "max_col_size: " << max_col_size << std::endl;
         if (max_row_size <= layer_height && max_col_size <= layer_width) {
-            
+
             // removeSticker(i);
             // i--;
             // continue;
@@ -100,7 +100,7 @@ Image StickerSheet::render() const {
         }
     }
     return layer; 
-} //&?
+} //&? no, this is a new image that is being rendered in this function for the first time / each time it is called
 void StickerSheet::changeMaxStickers(unsigned max) { 
     // int max_2 = max_;
     // int max2 = max;
