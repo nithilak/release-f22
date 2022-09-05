@@ -82,7 +82,7 @@ void Image::illinify() { //assume valid input
 }
 void Image::scale(double factor) {
     // factor = factor + 1; //this was there so that this function could compile at the start
-    std::cout << "factor: " << std::to_string(factor) << std::endl;
+    // std::cout << "factor: " << std::to_string(factor) << std::endl;
     if (factor == 1) {
         return;
     }
@@ -99,33 +99,31 @@ void Image::scale(double factor) {
     if (factor == 0) {
         for (unsigned row = 0; row < kHeight; row ++) {
             for (unsigned col = 0; col < kWidth; col++) {
-                this->getPixel(col, row) = cs225::HSLAPixel(0, 0, 0, 0);
+                this->getPixel(col, row) = cs225::HSLAPixel(0, 0, 0);
             }
         }
         // resize(1, 1); //so that the file does not crash
         resize(0, 0);
         return;
     }
-    // const unsigned kArea = kWidth * kHeight;
+    const unsigned kArea = kWidth * kHeight;
     const unsigned kscaled_width = (kWidth * factor);
     const unsigned kscaled_height = (kHeight * factor);
     // const unsigned kscaled_area = kscaled_width * kscaled_height;
 
-    // cs225::HSLAPixel* original_image = new cs225::HSLAPixel[kArea]; //this is an array
+    cs225::HSLAPixel* original_image = new cs225::HSLAPixel[kArea]; //this is an array
 
     //store this on the free store later
     // cs225::HSLAPixel* scaled_image = new cs225::HSLAPixel[kscaled_area]; //this is an array
 
-    // if (factor > 1) {
-        const unsigned kArea = kWidth * kHeight;
-        cs225::HSLAPixel* original_image = new cs225::HSLAPixel[kArea]; //this is an array
+    if (factor > 1 || factor < 1) {
         //iterate through original image
         unsigned count = 0;
         for (unsigned row = 0; row < kHeight; row ++) {
             for (unsigned col = 0; col < kWidth; col++) {
                 //make each starting col be 2x
-                // const cs225::HSLAPixel& current_pixel = this->getPixel(col, row); //makes a copy, here each time //not anymore
-                original_image[count] = cs225::HSLAPixel(0, 0, 0, 0); // current_pixel;
+                const cs225::HSLAPixel& current_pixel = this->getPixel(col, row); //makes a copy, here each time //not anymore
+                original_image[count] = current_pixel;
                 count++;
                 //fill in the square formed by 2x by 2y
                 //2*col --- before 2*(col + 1)
@@ -146,7 +144,7 @@ void Image::scale(double factor) {
                 // }
             }
         }
-    if (factor > 1) {
+
         //update imageData_;
         // delete imageData_;
         // imageData_ = scaled_image; //not on the free store
@@ -167,62 +165,19 @@ void Image::scale(double factor) {
         // }
 
         current_pos = 0;
-        if (factor > 1) {
-            for (unsigned row = 0; row < kHeight; row++) {
-                for (unsigned col = 0; col < kWidth; col++) {
-                    for (unsigned y = factor*row; y < factor*(row + 1); y++) {
-                        for (unsigned x = factor*col; x < factor*(col + 1); x++) {
-                            this->getPixel(x, y) = original_image[current_pos]; // cs225::HSLAPixel(0, 5, 7)
-                        }
-                    }
-                    current_pos++;
-                }
-            }
-        }
-        delete[] original_image;
-    } else if (factor > 0 && factor < 1) {
-        const unsigned kscaled_area = kscaled_width * kscaled_height;
-        cs225::HSLAPixel* scaled_image = new cs225::HSLAPixel[kscaled_area]; //this is an array
-        // // else { //if (factor < 1)
-            const double kfactor = factor;
-            const int kinverse_factor = std::floor(1/kfactor);
-            unsigned current_pos = 0;
-            for (double row = 0; row < kHeight;) {
-                for (double col = 0; col < kWidth;) {
-                    // for (unsigned y = factor*row; y < factor*(row + 1); y++) {
-                    //     for (unsigned x = factor*col; x < factor*(col + 1); x++) {
-                    //         this->getPixel(x, y) = original_image[current_pos]; // cs225::HSLAPixel(0, 5, 7)
-                    //     }
-                    // }
-                    // if (row + col > 500) {
-                        std::cout << "row: " << row << " col: " << col << std::endl;
-                    // }
-                    scaled_image[current_pos] = this->getPixel(std::floor(col), std::floor(row));
-                    current_pos++;
-                    for (int i = 0; i < kinverse_factor; i++) {
-                        // std::cout << "i: " << i << " 1/kfactor: " << 1/kfactor << " std::floor(1/kfactor): " << std::floor(1/kfactor) << std::endl;
-                        // std::cout << "col/factor " << col/factor << std::endl;
-                        col += 1;
+        for (unsigned row = 0; row < kHeight; row++) {
+            for (unsigned col = 0; col < kWidth; col++) {
+                for (unsigned y = factor*row; y < factor*(row + 1); y++) {
+                    for (unsigned x = factor*col; x < factor*(col + 1); x++) {
+                        this->getPixel(x, y) = original_image[current_pos]; // cs225::HSLAPixel(0, 5, 7)
                     }
                 }
-                for (int i = 0; i < kinverse_factor; i++) {
-                    // std::cout << "i: " << i << " 1/kfactor: " << 1/kfactor << " std::floor(1/kfactor): " << std::floor(1/kfactor) << std::endl;
-                    // std::cout << "row/factor " << row/factor << std::endl;
-                    row += 1;
-                }
-            }
-        // }
-        unsigned current_pos2 = 0;
-        for (unsigned row = 0; row < kscaled_height; row++) {
-            for (unsigned col = 0; col < kscaled_width; col++) {
-                this->getPixel(col, row) = scaled_image[current_pos2];
-                current_pos2++;
+                current_pos++;
             }
         }
-        resize(kscaled_width/4, kscaled_height);
-        delete[] original_image;
-        delete[] scaled_image;
-    }
+    } // else if (factor > 0 && factor < 1) {
+
+    // }
 
     // current_pos = 0;
     // for (unsigned row = 0; row < kHeight; row++) {
@@ -233,7 +188,7 @@ void Image::scale(double factor) {
     // }
 
     // delete[] scaled_image;
-    // delete[] original_image;
+    delete[] original_image;
 }
 void Image::scale(unsigned w, unsigned h) {
     // unsigned num = w * h;
