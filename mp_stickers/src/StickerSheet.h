@@ -45,7 +45,6 @@ class StickerSheet {
     unsigned getMax() const;
     const std::vector<ImagePoint>& getLayers() const; //returns a copy, not a const reference //not anymore
     const Image& getPicture() const;
-    unsigned getLastLayer() const;
 
     //setters
 
@@ -58,5 +57,4 @@ class StickerSheet {
     unsigned max_;
     Image* picture_;
     std::vector<ImagePoint> layers_;
-    unsigned last_layer_;
 };

@@ -1,8 +1,8 @@
 #include "StickerSheet.h"
 
-StickerSheet::StickerSheet() : max_(0), picture_(new Image()), layers_(std::vector<ImagePoint>()), last_layer_(0) {
+StickerSheet::StickerSheet() : max_(0), picture_(new Image()), layers_(std::vector<ImagePoint>()) {
 }
-StickerSheet::StickerSheet(const Image& picture, unsigned max) : max_(max), picture_(new Image()), layers_(std::vector<ImagePoint>(), last_layer_(0)) {
+StickerSheet::StickerSheet(const Image& picture, unsigned max) : max_(max), picture_(new Image()), layers_(std::vector<ImagePoint>()) {
     *picture_ = picture;
     // std::cout << "(picture_ == &picture)" << (picture_ == &picture) << std::endl;
     // std::cout << "(*picture_ == picture)" << (*picture_ == picture) << std::endl;
@@ -44,9 +44,8 @@ int StickerSheet::addSticker(Image& sticker, unsigned x, unsigned y) {
     // if (row_diff >= sticker_height || col_diff >= sticker_width) {
     //     return -1;
     // }
-    last_layer_++;
-    layers_.insert(layers_.begin() + last_layer_, ImagePoint(sticker, Point(x, y)));
-    return last_layer_; 
+    layers_.push_back(ImagePoint(sticker, Point(x, y)));
+    return layers_.size() - 1; 
 }
 Image StickerSheet::render() const { 
     Image layer = *picture_; //not a ref to not change *picture_
@@ -122,21 +121,10 @@ void StickerSheet::removeSticker(unsigned index) {
         // return NULL;
         return;
     }
-    if (index <= last_layer_) {
-        unsigned count = 0;
-        for (size_t i = 0; i < last_layer_ + 1; i++) {
-            count++;
-        }
-        last_layer_ = count;
-    } if (index > last_layer_) {
-        // only an empty placeholder ImagePoint would be erased
-        // but that would change the max_ capacity
-        return;
-    }
     layers_.erase(layers_.begin() + index);
 }
 bool StickerSheet::translate(unsigned index, unsigned x, unsigned y) { 
-    if (index >= layers_.size() || index > last_layer_) { //index cannot be less than zero in this function
+    if (index >= layers_.size()) { //index cannot be less than zero in this function
         // throw std::invalid_argument("index out of bounds");
         return false;
     }
@@ -151,7 +139,7 @@ bool StickerSheet::translate(unsigned index, unsigned x, unsigned y) {
 
 //getters
 Image* StickerSheet::getSticker(unsigned index) { 
-    if (index >= layers_.size() || index > last_layer_) { //index cannot be less than zero here
+    if (index >= layers_.size()) { //index cannot be less than zero here
         // throw std::invalid_argument("index out of bounds");
         // return NULL;
         return nullptr;
@@ -161,11 +149,10 @@ Image* StickerSheet::getSticker(unsigned index) {
 unsigned StickerSheet::getMax() const { return max_; }
 const std::vector<ImagePoint>& StickerSheet::getLayers() const { return layers_; }
 const Image& StickerSheet::getPicture() const { return *picture_; }
-unsigned StickerSheet::getLastLayer() const { return last_layer_; }
 
 //helpers
 const Image* StickerSheet::getStickerConst(unsigned index) const { 
-    if (index >= layers_.size() || index > last_layer_) {
+    if (index >= layers_.size()) {
         // throw std::invalid_argument("index out of bounds");
         return nullptr;
     }
@@ -182,5 +169,4 @@ void StickerSheet::copyConstructor(const StickerSheet& other) {
     // }
     changeMaxStickers(other.getMax());
     layers_ = other.getLayers();
-    last_layer_ = other.getLastLayer();
 }
