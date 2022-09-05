@@ -73,6 +73,7 @@ Image StickerSheet::render() const {
         // std::cout << "col_diff: " << col_diff << std::endl;
         // std::cout << "max_col_size: " << max_col_size << std::endl;
         if (max_row_size <= layer_height && max_col_size <= layer_width) {
+            
             // removeSticker(i);
             // i--;
             // continue;
