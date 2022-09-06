@@ -93,7 +93,7 @@ void Image::illinify() { //assume valid input
 }
 void Image::scale(double factor) {
     // factor = factor + 1; //this was there so that this function could compile at the start
-    // std::cout << "factor: " << std::to_string(factor) << std::endl;
+    std::cout << "factor: " << std::to_string(factor) << std::endl;
     if (factor == 1) { //a factor of 1 does not change the image
         return;
     }
@@ -207,31 +207,37 @@ void Image::scale(unsigned w, unsigned h) {
     // unsigned num = w * h;
     double width = this->width();
     double height = this->height();
+    std::cout << "width: " << width << " height: " << height << std::endl;
     double w2 = w;
     double h2 = h; //not sure which one is more common here, but zero is true migh t return a faster result more often
+    std::cout << "w: " << w << " h: " << h << std::endl;
+    std::cout << "w2: " << w2 << " h2: " << h2 << std::endl;
     if ((width == 0 && height == 0) || (w == width && h == height)) {
         return; // 0 times 0 is still 0,
                 // also a factor of 1 does not change the original scale of the image
     }
-    if (w == 0 && h == 0) {
+    if (w == 0 || h == 0) {
         scale(0);
-    } else if (width == 0 || height == 0) {
-        if (width > 0) {
-            scale(w2/width);
-        } else if (height > 0) {
-            scale(h2/height);
-        }
-    } else /*if (w > width && h > height)*/ {
+    } //else if (width == 0 || height == 0) {
+        // else if (width == 0) {
+        //     scale(h2/height);
+        // } else if (height > 0) {
+        //     scale(h2/height);
+        // }
+    // } else /*if (w > width && h > height)*/ {
     //     if (w > h) {
     //         scale(h2/height);
     //     } else {
     //         scale(w2/width);
     //     }
-    // } else if (w <= width && h <= height) {
-        if (w > h) {
+    //{ 
+        else /*//if (w <= width && h <= height) {*/ {
+        double width_factor = w2/width;
+        double height_factor = h2/height;
+        if (width_factor > height_factor) {
             scale(h2/height);
         } else { //(h >= w)
-            scale(w2/width);
+            scale(width_factor);
         }
     // } else if (w > width) {
     //     scale(h2/height);
