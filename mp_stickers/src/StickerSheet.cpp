@@ -22,6 +22,7 @@ const StickerSheet& StickerSheet::operator=(const StickerSheet& other) {
     if (this == &other) {
         return *this;
     }
+    delete picture_;
     copyConstructor(other);
     return *this;
 }
@@ -161,7 +162,7 @@ const Image* StickerSheet::getStickerConst(unsigned index) const {
 }
 
 void StickerSheet::copyConstructor(const StickerSheet& other) {
-    delete picture_; 
+    // delete picture_; //only applies for copy assignment operator
     // if (*picture_ != other.getPicture()) {
         picture_ = new Image();
         Image copy = other.getPicture();
