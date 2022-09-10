@@ -12,11 +12,11 @@
 #include "fileio.h"
 
 Allocator::Allocator(const std::string& studentFile, const std::string& roomFile)
+: alpha(nullptr), rooms(nullptr)
 {
     createLetterGroups();
-    rooms = nullptr;
-    // loadStudents(studentFile);
-    // loadRooms(roomFile);
+    loadStudents(studentFile);
+    loadRooms(roomFile);
 }
 
 void Allocator::createLetterGroups()
@@ -85,8 +85,8 @@ void Allocator::printRooms(std::ostream & stream /* = std::cout */)
     // Output the allocation
     stream << "Room Allocation (" << studentCount << "/" << totalCapacity << ")"
          << std::endl;
-    for (int i = 0; i < roomCount; i++) {}
-        // rooms[i].print(stream);
+    for (int i = 0; i < roomCount; i++) 
+        rooms[i].print(stream);
 }
 
 int Allocator::solve()

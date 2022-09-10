@@ -43,13 +43,14 @@ Room::~Room()
 
 void Room::addLetter(const Letter& L)
 {
+    std::cout << "add letter: " << L.letter << std::endl;
     if (letterCount < 0) {
         std::cout << "Letter count is less than 0." << std::endl;
     }
-    if (letterCount >= 26) {
+    if (letterCount >= max_letters) {
         std::cout << "Letter count has reached max capacity, no more letters can be added." << std::endl;
     } else {
-        // letters[letterCount] = L;
+        letters[letterCount] = L;
         count += L.count;
         letterCount++;
     }
@@ -71,7 +72,7 @@ void Room::print(std::ostream & stream /* = std::cout */)
 void Room::clear()
 {
     if (letters != nullptr) {
-        delete[] letters;
+        // delete[] letters;
         letters = nullptr;
     }
 }

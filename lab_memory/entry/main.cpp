@@ -23,8 +23,8 @@ int main()
 
     fileio::init();
     Allocator theAllocator("../students.txt", "../rooms.txt");
-    // theAllocator.allocate();
-    // theAllocator.printRooms();
+    theAllocator.allocate(); //as in allocate rooms
+    theAllocator.printRooms();
     fileio::halt();
 
     std::cout << std::endl;
