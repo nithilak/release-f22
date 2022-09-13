@@ -12,11 +12,24 @@
 #include "fileio.h"
 
 Allocator::Allocator(const std::string& studentFile, const std::string& roomFile)
-: alpha(nullptr), rooms(nullptr)
 {
+    // std::cout << "roomCount: " << roomCount << std::endl;
     createLetterGroups();
+    // std::cout << "roomCount: " << roomCount << std::endl;
     loadStudents(studentFile);
+    // std::cout << "roomCount: " << roomCount << std::endl;
     loadRooms(roomFile);
+}
+
+Allocator::~Allocator() {
+    if (alpha != nullptr) {
+        delete[] alpha;
+        alpha = nullptr;
+    }
+    if (rooms != nullptr) {
+        delete[] rooms;
+        rooms = nullptr;
+    }
 }
 
 void Allocator::createLetterGroups()
@@ -46,15 +59,12 @@ void Allocator::loadRooms(const std::string& file)
     // Read in rooms
     fileio::loadRooms(file);
     roomCount = fileio::getNumRooms();
-    // std::cout << "roomCount: " << roomCount << std::endl;
-
+    std::cout << "roomCount: " << roomCount << std::endl;
     rooms = new Room[roomCount];
 
     totalCapacity = 0;
     for (int i = 0; i < roomCount; i++) {
         rooms[i] = fileio::nextRoom();
-        // std::cout << "rooms[i].capacity: " << rooms[i].capacity << std::endl;
-        // std::cout << "totalCapacity: " << totalCapacity << std::endl;
         totalCapacity += rooms[i].capacity;
     }
 }
@@ -73,6 +83,8 @@ void Allocator::allocate()
     // Perform the allocation
     int border = solve();
 
+    std::cout << "border: " << border << std::endl;
+
     // Check for an error
     if (border < 0) {
         std::cerr << std::endl << "Cannot allocate all students." << std::endl << std::endl;
@@ -85,29 +97,31 @@ void Allocator::printRooms(std::ostream & stream /* = std::cout */)
     // Output the allocation
     stream << "Room Allocation (" << studentCount << "/" << totalCapacity << ")"
          << std::endl;
-    for (int i = 0; i < roomCount; i++) 
+    for (int i = 0; i < roomCount; i++)
         rooms[i].print(stream);
 }
 
 int Allocator::solve()
 {
-    // std::cout << "Printing alpha: " << std::endl;
-    // for (int i = 0; i < 26; i++) {
-    //     std::cout << alpha[i].letter << ": " << alpha[i].count << std::endl;
+    // for (int L = 0; L < 26; L++) {
+    //     std::cout << "L: " << alpha[L].letter << " count: " << alpha[L].count << std::endl;
     // }
 
     std::stable_sort(alpha, alpha + 26);
 
-    // std::cout << "Printing alpha after stable_sort: " << std::endl;
-    // for (int i = 0; i < 26; i++) {
-    //     std::cout << alpha[i].letter << ": " << alpha[i].count << std::endl;
+    // for (int L = 0; L < 26; L++) {
+    //     std::cout << "L: " << alpha[L].letter << " count: " << alpha[L].count << std::endl;
     // }
 
     for (int L = 0; L < 26; L++) {
+        // std::cout << "minSpaceRemaining(): " << minSpaceRemaining() << std::endl;
         Room* r = largestOpening();
+        // std::cout << "L: " << L << std::endl;
         r->addLetter(alpha[L]);
+        // printRooms();
     }
 
+    // std::cout << "minSpaceRemaining(): " << minSpaceRemaining() << std::endl;
     return minSpaceRemaining();
 }
 
@@ -131,15 +145,4 @@ Room* Allocator::largestOpening()
         }
     }
     return &rooms[index];
-}
-
-Allocator::~Allocator() {
-    if (alpha != nullptr) {
-        delete[] alpha;
-        alpha = nullptr;
-    }
-    if (rooms != nullptr) {
-        delete[] rooms;
-        rooms = nullptr;
-    }
 }

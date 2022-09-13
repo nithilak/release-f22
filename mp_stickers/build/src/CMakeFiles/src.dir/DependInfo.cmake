@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/workspaces/cs225env/release-f22/mp_stickers/src/Image.cpp" "src/CMakeFiles/src.dir/Image.cpp.o" "gcc" "src/CMakeFiles/src.dir/Image.cpp.o.d"
+  "/workspaces/cs225env/release-f22/mp_stickers/src/Image 2.cpp" "src/CMakeFiles/src.dir/Image_2.cpp.o" "gcc" "src/CMakeFiles/src.dir/Image_2.cpp.o.d"
   "/workspaces/cs225env/release-f22/mp_stickers/src/StickerSheet.cpp" "src/CMakeFiles/src.dir/StickerSheet.cpp.o" "gcc" "src/CMakeFiles/src.dir/StickerSheet.cpp.o.d"
   )
 

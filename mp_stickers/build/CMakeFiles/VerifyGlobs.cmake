@@ -36,6 +36,7 @@ endif()
 # src_sources at src/CMakeLists.txt:5 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/workspaces/cs225env/release-f22/mp_stickers/src/*.cpp")
 set(OLD_GLOB
+  "/workspaces/cs225env/release-f22/mp_stickers/src/Image 2.cpp"
   "/workspaces/cs225env/release-f22/mp_stickers/src/Image.cpp"
   "/workspaces/cs225env/release-f22/mp_stickers/src/StickerSheet.cpp"
   )

@@ -25,10 +25,11 @@ class Allocator
      */
     Allocator(const std::string& studentFile, const std::string& roomFile);
 
-
     //Destructor for the Allocator class
     ~Allocator();
 
+    Allocator(const Allocator& allocator) = delete;
+    Allocator& operator=(const Allocator& allocator) = delete;
 
     /**
      * Calls the solving routine to allocate student letter

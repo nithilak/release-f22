@@ -111,9 +111,6 @@ void StickerSheet::changeMaxStickers(unsigned max) {
             layers_.erase(layers_.begin() + max);
         // }
     }
-    if (max > max_) {
-        layers_.push_back(ImagePoint());
-    }
     max_ = max; 
 }
 void StickerSheet::removeSticker(unsigned index) {

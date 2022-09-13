@@ -8,8 +8,7 @@
 
 Room::Room()
     : capacity(0), count(0), max_letters(26), letters(nullptr), letterCount(0)
-{ //could call the other construtor here, but chose not to to maintain the previous code
-    letters = new Letter[max_letters];
+{
 }
 
 Room::Room(const std::string& init_name, int init_capacity)
@@ -19,7 +18,7 @@ Room::Room(const std::string& init_name, int init_capacity)
       max_letters(26),
       letterCount(0)
 {
-    letters = new Letter[max_letters];
+    letters = new Letter[capacity];
 }
 
 Room::Room(const Room& other)
@@ -43,17 +42,10 @@ Room::~Room()
 
 void Room::addLetter(const Letter& L)
 {
-    std::cout << "add letter: " << L.letter << std::endl;
-    if (letterCount < 0) {
-        std::cout << "Letter count is less than 0." << std::endl;
-    }
-    if (letterCount >= max_letters) {
-        std::cout << "Letter count has reached max capacity, no more letters can be added." << std::endl;
-    } else {
-        letters[letterCount] = L;
-        count += L.count;
-        letterCount++;
-    }
+    // std::cout << "add letter: " << L.letter << " capacity: " << capacity << std::endl;
+    letters[letterCount++] = L;
+    count = count + L.count;
+    // std::cout << "count: " << count << std::endl;
 }
 
 int Room::spaceRemaining()
@@ -71,18 +63,33 @@ void Room::print(std::ostream & stream /* = std::cout */)
 
 void Room::clear()
 {
-    if (letters != nullptr) {
-        // delete[] letters;
-        letters = nullptr;
+    if (letters != NULL) { //(count > 0 || letters != NULL) 
+        delete[] letters;
     }
+    letters = nullptr;
 }
 
 void Room::copy(const Room& other)
 {
+    if (other.capacity == 0) {
+        name = "";
+        capacity = 0;
+        count = 0;
+        letterCount = 0;
+        letters = nullptr;
+        return;
+    }
+    // std::cout << "name: " << name << std::endl;
     name = other.name;
     capacity = other.capacity;
     count = other.count;
     letterCount = other.letterCount;
-    letters = other.letters;
+    // if (letters != nullptr) {
+    //     delete letters[];
+    // }
+    letters = new Letter[other.capacity];
+    for (int i = 0; i < other.letterCount; i++) {
+        letters[i] = other.letters[i];
+    }
 
 }

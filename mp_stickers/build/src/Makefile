@@ -155,6 +155,30 @@ Image.cpp.s:
 	cd /workspaces/cs225env/release-f22/mp_stickers/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/src.dir/build.make src/CMakeFiles/src.dir/Image.cpp.s
 .PHONY : Image.cpp.s
 
+Image_2.o: Image_2.cpp.o
+.PHONY : Image_2.o
+
+# target to build an object file
+Image_2.cpp.o:
+	cd /workspaces/cs225env/release-f22/mp_stickers/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/src.dir/build.make src/CMakeFiles/src.dir/Image_2.cpp.o
+.PHONY : Image_2.cpp.o
+
+Image_2.i: Image_2.cpp.i
+.PHONY : Image_2.i
+
+# target to preprocess a source file
+Image_2.cpp.i:
+	cd /workspaces/cs225env/release-f22/mp_stickers/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/src.dir/build.make src/CMakeFiles/src.dir/Image_2.cpp.i
+.PHONY : Image_2.cpp.i
+
+Image_2.s: Image_2.cpp.s
+.PHONY : Image_2.s
+
+# target to generate assembly for a file
+Image_2.cpp.s:
+	cd /workspaces/cs225env/release-f22/mp_stickers/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/src.dir/build.make src/CMakeFiles/src.dir/Image_2.cpp.s
+.PHONY : Image_2.cpp.s
+
 StickerSheet.o: StickerSheet.cpp.o
 .PHONY : StickerSheet.o
 
@@ -191,6 +215,9 @@ help:
 	@echo "... Image.o"
 	@echo "... Image.i"
 	@echo "... Image.s"
+	@echo "... Image_2.o"
+	@echo "... Image_2.i"
+	@echo "... Image_2.s"
 	@echo "... StickerSheet.o"
 	@echo "... StickerSheet.i"
 	@echo "... StickerSheet.s"
