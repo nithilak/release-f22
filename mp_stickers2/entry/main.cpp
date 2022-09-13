@@ -15,15 +15,15 @@ int main() {
   //   }
   // }
   // myImage.darken(0.2);
-  StickerSheet sticker_sheet(myImage, 1);
+  StickerSheet sticker_sheet(myImage, 3);
   Image i_sticker;
   i_sticker.readFromFile("../i.png");
   sticker_sheet.addSticker(i_sticker, 0, 0);
-  sticker_sheet.changeMaxStickers(2);
+  // sticker_sheet.changeMaxStickers(2);
   sticker_sheet.addSticker(i_sticker, 1000, 0);
   // sticker_sheet.addSticker(i_sticker, 0, 100);
   // sticker_sheet.addSticker(i_sticker, 0, 1000);
-  sticker_sheet.changeMaxStickers(3);
+  // sticker_sheet.changeMaxStickers(3);
   // sticker_sheet.addSticker(i_sticker, 0, 1000);
   sticker_sheet.addSticker(i_sticker, 20, 40);
   // // sticker_sheet.changeMaxStickers(1);
@@ -37,8 +37,7 @@ int main() {
   //end copy
   
   // myImage = sheet.render();
-  // myImage.scale(300, 500);
-  myImage.scale(3);
+  myImage.scale(500, 500);
   myImage.writeToFile("../myImage.png");
 
   //copied from test case "StickerSheet's copy constructor makes an independent copy"
