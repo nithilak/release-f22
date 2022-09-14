@@ -339,3 +339,22 @@ bool Image::checkElemWithinBoundsZeroAndMax(double elem, double max) { //could b
     // }
     return (!(elem <= 0) && !(elem > max));
 }
+
+//testers (other funtions I want to implement)
+void Image::rotateLeft() {
+    const int kWidth = width();
+    const int kHeight = height();
+
+    //should make this its own function
+    cs225::HSLAPixel* original_array = new cs225::HSLAPixel[kWidth * kHeight];
+
+    int count = 0;
+
+    //write to col, down to up row
+    for (int col = 0; col < kWidth; col++) {
+        for (int row = kHeight - 1; row >= 0; row--) {
+            getPixel(col, row) = original_array[count];
+            count++;
+        }
+    }
+}

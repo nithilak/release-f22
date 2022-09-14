@@ -31,4 +31,7 @@ class Image: public cs225::PNG {
     void adjustHue(double amount); //copied from adjustLuminance, changed l -> h
     void setHue(double value); //copied from setHue, changed two things (removed error checking and set elem to be value)
     bool checkElemWithinBoundsZeroAndMax(double elem, double max);
+
+    //testers (other functions I want to implement)
+    void rotateLeft();
 };
