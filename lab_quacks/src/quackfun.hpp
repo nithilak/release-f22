@@ -29,8 +29,16 @@ namespace QuackFun {
 template <typename T>
 T sum(stack<T>& s)
 {
-
     // Your code here
+    if (s.size() <= 1) {
+        return s.top();
+    } else {
+        T& top = s.top();
+        s.pop();
+        T sum2 = sum(s);
+        s.push(top);
+        return top + sum2;
+    }
     return T(); // stub return value (0 for primitive types). Change this!
                 // Note: T() is the default value for objects, and 0 for
                 // primitive types
@@ -55,9 +63,37 @@ T sum(stack<T>& s)
  */
 bool isBalanced(queue<char> input)
 {
+    //count all left brackets
+    //count all right brackets
+    //return if both counts are the same
+    //this is not a correct implementation
+    
+    //create a stack
+    //push issues to be closed onto the stack
+    //do nothing if the char is not a left or right bracket
+    //open issues each time you see an opening bracket
+    //close the last issue each time you see a closing bracket
+    //move on to the next char
+    //return if the stack is empty
 
-    // @TODO: Make less optimistic
-    return true;
+    std::stack<int> stack;
+
+    while (!input.empty()) {
+        char front = input.front();
+        input.pop();
+        if (front == '[') {
+            stack.push(1);
+        } else if (front == ']') {
+            if (stack.empty()) {
+                return false;
+            }
+            stack.pop();
+        }
+    }
+
+    // // @TODO: Make less optimistic
+    // return true;
+    return stack.empty();
 }
 
 /**
@@ -82,5 +118,52 @@ void scramble(queue<T>& q)
     // optional: queue<T> q2;
 
     // Your code here
+    int items_left_in_q = q.size();
+    int count = 1;
+    for (; items_left_in_q > count; count++) {
+        std::cout << "count" << count << std::endl;
+        std::cout << "items_left_in_q" << items_left_in_q << std::endl;
+        std::cout << "(count % 2 == 0)" << (count % 2 == 0) << std::endl;
+        if (count % 2 == 0) {
+            for (int j = 0; j < count; j++) {
+                s.push(q.front());
+                q.pop();
+                items_left_in_q--;
+            }
+            std::cout << "s.size()" << s.size() << std::endl;
+            while (!s.empty()) {
+                std::cout << "s.top()" << s.top() << std::endl;
+                q.push(s.top());
+                s.pop();
+            }
+        } else {
+            for (int k = 0; k < count; k++) {
+                q.push(q.front());
+                q.pop();
+                items_left_in_q--;
+            }
+        }
+        std::cout << "items_left_in_q" << items_left_in_q << std::endl;
+    }
+    if (count % 2 == 0) {
+        while (items_left_in_q > 0) {
+            s.push(q.front());
+            q.pop();
+            items_left_in_q--;
+        }
+        std::cout << "s.size()" << s.size() << std::endl;
+        while (!s.empty()) {
+            std::cout << "s.top()" << s.top() << std::endl;
+            q.push(s.top());
+            s.pop();
+        }
+    } else {
+        while (items_left_in_q > 0) {
+            q.push(q.front());
+            q.pop();
+            items_left_in_q--;
+        }
+    }
+
 }
 }

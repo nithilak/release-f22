@@ -64,6 +64,38 @@ int main()
         cout << "Stack " + make_red("CHANGED: :(") << endl;
     cout << endl;
 
+    // Run isBalanced:
+    cout << "==== isBalanced ====" << endl;
+    queue<char> q2;
+    q2.push('[');
+    q2.push('[');
+    q2.push(']');
+    q2.push('[');
+    q2.push(']');
+    q2.push('[');
+    q2.push(']');
+    cout << "isBalanced(\"[[][][]\") " << colorize(QuackFun::isBalanced(q2), false) << endl;
+    cout << "Expected: " << false << endl;
+    q2.pop();
+    cout << "isBalanced(\"[][][]\") " << colorize(QuackFun::isBalanced(q2), true) << endl;
+    cout << "Expected: " << true << endl;
+    q2.pop();
+    cout << "isBalanced(\"][][]\") " << colorize(QuackFun::isBalanced(q2), false) << endl;
+    cout << "Expected: " << false << endl;
+    q2.pop();
+    cout << "isBalanced(\"[][]\") " << colorize(QuackFun::isBalanced(q2), true) << endl;
+    cout << "Expected: " << true << endl;
+    q2.push('[');
+    q2.push('[');
+    q2.push('[');
+    q2.push(']');
+    q2.push('[');
+    q2.push('[');
+    q2.push(']');
+    cout << "isBalanced(\"[][][[[][[]\") " << colorize(QuackFun::isBalanced(q2), false) << endl;
+    cout << "Expected: " << false << endl;
+    cout << endl;
+
     // Run scramble:
     cout << "==== scramble ====" << endl;
     queue<int> q;
