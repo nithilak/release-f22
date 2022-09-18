@@ -57,6 +57,10 @@ class List {
          * modify node data, so it is const.
          */
         const T data;
+
+        bool operator==(const ListNode& otherListNode) const {
+          return ((data == otherListNode.data_) && (prev == otherListNode.prev) && (next == otherListNode.next));
+        }
     };
 
   public:
@@ -202,6 +206,13 @@ class List {
     // Iterator constructor
     template <class Iter>
     List(const Iter& start, const Iter& end);
+
+    //helpers
+    bool operator==(const List<T> & otherList) const;
+
+    //copied from List.hpp
+    //copied from List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
+    void Swap(ListNode *& startPoint, ListNode *& endPoint);
 
   private:
     /*

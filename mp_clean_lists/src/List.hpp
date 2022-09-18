@@ -4,10 +4,11 @@
  */
 
 template <class T>
-List<T>::List() { 
+List<T>::List() : head_(NULL), tail_(NULL), length_(0) { 
   // @TODO: graded in MP3.1
-    head_ = NULL;
-    tail_ = NULL;
+    // head_ = NULL;
+    // tail_ = NULL;
+    // // length_ = 0;
 }
 
 /**
@@ -17,7 +18,7 @@ List<T>::List() {
 template <typename T>
 typename List<T>::ListIterator List<T>::begin() const {
   // @TODO: graded in MP3.1
-  return List<T>::ListIterator(NULL);
+  return List<T>::ListIterator(head_);
 }
 
 /**
@@ -26,7 +27,7 @@ typename List<T>::ListIterator List<T>::begin() const {
 template <typename T>
 typename List<T>::ListIterator List<T>::end() const {
   // @TODO: graded in MP3.1
-  return List<T>::ListIterator(NULL);
+  return List<T>::ListIterator(tail_ -> next); //should be NULL/nullptr when I set it manually
 }
 
 
@@ -37,6 +38,19 @@ typename List<T>::ListIterator List<T>::end() const {
 template <typename T>
 void List<T>::_destroy() {
   /// @todo Graded in MP3.1
+  for (auto* current = head_; current != nullptr;) {
+    auto* temp = current;
+    current = current->next;
+    delete current;
+  }
+  if (head_ != nullptr) {
+    delete tail_;
+  }
+  head_ = nullptr;
+  if (tail_ != nullptr) {
+    delete tail_;
+  }
+  //length_ = 0;
 }
 
 /**
@@ -48,18 +62,26 @@ void List<T>::_destroy() {
 template <typename T>
 void List<T>::insertFront(T const & ndata) {
   /// @todo Graded in MP3.1
-  ListNode * newNode = new ListNode(ndata);
-  newNode -> next = head_;
-  newNode -> prev = NULL;
-  
-  if (head_ != NULL) {
-    head_ -> prev = newNode;
-  }
-  if (tail_ == NULL) {
-    tail_ = newNode;
-  }
-  
 
+  ListNode * newNode = new ListNode(ndata);
+  newNode -> prev = NULL;
+  // newNode -> next = NULL;
+
+  if (head_ != NULL) {
+    newNode -> next = NULL;
+    head_ = newNode;
+    // newNode -> next = NULL;
+    // head_ -> next = tail_;
+    tail_ = head_;
+  } else {
+    newNode -> next = head_;
+    head_ -> prev = newNode;
+    head_ = head_ -> prev;
+    // if (tail_ == NULL) {
+    //   tail_ = newNode;
+    // }
+  
+  }
   length_++;
 
 }
@@ -73,6 +95,20 @@ void List<T>::insertFront(T const & ndata) {
 template <typename T>
 void List<T>::insertBack(const T & ndata) {
   /// @todo Graded in MP3.1
+
+  //copied from insertFront
+  ListNode * newNode = new ListNode(ndata);
+  if (head_ == tail_) {
+    tail_ = newNode;
+    tail_ -> prev = head_;
+    tail_ -> next = nullptr;
+    head_ -> next = tail_;
+  } else {
+    tail_ -> next = newNode;
+    tail_ -> next -> prev = tail_;
+    tail_ -> next -> prev = nullptr;
+    tail_ = tail_ -> next;
+  }
 }
 
 /**
@@ -146,6 +182,15 @@ void List<T>::reverse() {
 template <typename T>
 void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   /// @todo Graded in MP3.2
+  if (startPoint == endPoint) {
+    return;
+  }
+  Swap(startPoint, endPoint);
+  startPoint++;
+  if (startPoint == endPoint) {
+    return;
+  }
+  endPoint--;
 }
 
 /**
@@ -216,4 +261,34 @@ template <typename T>
 typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength) {
   /// @todo Graded in MP3.2
   return NULL;
+}
+
+//helper function
+
+template <typename T>
+bool List<T>::operator==(const List<T> & otherList) const {
+  if (!((head_ == otherList.head_) && (tail_ == otherList.tail_) && (length_ == otherList.length_))) {
+    return false;
+  }
+
+  auto* current_other = otherList.head_; 
+  for (auto* current = head_; (current != nullptr) && (current_other != nullptr); current = current->next) {
+    
+    if (current != current_other) {
+      return false;
+    }
+    current_other = current_other->next;
+  }
+
+  return false;
+}
+
+//helpers
+
+template <typename T>
+//copied from List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
+void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
+  auto* temp = startPoint;
+  startPoint = endPoint;
+  endPoint = temp;
 }
