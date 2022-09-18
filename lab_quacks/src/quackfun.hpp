@@ -76,13 +76,16 @@ bool isBalanced(queue<char> input)
     //move on to the next char
     //return if the stack is empty
 
-    std::stack<int> stack;
+    std::stack<char> stack;
+
+    stack.push('a');
+    stack.pop();
 
     while (!input.empty()) {
         char front = input.front();
         input.pop();
         if (front == '[') {
-            stack.push(1);
+            stack.push('[');
         } else if (front == ']') {
             if (stack.empty()) {
                 return false;
