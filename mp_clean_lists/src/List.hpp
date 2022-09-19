@@ -45,11 +45,17 @@ template <typename T>
 void List<T>::_destroy() {
   /// @todo Graded in MP3.1
   // if (length_ >= 2) {
+    std::cout << "delete: " << std::endl;
     for (ListNode* current = head_; current != nullptr;) {
       ListNode* temp = current;
+      current -> prev = nullptr;
       current = current->next;
-      delete current;
-      current = nullptr;
+      head_ = current;
+      printv2();
+      temp -> prev = nullptr;
+      temp -> next = nullptr;
+      delete temp;
+      temp = nullptr;
     }
   // }
   // if (head_ != nullptr) {

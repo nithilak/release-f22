@@ -79,15 +79,15 @@ int main() {
   // list.printv2();
   // std::cout << " expected: {5, 4, 3, 2, 1, 0}" << std::endl;
 
-  std::cout << "\nlist: ";
-  list.printv2();
-  std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
-  std::cout << "list split at 2" << std::endl;
-  List<int> list4 = list.split(0);
-  list.printv2();
-  std::cout << " expected: {0, 1}" << std::endl;
-  list4.printv2();
-  std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+  // std::cout << "\nlist: ";
+  // list.printv2();
+  // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+  // std::cout << "list split at 2" << std::endl;
+  // List<int> list4 = list.split(0);
+  // list.printv2();
+  // std::cout << " expected: {0, 1}" << std::endl;
+  // list4.printv2();
+  // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
 
 
 

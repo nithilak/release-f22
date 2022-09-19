@@ -221,9 +221,16 @@ TEST_CASE("List::split images", "[weight=5][part=1]") {
     PNG expected_3; expected_3.readFromFile("../tests/expected-split_3.png");
 
     List<HSLAPixel> list1;
-    for (unsigned i = 0; i < in.width(); i++)
-        for (unsigned j = 0; j < in.height(); j++)
-            list1.insertBack(in.getPixel(i, j));
+    for (unsigned i = 0; i < in.width(); i++) {
+        for (unsigned j = 0; j < in.height(); j++) {
+            if (i >= 400) {
+                list1.insertBack(in.getPixel(i, j));
+            } else {
+                std::cout << "tried x: " << i << std::endl;
+                throw std::invalid_argument("Bad x value");
+            }
+        }
+    }
     List<HSLAPixel> list2 = list1.split(400 * 240);
     List<HSLAPixel> list3 = list2.split(400 * 240);
 
