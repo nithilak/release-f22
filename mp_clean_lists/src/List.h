@@ -58,9 +58,9 @@ class List {
          */
         const T data;
 
-        bool operator==(const ListNode& otherListNode) const {
-          return ((data == otherListNode.data_) && (prev == otherListNode.prev) && (next == otherListNode.next));
-        }
+        // bool operator==(const ListNode& otherListNode) const {
+        //   return ((data == otherListNode.data_) && (prev == otherListNode.prev) && (next == otherListNode.next));
+        // }
     };
 
   public:
@@ -208,7 +208,7 @@ class List {
     List(const Iter& start, const Iter& end);
 
     //helpers
-    bool operator==(const List<T> & otherList) const;
+    // bool operator==(const List<T> & otherList) const;
 
     //copied from List.hpp
     //copied from List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {

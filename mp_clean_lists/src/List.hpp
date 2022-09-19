@@ -92,6 +92,7 @@ void List<T>::insertFront(T const & ndata) {
     if (tail_ == NULL) {
       tail_ = temp;
       // tail_ -> next = NULL; //not so sure about this one
+      // head -> next should have alrady been nullptr
     }
   
   }
@@ -343,23 +344,23 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
 
 //helper function
 
-template <typename T>
-bool List<T>::operator==(const List<T> & otherList) const {
-  if (!((head_ == otherList.head_) && (tail_ == otherList.tail_) && (length_ == otherList.length_))) {
-    return false;
-  }
+// template <typename T>
+// bool List<T>::operator==(const List<T> & otherList) const {
+//   if (!((head_ == otherList.head_) && (tail_ == otherList.tail_) && (length_ == otherList.length_))) {
+//     return false;
+//   }
 
-  auto* current_other = otherList.head_; 
-  for (auto* current = head_; (current != nullptr) && (current_other != nullptr); current = current->next) {
+//   auto* current_other = otherList.head_; 
+//   for (auto* current = head_; (current != nullptr) && (current_other != nullptr); current = current->next) {
     
-    if (current != current_other) {
-      return false;
-    }
-    current_other = current_other->next;
-  }
+//     if (current != current_other) {
+//       return false;
+//     }
+//     current_other = current_other->next;
+//   }
 
-  return false;
-}
+//   return false;
+// }
 
 //helpers
 

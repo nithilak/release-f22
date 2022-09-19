@@ -150,6 +150,18 @@ TEST_CASE("List::split images", "[weight=5][part=1]") {
     }
     out2.writeToFile("/workspaces/cs225env/release-f22/mp_clean_lists/tests/actual-split_2.png");
 
+
+    PNG out4(400, 240);
+    for (unsigned row = 0; row < out4.height(); row++) {
+        for (unsigned col = 0; col < out4.width(); col++) {
+            if (out2.getPixel(col, row) == expected_2.getPixel(col, row)) {
+                out4.getPixel(col, row) = cs225::HSLAPixel(255, 255, 255);
+            }
+        }
+    }
+    out4.writeToFile("/workspaces/cs225env/release-f22/mp_clean_lists/tests/actual-split_2_test.png");
+
+
     INFO("Second split output saved as actual-split_2.png");
     REQUIRE(out2 == expected_2);
 

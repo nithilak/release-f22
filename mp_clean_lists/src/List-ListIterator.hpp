@@ -13,7 +13,9 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
     ListIterator& operator++() {
         // @TODO: graded in MP3.1
         std::cout << "enter operator++" << std::endl;
-        position_ = position_ -> next;
+        if (position_ != nullptr) {
+            position_ = position_ -> next;
+        }
         return *this;
     }
     
