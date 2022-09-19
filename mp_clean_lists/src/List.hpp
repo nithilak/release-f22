@@ -85,12 +85,13 @@ void List<T>::insertFront(T const & ndata) {
     tail_ = head_;
   } else {
     ListNode* temp = head_;
-    newNode -> next = head_;
-    head_ -> prev = newNode;
-    head_ = head_ -> prev;
-    head_ -> next = tail_;
+    head_ = newNode;
+    head_ -> next = temp;
+    temp -> prev = head_;
+    // head_ -> next = tail_;
     if (tail_ == NULL) {
       tail_ = temp;
+      tail_ -> next = NULL; //not so sure about this one
     }
   
   }

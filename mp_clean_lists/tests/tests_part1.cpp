@@ -36,15 +36,27 @@ TEST_CASE("List::insertBack size", "[weight=2][part=1][valgrind]") {
 TEST_CASE("List::insert contents", "[weight=4][part=1][valgrind]") {
     List<int> list;
 
+    std::cout << "Insert Back 3: ";
     list.insertBack(3);
+    list.printv2();
+    std::cout << "Insert Back 2: ";
     list.insertBack(2);
+    list.printv2();
+    std::cout << "Insert Back 1: ";
     list.insertBack(1);
+    list.printv2();
+    std::cout << "Insert Front 3: ";
     list.insertFront(3);
+    list.printv2();
+    std::cout << "Insert Front 2: ";
     list.insertFront(2);
+    list.printv2();
+    std::cout << "Insert Front 1: ";
     list.insertFront(1);
 
     stringstream s;
     list.print(s);
+    list.printv2();
 
     REQUIRE( "< 1 2 3 3 2 1 >" == s.str() );
 }
@@ -122,7 +134,7 @@ TEST_CASE("List::split images", "[weight=5][part=1]") {
         out1.getPixel(x, y) = im1vect[i];
         if (y == 239) { x++; }
     }
-    out1.writeToFile("actual-split_1.png");
+    out1.writeToFile("/workspaces/cs225env/release-f22/mp_clean_lists/tests/actual-split_1.png");
 
     INFO("First split output saved as actual-split_1.png");
     REQUIRE(out1 == expected_1);
@@ -136,7 +148,7 @@ TEST_CASE("List::split images", "[weight=5][part=1]") {
         if (y == 239)
             x++;
     }
-    out2.writeToFile("actual-split_2.png");
+    out2.writeToFile("/workspaces/cs225env/release-f22/mp_clean_lists/tests/actual-split_2.png");
 
     INFO("Second split output saved as actual-split_2.png");
     REQUIRE(out2 == expected_2);
@@ -150,7 +162,7 @@ TEST_CASE("List::split images", "[weight=5][part=1]") {
         if (y == 239)
             x++;
     }
-    out3.writeToFile("actual-split_3.png");
+    out3.writeToFile("/workspaces/cs225env/release-f22/mp_clean_lists/tests/actual-split_3.png");
 
     INFO("Third split output saved as actual-split_3.png");
     REQUIRE(out3 == expected_3);
