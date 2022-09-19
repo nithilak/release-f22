@@ -323,8 +323,11 @@ TEST_CASE("List::ListIterator::operator++ advances the iterator (post-increment)
     for (unsigned i = 0; i < 10; i++) { list.insertFront(i); }
 
     List<unsigned>::ListIterator iter = list.begin();
+    std::cout << "iter: " << *iter << std::endl;
     iter++;
+    std::cout << "iter: " << *iter << std::endl;
     iter++;
+    std::cout << "iter: " << *iter << std::endl;
     REQUIRE( *iter == 7 );
 }
 

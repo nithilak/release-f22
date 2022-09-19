@@ -21,20 +21,28 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
     
     // Post-Increment, iter++
     ListIterator operator++(int count) {
+        std::cout << "operator++ post" << std::endl;
         // @TODO: graded in MP3.1
-        // ListNode* temp = position_;
+        ListNode* temp = position_;
         //could do this recursively instead, if that is okay
         //or if this is not okay, based on preferences
-        if (position_ == nullptr) {
-            return ListIterator(position_);
-        }
+        
         // if (position_ != nullptr) {
-            for (int i = 0; i < count && position_ != nullptr; i++) {
+            for (int i = 0; i == 0 || i < count; i++) {
+                std::cout << "i: " << i << std::endl;
+                if (position_ == nullptr) {
+                    std::cout << "returning: " << position_ << std::endl;
+                    return ListIterator(temp);
+                }
+                std::cout << "position_: " << position_->data << std::endl;
                 position_ = position_ -> next;
+                std::cout << "position_: " << position_->data << std::endl;
             }
             // position_ = temp;
+            std::cout << "position_: " << position_->data << std::endl;
         // }
-        return ListIterator(position_);
+        std::cout << "position_: " << position_->data << std::endl;
+        return ListIterator(temp);
     }
 
     // Pre-Decrement, --iter
@@ -51,18 +59,44 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
     // Post-Decrement, iter--
     ListIterator operator--(int count) {
         // @TODO: graded in MP3.1
-        //copied from operator++(int count), made one change (next -> prev)
+        // //copied from operator++(int count), made one change (next -> prev)
         // ListNode* temp = position_;
+        // //could do this recursively instead, if that is okay
+        // //or if this is not okay, based on preferences
+        // // if (position_ != nullptr) {
+        //     for (int i = 0; i == 0 || (i < count); i++) {
+        //         if (position_ == NULL) {
+        //             return ListIterator(NULL);
+        //         }
+        //         position_ = position_ -> prev; //changed next to prev here
+        //     }
+        //     // position_ = temp;
+        // // }
+        // return ListIterator(temp);
+        // // return ListIterator();
+        
+        //copied from operator++ post
+        std::cout << "operator-- post" << std::endl;
+        // @TODO: graded in MP3.1
+        ListNode* temp = position_;
         //could do this recursively instead, if that is okay
         //or if this is not okay, based on preferences
-        if (position_ != nullptr) {
-            for (int i = 0; i < count && position_ != nullptr; i++) {
-                position_ = position_ -> prev; //changed next to prev here
+        
+        // if (position_ != nullptr) {
+            for (int i = 0; i == 0 || i < count; i++) {
+                std::cout << "i: " << i << std::endl;
+                if (position_ == nullptr) {
+                    return ListIterator(temp);
+                }
+                std::cout << "position_: " << position_->data << std::endl;
+                position_ = position_ -> prev;
+                std::cout << "position_: " << position_->data << std::endl;
             }
             // position_ = temp;
-        }
-        return ListIterator(position_);
-        // return ListIterator();
+            std::cout << "position_: " << position_->data << std::endl;
+        // }
+        std::cout << "position_: " << position_->data << std::endl;
+        return ListIterator(temp);
     }
 
     bool operator!=(const ListIterator& rhs) {
