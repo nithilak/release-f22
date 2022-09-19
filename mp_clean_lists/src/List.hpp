@@ -27,6 +27,12 @@ typename List<T>::ListIterator List<T>::begin() const {
 template <typename T>
 typename List<T>::ListIterator List<T>::end() const {
   // @TODO: graded in MP3.1
+  if (tail_ == nullptr){
+    if (head_ == nullptr) {
+
+    }
+    return NULL;
+  }
   return List<T>::ListIterator(tail_ -> next); //should be NULL/nullptr when I set it manually
 }
 
@@ -38,18 +44,22 @@ typename List<T>::ListIterator List<T>::end() const {
 template <typename T>
 void List<T>::_destroy() {
   /// @todo Graded in MP3.1
-  for (auto* current = head_; current != nullptr;) {
-    auto* temp = current;
-    current = current->next;
-    delete current;
+  if (length_ <= 1) {
+    for (ListNode* current = head_; current != nullptr;) {
+      ListNode* temp = current;
+      current = current->next;
+      delete current;
+      current = nullptr;
+    }
   }
   if (head_ != nullptr) {
-    delete tail_;
+    delete head_;
   }
   head_ = nullptr;
   if (tail_ != nullptr) {
     delete tail_;
   }
+  tail_ = nullptr;
   //length_ = 0;
 }
 
@@ -67,7 +77,7 @@ void List<T>::insertFront(T const & ndata) {
   newNode -> prev = NULL;
   // newNode -> next = NULL;
 
-  if (head_ != NULL) {
+  if (length_ == 0) {
     newNode -> next = NULL;
     head_ = newNode;
     // newNode -> next = NULL;
@@ -96,9 +106,13 @@ template <typename T>
 void List<T>::insertBack(const T & ndata) {
   /// @todo Graded in MP3.1
 
-  //copied from insertFront
+  if (length_ == 0) {
+    insertFront(ndata); //could just make this a helper function between both functions
+    return;
+  }
+  //copied from insertFront (old)
   ListNode * newNode = new ListNode(ndata);
-  if (head_ == tail_) {
+  if (length_ == 1) {
     tail_ = newNode;
     tail_ -> prev = head_;
     tail_ -> next = nullptr;
@@ -109,6 +123,7 @@ void List<T>::insertBack(const T & ndata) {
     tail_ -> next -> prev = nullptr;
     tail_ = tail_ -> next;
   }
+  length_++; //thanks for reminding me, testing
 }
 
 /**
@@ -182,15 +197,27 @@ void List<T>::reverse() {
 template <typename T>
 void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   /// @todo Graded in MP3.2
+  std::cout << "start reverse: " << startPoint << " " << endPoint << std::endl;
+  std::cout << "data: " << startPoint->data << " " << endPoint->data << std::endl;
   if (startPoint == endPoint) {
     return;
   }
   Swap(startPoint, endPoint);
-  startPoint++;
-  if (startPoint == endPoint) {
+  
+  ListIterator startIter = ListIterator(startPoint);
+  std::cout << "start iter" << std::endl;
+  startIter++;
+  if (startIter == endPoint) {
     return;
   }
-  endPoint--;
+  ListIterator endIter = ListIterator(endPoint);
+  std::cout << "end iter" << std::endl;
+  endIter--;
+  std::cout << "iters: " << &*startIter << " " << &*endIter << std::endl;
+  std::cout << "data: " << *startIter << " " << *endIter << std::endl;
+  // std::cout << "data again: " << (startIter)->data << " " << (endIter)->data << std::endl;
+  // std::cout << "begin() -> next == startIter" << (begin() -> next == startIter) << std::endl;
+  // reverse(begin(), NULL); 
 }
 
 /**
@@ -288,7 +315,13 @@ bool List<T>::operator==(const List<T> & otherList) const {
 template <typename T>
 //copied from List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
 void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
-  auto* temp = startPoint;
+  std::cout << "start Swap" << std::endl;
+  std::cout << "points: " << startPoint << " " << endPoint << std::endl;
+  std::cout << "data: " << startPoint->data << " " << endPoint->data << std::endl;
+  ListNode* temp = startPoint;
   startPoint = endPoint;
   endPoint = temp;
+  std::cout << "points: " << startPoint << " " << endPoint << std::endl;
+  std::cout << "data: " << startPoint->data << " " << endPoint->data << std::endl;
+  std::cout << "exit Swap" << std::endl;
 }
