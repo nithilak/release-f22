@@ -125,13 +125,37 @@ void List<T>::sort() {
 
 template <class T>
 void List<T>::print(ostream& os) const {
-    os << "<";
+    // os << "<";
     ListNode* curr = head_;
+    // while (curr != NULL) {
+    //     os << " " << curr->data;
+    //     curr = curr->next;
+    // }
+    // os << " >";
+
+    os << "\n";
+
+    curr = head_;
     while (curr != NULL) {
-        os << " " << curr->data;
+        // os << " " << curr->data;
+
+        if (curr == head_) {
+            os << "head_: ";
+        }
+        if (curr == tail_) {
+            os << "tail_: ";
+        }
+
+        if (curr == NULL) {
+            os << "NULL ";
+        } else {
+            os << "curr_->prev: " << curr->prev << " curr: " << curr << " curr->data: " << curr->data << " curr->next: " << curr->next;
+        }
+        os << "\n";
+
+
         curr = curr->next;
     }
-    os << " >";
 }
 
 // overloaded operator<<

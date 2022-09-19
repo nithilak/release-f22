@@ -84,12 +84,14 @@ void List<T>::insertFront(T const & ndata) {
     // head_ -> next = tail_;
     tail_ = head_;
   } else {
+    ListNode* temp = head_;
     newNode -> next = head_;
     head_ -> prev = newNode;
     head_ = head_ -> prev;
-    // if (tail_ == NULL) {
-    //   tail_ = newNode;
-    // }
+    head_ -> next = tail_;
+    if (tail_ == NULL) {
+      tail_ = temp;
+    }
   
   }
   length_++;
@@ -115,14 +117,14 @@ void List<T>::insertBack(const T & ndata) {
   if (length_ == 1) {
     tail_ = newNode;
     tail_ -> prev = head_;
-    tail_ -> next = nullptr;
     head_ -> next = tail_;
   } else {
+    ListNode* temp = tail_;
     tail_ -> next = newNode;
-    tail_ -> next -> prev = tail_;
-    tail_ -> next -> prev = nullptr;
     tail_ = tail_ -> next;
+    tail_ -> prev = temp;
   }
+  tail_ -> next = nullptr;
   length_++; //thanks for reminding me, testing
 }
 
@@ -145,18 +147,56 @@ void List<T>::insertBack(const T & ndata) {
 template <typename T>
 typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint) {
   /// @todo Graded in MP3.1
+
+  if (start == NULL) {
+    return NULL;
+  }
+
+  if (splitPoint >= length_) {
+    return NULL;
+  }
+
+  if (splitPoint <= 0) {
+    splitPoint = 0;
+  }
+
   ListNode * curr = start;
 
-  for (int i = 0; i < splitPoint || curr != NULL; i++) {
+  for (int i = 0; i < length_ && i < splitPoint && curr != NULL && curr != tail_; i++) {
+    std::cout << "i: " << i << std::endl;
+    std::cout << "curr: " << curr << std::endl;
+    std::cout << "curr data: " << curr->data << std::endl;
+    std::cout << "curr->next: " << curr->next << std::endl;
     curr = curr->next;
+  }
+  // tail_ -> next = nullptr;
+  if (curr == NULL) {
+    // curr -> prev = nullptr;
+    return NULL;
   }
 
   if (curr != NULL) {
-      curr->prev->next = NULL;
-      curr->prev = NULL;
+    ListNode* temp = curr;
+    curr = curr -> next;
+    tail_ = temp;
+    curr->prev->next = NULL;
+    curr->prev = NULL;
   }
 
-  return NULL;
+  // ListNode* temp = curr;
+  // curr = curr -> next;
+  // temp -> next = nullptr;
+
+  // if (curr != NULL) {
+  //   ListNode* temp2 = curr;
+  //   tail_ = temp;
+  //     // tail_ -> prev = temp; //prev to that
+  //     // curr->prev->next = NULL;
+  //     curr->prev = NULL;
+  //     // return curr;
+  // }
+
+  return curr;
 }
 
 /**

@@ -65,11 +65,11 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
         return (this->position_ == rhs.position_);
     }
 
-    const ListNode& operator*() const {
-        return position_;
+    const T& operator*() const {
+        return position_->data;
     }
 
-    const ListNode* operator->() const {
-        return &(position_);
+    const T* operator->() const {
+        return &(position_->data);
     }
 };
