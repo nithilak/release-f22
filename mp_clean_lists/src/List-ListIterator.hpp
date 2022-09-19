@@ -12,7 +12,7 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
     // Pre-Increment, ++iter
     ListIterator& operator++() {
         // @TODO: graded in MP3.1
-        std::cout << "enter operator++" << std::endl;
+        // // // // // // // std::cout << "enter operator++" << std::endl;
         if (position_ != nullptr) {
             position_ = position_ -> next;
         }
@@ -22,20 +22,25 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
     // Post-Increment, iter++
     ListIterator operator++(int count) {
         // @TODO: graded in MP3.1
-        ListNode* temp = position_;
+        // ListNode* temp = position_;
         //could do this recursively instead, if that is okay
         //or if this is not okay, based on preferences
-        for (int i = 0; i < count; i++) {
-            temp = temp -> next;
+        if (position_ == nullptr) {
+            return ListIterator(position_);
         }
-        position_ = temp;
+        // if (position_ != nullptr) {
+            for (int i = 0; i < count && position_ != nullptr; i++) {
+                position_ = position_ -> next;
+            }
+            // position_ = temp;
+        // }
         return ListIterator(position_);
     }
 
     // Pre-Decrement, --iter
     ListIterator& operator--() {
         // @TODO: graded in MP3.1
-        std::cout << "enter operator--" << std::endl;
+        // // // // // // // std::cout << "enter operator--" << std::endl;
         if (position_ == NULL) {
             return tail_;
         }
@@ -47,15 +52,17 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
     ListIterator operator--(int count) {
         // @TODO: graded in MP3.1
         //copied from operator++(int count), made one change (next -> prev)
-        ListNode* temp = position_;
+        // ListNode* temp = position_;
         //could do this recursively instead, if that is okay
         //or if this is not okay, based on preferences
-        for (int i = 0; i < count; i++) {
-            temp = temp -> prev; //changed next to prev here
+        if (position_ != nullptr) {
+            for (int i = 0; i < count && position_ != nullptr; i++) {
+                position_ = position_ -> prev; //changed next to prev here
+            }
+            // position_ = temp;
         }
-        position_ = temp;
         return ListIterator(position_);
-        return ListIterator();
+        // return ListIterator();
     }
 
     bool operator!=(const ListIterator& rhs) {

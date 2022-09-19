@@ -79,8 +79,10 @@ TEST_CASE("List::triplerotate basic", "[weight=5][part=1][valgrind]") {
 TEST_CASE("List::triplerotate simple", "[weight=10][part=1][valgrind]") {
     List<int> list;
 
-    for (int i = 1; i <= 6; i++)
+    for (int i = 1; i <= 6; i++) {
         list.insertBack(i);
+        list.printv2();
+    }
 
     list.tripleRotate();
 
@@ -123,8 +125,11 @@ TEST_CASE("List::split images", "[weight=5][part=1]") {
     List<HSLAPixel> list2 = list1.split(400 * 240);
     List<HSLAPixel> list3 = list2.split(400 * 240);
 
+    // std::cout << "list1.begin(), list1.end()" << *list1.begin() << ", " << *list1.end() << std::endl;
     vector<HSLAPixel> im1vect(list1.begin(), list1.end());
+    // std::cout << "list2.begin(), list1.end()" << *list2.begin() << ", " << *list2.end() << std::endl;
     vector<HSLAPixel> im2vect(list2.begin(), list2.end());
+    // std::cout << "list3.begin(), list1.end()" << *list3.begin() << ", " << *list3.end() << std::endl;
     vector<HSLAPixel> im3vect(list3.begin(), list3.end());
 
     PNG out1(400, 240);
@@ -161,8 +166,11 @@ TEST_CASE("List::split images", "[weight=5][part=1]") {
     }
     out4.writeToFile("/workspaces/cs225env/release-f22/mp_clean_lists/tests/actual-split_2_test.png");
 
+//     INFO("list1.begin(), list1.end()" + &*list1.begin() + ", " + &*list1.end() + "\n" +
+//     "list2.begin(), list1.end()" + &*list2.begin() + ", " + &*list2.end() + "\n" +
+//    "list3.begin(), list1.end()" + &*list3.begin() + ", " + &*list3.end() + "\n" +
 
-    INFO("Second split output saved as actual-split_2.png");
+    INFO("jhkgfSecond split output saved as actual-split_2.png");
     REQUIRE(out2 == expected_2);
 
 
@@ -260,9 +268,13 @@ TEST_CASE("List::ListIterator::end is reached", "[weight=1][part=1][valgrind]") 
     list.insertFront(3);
 
     List<unsigned>::ListIterator iter = list.begin();
+    std::cout << "iter: " << *iter << std::endl;
     iter++;
+    std::cout << "iter: " << *iter << std::endl;
     iter++;
+    std::cout << "iter: " << *iter << std::endl;
     iter++;
+    std::cout << "iter: " << *iter << std::endl;
 
     REQUIRE( (bool)(iter == list.end()) );
 }
