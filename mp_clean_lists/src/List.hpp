@@ -91,7 +91,7 @@ void List<T>::insertFront(T const & ndata) {
     // head_ -> next = tail_;
     if (tail_ == NULL) {
       tail_ = temp;
-      tail_ -> next = NULL; //not so sure about this one
+      // tail_ -> next = NULL; //not so sure about this one
     }
   
   }
