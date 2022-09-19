@@ -44,21 +44,21 @@ typename List<T>::ListIterator List<T>::end() const {
 template <typename T>
 void List<T>::_destroy() {
   /// @todo Graded in MP3.1
-  if (length_ <= 1) {
+  // if (length_ >= 2) {
     for (ListNode* current = head_; current != nullptr;) {
       ListNode* temp = current;
       current = current->next;
       delete current;
       current = nullptr;
     }
-  }
-  if (head_ != nullptr) {
-    delete head_;
-  }
+  // }
+  // if (head_ != nullptr) {
+  //   delete head_;
+  // }
   head_ = nullptr;
-  if (tail_ != nullptr) {
-    delete tail_;
-  }
+  // if (tail_ != nullptr) {
+  //   delete tail_;
+  // }
   tail_ = nullptr;
   //length_ = 0;
 }

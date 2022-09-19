@@ -79,10 +79,15 @@ int main() {
   // list.print();
   // std::cout << " expected: {5, 4, 3, 2, 1, 0}" << std::endl;
 
+  std::cout << "\nlist: ";
+  list.print();
+  std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
   std::cout << "list split at 2" << std::endl;
-  list.split(2);
+  List<int> list4 = list.split(3);
   list.print();
   std::cout << " expected: {0, 1}" << std::endl;
+  list4.print();
+  std::cout << " expected: {2, 3, 4, 5}" << std::endl;
 
 
 
