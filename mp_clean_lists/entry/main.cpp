@@ -83,7 +83,7 @@ int main() {
   list.print();
   std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
   std::cout << "list split at 2" << std::endl;
-  List<int> list4 = list.split(3);
+  List<int> list4 = list.split(0);
   list.print();
   std::cout << " expected: {0, 1}" << std::endl;
   list4.print();

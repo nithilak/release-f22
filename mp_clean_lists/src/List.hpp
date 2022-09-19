@@ -156,13 +156,23 @@ typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint) {
     return NULL;
   }
 
-  if (splitPoint <= 0) {
-    splitPoint = 0;
-  }
+  length_ = splitPoint;
 
   ListNode * curr = start;
 
-  for (int i = 0; i < length_ && i < splitPoint && curr != NULL && curr != tail_; i++) {
+  if (splitPoint <= 0) {
+    splitPoint = 0;
+    length_ = 0;
+    ListNode* temp = head_;
+    // head_ = tail_->next;
+    // tail_ = nullptr;
+    // length_ = 0;
+    return temp;
+  }
+
+  splitPoint--;
+
+  for (int i = 0; i < length_ && (i < splitPoint) && curr != NULL && curr != tail_; i++) {
     std::cout << "i: " << i << std::endl;
     std::cout << "curr: " << curr << std::endl;
     std::cout << "curr data: " << curr->data << std::endl;
