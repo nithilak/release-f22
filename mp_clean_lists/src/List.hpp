@@ -45,13 +45,13 @@ template <typename T>
 void List<T>::_destroy() {
   /// @todo Graded in MP3.1
   // if (length_ >= 2) {
-    std::cout << "delete: " << std::endl;
+    // std::cout << "delete: " << std::endl;
     for (ListNode* current = head_; current != nullptr;) {
       ListNode* temp = current;
       current -> prev = nullptr;
       current = current->next;
       head_ = current;
-      printv2();
+      // printv2();
       temp -> prev = nullptr;
       temp -> next = nullptr;
       delete temp;
@@ -395,25 +395,41 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   /// @todo Graded in MP3.2
   // std::cout << "start reverse: " << startPoint << " " << endPoint << std::endl;
   // std::cout << "data: " << startPoint->data << " " << endPoint->data << std::endl;
-  if (startPoint == endPoint) {
+  if (startPoint == endPoint || startPoint == nullptr || endPoint == nullptr) {
     return;
   }
-  Swap(startPoint, endPoint);
+  // if (startPoint->next == endPoint) {
+  //   std::cout << "Swap: " << startPoint << " " << endPoint << std::endl;
+  //   std::cout << "Swap: " << startPoint->data << " " << endPoint->data << std::endl;
+  //   Swap(startPoint, endPoint);
+  //   std::cout << "result: " << startPoint << " " << endPoint << std::endl;
+  //   return;
+  // }
+  // std::cout << "Swap: " << startPoint << " " << endPoint << std::endl;
+  // std::cout << "Swap: " << startPoint->data << " " << endPoint->data << std::endl;
+  // // Swap(startPoint, endPoint);
+  // std::cout << "result: " << startPoint << " " << endPoint << std::endl;
   
-  ListIterator startIter = ListIterator(startPoint);
-  // std::cout << "start iter" << std::endl;
-  startIter++;
-  if (startIter == endPoint) {
-    return;
-  }
-  ListIterator endIter = ListIterator(endPoint);
-  // std::cout << "end iter" << std::endl;
-  endIter--;
+  // ListIterator startIter = ListIterator(startPoint);
+  // // std::cout << "start iter" << std::endl;
+  // startIter++;
+  // if (startIter == endPoint) {
+  //   return;
+  // }
+  // ListIterator endIter = ListIterator(endPoint);
+  // // std::cout << "end iter" << std::endl;
+  // endIter--;
   // std::cout << "iters: " << &*startIter << " " << &*endIter << std::endl;
   // std::cout << "data: " << *startIter << " " << *endIter << std::endl;
   // // std::cout << "data again: " << (startIter)->data << " " << (endIter)->data << std::endl;
   // // std::cout << "begin() -> next == startIter" << (begin() -> next == startIter) << std::endl;
   // reverse(&*begin(), NULL); 
+
+  if (startPoint->next == endPoint) {
+    return;
+  }
+
+  // reverse(startPoint->next, endPoint->prev);
 }
 
 /**
@@ -514,9 +530,60 @@ void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
   // std::cout << "start Swap" << std::endl;
   // std::cout << "points: " << startPoint << " " << endPoint << std::endl;
   // std::cout << "data: " << startPoint->data << " " << endPoint->data << std::endl;
+  
+  if (startPoint == endPoint || (startPoint == nullptr && endPoint == nullptr)) {
+    return;
+  }
+
+  // if (endPoint == nullptr) {
+  //   endPoint = startPoint;
+  //   endPoint->prev = startPoint->prev;
+  //   endPoint->next = startPoint->next;
+  //   startPoint->prev = nullptr;
+  //   startPoint->next = nullptr;
+  //   startPoint = nullptr;
+  //   return;
+  // }
+
+  // if (startPoint == nullptr) {
+  //   startPoint = endPoint;
+  //   startPoint->prev = endPoint->prev;
+  //   startPoint->next = endPoint->next;
+  //   endPoint->prev = nullptr;
+  //   endPoint->next = nullptr;
+  //   endPoint = nullptr;
+  //   return;
+  // }
+
+  
+  // ListNode* temp_prev = startPoint->prev;
+  // ListNode* temp_next = startPoint->next;
+
+  // startPoint->prev = endPoint->prev;
+  // startPoint->next = endPoint->next;
+
+  // endPoint->prev = temp_prev;
+  // endPoint->next = temp_next;
+  
   ListNode* temp = startPoint;
   startPoint = endPoint;
   endPoint = temp;
+
+  ListNode* temp_prev = startPoint->prev;
+  startPoint->prev = endPoint->prev;
+  endPoint->prev = temp_prev;
+
+  // std::cout << "startPoint: " << startPoint << std::endl;
+  // std::cout << "endPoint: " << endPoint << std::endl;
+  // std::cout << "startPoint->next: " << startPoint->next << std::endl;
+  // std::cout << "endPoint->next: " << endPoint->next << std::endl;
+
+  ListNode* temp_next = startPoint->next;
+  startPoint->next = nullptr;
+  // endPoint->next = nullptr;
+
+
+
   // std::cout << "points: " << startPoint << " " << endPoint << std::endl;
   // std::cout << "data: " << startPoint->data << " " << endPoint->data << std::endl;
   // std::cout << "exit Swap" << std::endl;

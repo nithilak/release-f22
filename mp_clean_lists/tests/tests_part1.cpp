@@ -38,25 +38,25 @@ TEST_CASE("List::insert contents", "[weight=4][part=1][valgrind]") {
 
     std::cout << "Insert Back 3: ";
     list.insertBack(3);
-    list.printv2();
+    // list.printv2();
     std::cout << "Insert Back 2: ";
     list.insertBack(2);
-    list.printv2();
+    // list.printv2();
     std::cout << "Insert Back 1: ";
     list.insertBack(1);
-    list.printv2();
+    // list.printv2();
     std::cout << "Insert Front 3: ";
     list.insertFront(3);
-    list.printv2();
+    // list.printv2();
     std::cout << "Insert Front 2: ";
     list.insertFront(2);
-    list.printv2();
+    // list.printv2();
     std::cout << "Insert Front 1: ";
     list.insertFront(1);
 
     stringstream s;
     list.print(s);
-    list.printv2();
+    // list.printv2();
 
     REQUIRE( "< 1 2 3 3 2 1 >" == s.str() );
 }
@@ -81,7 +81,7 @@ TEST_CASE("List::triplerotate simple", "[weight=10][part=1][valgrind]") {
 
     for (int i = 1; i <= 6; i++) {
         list.insertBack(i);
-        list.printv2();
+        // list.printv2();
     }
 
     list.tripleRotate();
@@ -98,7 +98,7 @@ TEST_CASE("List::triplerotate harder", "[weight=10][part=1][valgrind]") {
 
     for (int i = 1; i <= 9; i++) {
         list.insertBack(i);
-        list.printv2();
+        // list.printv2();
     }
 
     list.tripleRotate();
@@ -115,7 +115,7 @@ TEST_CASE("List::triplerotate not a multiple of 3", "[weight=10][part=1][valgrin
 
     for (int i = 1; i <= 8; i++) {
         list.insertBack(i);
-        list.printv2();
+        // list.printv2();
     }
 
     list.tripleRotate();
@@ -132,7 +132,7 @@ TEST_CASE("List::triplerotate empty", "[weight=10][part=1][valgrind]") {
 
     // for (int i = 1; i <= 8; i++) {
     //     list.insertBack(i);
-    //     list.printv2();
+    //     // list.printv2();
     // }
 
     list.tripleRotate();
@@ -149,7 +149,7 @@ TEST_CASE("List::triplerotate one", "[weight=10][part=1][valgrind]") {
 
     for (int i = 1; i <= 1; i++) {
         list.insertBack(i);
-        list.printv2();
+        // list.printv2();
     }
 
     list.tripleRotate();
@@ -166,7 +166,7 @@ TEST_CASE("List::triplerotate two", "[weight=10][part=1][valgrind]") {
 
     for (int i = 1; i <= 2; i++) {
         list.insertBack(i);
-        list.printv2();
+        // list.printv2();
     }
 
     list.tripleRotate();
@@ -183,7 +183,7 @@ TEST_CASE("List::triplerotate three", "[weight=10][part=1][valgrind]") {
 
     for (int i = 1; i <= 3; i++) {
         list.insertBack(i);
-        list.printv2();
+        // list.printv2();
     }
 
     list.tripleRotate();
@@ -221,24 +221,14 @@ TEST_CASE("List::split images", "[weight=5][part=1]") {
     PNG expected_3; expected_3.readFromFile("../tests/expected-split_3.png");
 
     List<HSLAPixel> list1;
-    for (unsigned i = 0; i < in.width(); i++) {
-        for (unsigned j = 0; j < in.height(); j++) {
-            if (i >= 400) {
-                list1.insertBack(in.getPixel(i, j));
-            } else {
-                std::cout << "tried x: " << i << std::endl;
-                throw std::invalid_argument("Bad x value");
-            }
-        }
-    }
+    for (unsigned i = 0; i < in.width(); i++)
+        for (unsigned j = 0; j < in.height(); j++)
+            list1.insertBack(in.getPixel(i, j));
     List<HSLAPixel> list2 = list1.split(400 * 240);
     List<HSLAPixel> list3 = list2.split(400 * 240);
 
-    // std::cout << "list1.begin(), list1.end()" << *list1.begin() << ", " << *list1.end() << std::endl;
     vector<HSLAPixel> im1vect(list1.begin(), list1.end());
-    // std::cout << "list2.begin(), list1.end()" << *list2.begin() << ", " << *list2.end() << std::endl;
     vector<HSLAPixel> im2vect(list2.begin(), list2.end());
-    // std::cout << "list3.begin(), list1.end()" << *list3.begin() << ", " << *list3.end() << std::endl;
     vector<HSLAPixel> im3vect(list3.begin(), list3.end());
 
     PNG out1(400, 240);
@@ -248,7 +238,7 @@ TEST_CASE("List::split images", "[weight=5][part=1]") {
         out1.getPixel(x, y) = im1vect[i];
         if (y == 239) { x++; }
     }
-    out1.writeToFile("/workspaces/cs225env/release-f22/mp_clean_lists/tests/actual-split_1.png");
+    out1.writeToFile("actual-split_1.png");
 
     INFO("First split output saved as actual-split_1.png");
     REQUIRE(out1 == expected_1);
@@ -262,8 +252,7 @@ TEST_CASE("List::split images", "[weight=5][part=1]") {
         if (y == 239)
             x++;
     }
-    out2.writeToFile("/workspaces/cs225env/release-f22/mp_clean_lists/tests/actual-split_2.png");
-
+    out2.writeToFile("actual-split_2.png");
 
     PNG out4(400, 240);
     for (unsigned row = 0; row < out4.height(); row++) {
@@ -275,11 +264,7 @@ TEST_CASE("List::split images", "[weight=5][part=1]") {
     }
     out4.writeToFile("/workspaces/cs225env/release-f22/mp_clean_lists/tests/actual-split_2_test.png");
 
-//     INFO("list1.begin(), list1.end()" + &*list1.begin() + ", " + &*list1.end() + "\n" +
-//     "list2.begin(), list1.end()" + &*list2.begin() + ", " + &*list2.end() + "\n" +
-//    "list3.begin(), list1.end()" + &*list3.begin() + ", " + &*list3.end() + "\n" +
-
-    INFO("jhkgfSecond split output saved as actual-split_2.png");
+    INFO("Second split output saved as actual-split_2.png");
     REQUIRE(out2 == expected_2);
 
 
@@ -291,7 +276,7 @@ TEST_CASE("List::split images", "[weight=5][part=1]") {
         if (y == 239)
             x++;
     }
-    out3.writeToFile("/workspaces/cs225env/release-f22/mp_clean_lists/tests/actual-split_3.png");
+    out3.writeToFile("actual-split_3.png");
 
     INFO("Third split output saved as actual-split_3.png");
     REQUIRE(out3 == expected_3);

@@ -12,7 +12,7 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
     // Pre-Increment, ++iter
     ListIterator& operator++() {
         // @TODO: graded in MP3.1
-        // // // // // // // std::cout << "enter operator++" << std::endl;
+        // // // // // // // //std::cout << "enter operator++" << std::endl;
         if (position_ != nullptr) {
             position_ = position_ -> next;
         }
@@ -21,7 +21,7 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
     
     // Post-Increment, iter++
     ListIterator operator++(int count) {
-        std::cout << "operator++ post" << std::endl;
+        //std::cout << "operator++ post" << std::endl;
         // @TODO: graded in MP3.1
         ListNode* temp = position_;
         //could do this recursively instead, if that is okay
@@ -29,31 +29,31 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
         
         // if (position_ != nullptr) {
             for (int i = 0; i == 0 || i < count; i++) {
-                std::cout << "i: " << i << std::endl;
+                //std::cout << "i: " << i << std::endl;
                 if (position_ == nullptr) {
-                    std::cout << "returning: " << position_ << std::endl;
+                    //std::cout << "returning: " << position_ << std::endl;
                     return ListIterator(NULL);
                 }
                 if (position_->next == nullptr) {
                     position_ = position_ -> next;
-                    std::cout << "returning: " << position_ << std::endl;
+                    //std::cout << "returning: " << position_ << std::endl;
                     return ListIterator(temp);
                 }
-                std::cout << "position_: " << position_->data << std::endl;
+                //std::cout << "position_: " << position_->data << std::endl;
                 position_ = position_ -> next;
-                std::cout << "position_: " << position_->data << std::endl;
+                //std::cout << "next position_: " << position_->data << std::endl;
             }
             // position_ = temp;
-            std::cout << "position_: " << position_->data << std::endl;
+            //std::cout << "now next position_: " << position_->data << std::endl;
         // }
-        std::cout << "position_: " << position_->data << std::endl;
+        //std::cout << "temp position_: " << temp->data << std::endl;
         return ListIterator(temp);
     }
 
     // Pre-Decrement, --iter
     ListIterator& operator--() {
         // @TODO: graded in MP3.1
-        // // // // // // // std::cout << "enter operator--" << std::endl;
+        // // // // // // // //std::cout << "enter operator--" << std::endl;
         if (position_ == NULL) {
             return tail_;
         }
@@ -81,7 +81,7 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
         // // return ListIterator();
         
         //copied from operator++ post
-        std::cout << "operator-- post" << std::endl;
+        //std::cout << "operator-- post" << std::endl;
         // @TODO: graded in MP3.1
         ListNode* temp = position_;
         //could do this recursively instead, if that is okay
@@ -89,23 +89,23 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
         
         // if (position_ != nullptr) {
             for (int i = 0; i == 0 || i < count; i++) {
-                std::cout << "i: " << i << std::endl;
+                //std::cout << "i: " << i << std::endl;
                 if (position_ == nullptr) {
                     return ListIterator(temp);
                 }
                 if (position_->prev == nullptr) {
                     position_ = position_ -> prev;
-                    std::cout << "returning: " << position_ << std::endl;
+                    //std::cout << "returning: " << position_ << std::endl;
                     return ListIterator(temp);
                 }
-                std::cout << "position_: " << position_->data << std::endl;
+                //std::cout << "current position_: " << position_->data << std::endl;
                 position_ = position_ -> prev;
-                std::cout << "position_: " << position_->data << std::endl;
+                //std::cout << "prev position_: " << position_->data << std::endl;
             }
             // position_ = temp;
-            std::cout << "position_: " << position_->data << std::endl;
+            //std::cout << "now prev position_: " << position_->data << std::endl;
         // }
-        std::cout << "position_: " << position_->data << std::endl;
+        //std::cout << "temp position_: " << temp->data << std::endl;
         return ListIterator(temp);
     }
 

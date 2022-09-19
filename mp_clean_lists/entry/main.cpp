@@ -74,10 +74,10 @@ int main() {
   std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
   std::cout << "list.size() : " << list.size() << " expected: 6" << std::endl; 
   std::cout << "list.empty() : " << list.empty() << " expected: false" << std::endl; 
-  // std::cout << "list.reverse(): " << std::endl;
-  // list.reverse();
-  // list.printv2();
-  // std::cout << " expected: {5, 4, 3, 2, 1, 0}" << std::endl;
+  std::cout << "list.reverse(): " << std::endl;
+  list.reverse();
+  list.printv2();
+  std::cout << " expected: {5, 4, 3, 2, 1, 0}" << std::endl;
 
   // std::cout << "\nlist: ";
   // list.printv2();
