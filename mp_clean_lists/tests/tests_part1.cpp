@@ -93,6 +93,108 @@ TEST_CASE("List::triplerotate simple", "[weight=10][part=1][valgrind]") {
     REQUIRE("< 2 3 1 5 6 4 >" == s.str());
 }
 
+TEST_CASE("List::triplerotate harder", "[weight=10][part=1][valgrind]") {
+    List<int> list;
+
+    for (int i = 1; i <= 9; i++) {
+        list.insertBack(i);
+        list.printv2();
+    }
+
+    list.tripleRotate();
+
+    stringstream s;
+
+    list.print(s);
+
+    REQUIRE("< 2 3 1 5 6 4 8 9 7 >" == s.str());
+}
+
+TEST_CASE("List::triplerotate not a multiple of 3", "[weight=10][part=1][valgrind]") {
+    List<int> list;
+
+    for (int i = 1; i <= 8; i++) {
+        list.insertBack(i);
+        list.printv2();
+    }
+
+    list.tripleRotate();
+
+    stringstream s;
+
+    list.print(s);
+
+    REQUIRE("< 2 3 1 5 6 4 7 8 >" == s.str());
+}
+
+TEST_CASE("List::triplerotate empty", "[weight=10][part=1][valgrind]") {
+    List<int> list;
+
+    // for (int i = 1; i <= 8; i++) {
+    //     list.insertBack(i);
+    //     list.printv2();
+    // }
+
+    list.tripleRotate();
+
+    stringstream s;
+
+    list.print(s);
+
+    REQUIRE("< >" == s.str());
+}
+
+TEST_CASE("List::triplerotate one", "[weight=10][part=1][valgrind]") {
+    List<int> list;
+
+    for (int i = 1; i <= 1; i++) {
+        list.insertBack(i);
+        list.printv2();
+    }
+
+    list.tripleRotate();
+
+    stringstream s;
+
+    list.print(s);
+
+    REQUIRE("< 1 >" == s.str());
+}
+
+TEST_CASE("List::triplerotate two", "[weight=10][part=1][valgrind]") {
+    List<int> list;
+
+    for (int i = 1; i <= 2; i++) {
+        list.insertBack(i);
+        list.printv2();
+    }
+
+    list.tripleRotate();
+
+    stringstream s;
+
+    list.print(s);
+
+    REQUIRE("< 1 2 >" == s.str());
+}
+
+TEST_CASE("List::triplerotate three", "[weight=10][part=1][valgrind]") {
+    List<int> list;
+
+    for (int i = 1; i <= 3; i++) {
+        list.insertBack(i);
+        list.printv2();
+    }
+
+    list.tripleRotate();
+
+    stringstream s;
+
+    list.print(s);
+
+    REQUIRE("< 2 3 1 >" == s.str());
+}
+
 TEST_CASE("List::split simple", "[weight=5][part=1][valgrind]") {
     List<int> list;
 
