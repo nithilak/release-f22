@@ -32,6 +32,11 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
                 std::cout << "i: " << i << std::endl;
                 if (position_ == nullptr) {
                     std::cout << "returning: " << position_ << std::endl;
+                    return ListIterator(NULL);
+                }
+                if (position_->next == nullptr) {
+                    position_ = position_ -> next;
+                    std::cout << "returning: " << position_ << std::endl;
                     return ListIterator(temp);
                 }
                 std::cout << "position_: " << position_->data << std::endl;
@@ -86,6 +91,11 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
             for (int i = 0; i == 0 || i < count; i++) {
                 std::cout << "i: " << i << std::endl;
                 if (position_ == nullptr) {
+                    return ListIterator(temp);
+                }
+                if (position_->prev == nullptr) {
+                    position_ = position_ -> prev;
+                    std::cout << "returning: " << position_ << std::endl;
                     return ListIterator(temp);
                 }
                 std::cout << "position_: " << position_->data << std::endl;

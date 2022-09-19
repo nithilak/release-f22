@@ -373,13 +373,13 @@ TEST_CASE("List::ListIterator::end is reached", "[weight=1][part=1][valgrind]") 
     list.insertFront(3);
 
     List<unsigned>::ListIterator iter = list.begin();
-    std::cout << "iter: " << *iter << std::endl;
+    // std::cout << "iter: " << *iter << std::endl;
     iter++;
-    std::cout << "iter: " << *iter << std::endl;
+    // std::cout << "iter: " << *iter << std::endl;
     iter++;
-    std::cout << "iter: " << *iter << std::endl;
+    // std::cout << "iter: " << *iter << std::endl;
     iter++;
-    std::cout << "iter: " << *iter << std::endl;
+    // std::cout << "iter: " << *iter << std::endl;
 
     REQUIRE( (bool)(iter == list.end()) );
 }

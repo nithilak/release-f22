@@ -162,12 +162,32 @@ typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint) {
 
   ListNode * curr = start;
 
+  if (length_ <= 0) {
+    // head_ = nullptr;
+    // tail_ = nullptr;
+    length_ = 0;
+    return NULL;
+  }
+
+  if (length_ == 1) {
+    if (splitPoint == 0) {
+      ListNode* temp = head_;
+      head_ = nullptr;
+      tail_ = nullptr;
+      length_ = 0;
+      return temp;
+    } else {
+      return NULL;
+    }
+
+  }
+
   if (splitPoint <= 0) {
     splitPoint = 0;
     length_ = 0;
     ListNode* temp = head_;
-    // head_ = tail_->next;
-    // tail_ = nullptr;
+    head_ = tail_->next;
+    tail_ = nullptr;
     // length_ = 0;
     return temp;
   }
@@ -262,7 +282,7 @@ void List<T>::tripleRotate() {
     }
 
     size -= 3;
-    this->printv2();
+    // this->printv2();
   }
 
 
@@ -299,7 +319,7 @@ void List<T>::tripleRotate() {
     // curr -> prev = before;
     
     size -= 3;
-    this->printv2();
+    // this->printv2();
   }
   if (size == 3 && curr != nullptr) {
     std::cout << "curr->data: " << curr->data << std::endl;
@@ -340,7 +360,7 @@ void List<T>::tripleRotate() {
     tail_ = one;
 
     size -= 3;
-    this->printv2();
+    // this->printv2();
   }
 }
 
