@@ -164,43 +164,75 @@ typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint) {
     return NULL;
   }
 
-  length_ = splitPoint;
+  //splitPoint < length_
+
+  if (splitPoint <= 0) {
+    splitPoint = 0;
+    // length_ = 0; 
+    // ListNode* temp = head_;
+    //do not need to change this, the main function takes care of it for us
+    // head_ = nullptr;
+    // tail_ = nullptr;
+    // length_ = 0;std::cout << "list" << std::endl;
+    return head_;
+  }
+
+  //splitPoint >= 0
 
   ListNode * curr = start;
 
   if (length_ <= 0) {
     // head_ = nullptr;
     // tail_ = nullptr;
-    length_ = 0;
+    // length_ = 0; //do not mess with this
     return NULL;
   }
 
-  if (length_ == 1) {
-    if (splitPoint == 0) {
-      ListNode* temp = head_;
-      head_ = nullptr;
-      tail_ = nullptr;
-      length_ = 0;
-      return temp;
-    } else {
+  //length >= 1
+
+  // if (length_ == 1) {
+  //   if (splitPoint == 1) {
+  //     // ListNode* temp = head_;
+  //     // head_ = nullptr;
+  //     // tail_ = nullptr;
+  //     // length_ = 0; //do not mess with this, main does it, this is just a helper function
+  //     // return temp;
+  //     return head_;
+  //   } else {
+  //     return NULL;
+  //   }
+  // }
+
+  //length >= 2 //does not matter, works for length_ = 1 too because head_ exists
+
+  if (splitPoint == 1) {
+    // std::cout << "splitPoint == 1" << std::endl;
+    // ListNode* temp = head_;
+    // head_ = head_->next;
+    // temp -> next = nullptr;
+    // temp -> prev = nullptr; //just in case
+    // head_->prev = nullptr;
+    // length_ = 1; //do not mess with this, the main function does it for you, this is a helper, not the main
+    // std::cout << "head_" << head_ << std::endl;
+    // return temp;
+    if (head_ == nullptr) {
       return NULL;
     }
-
-  }
-
-  if (splitPoint <= 0) {
-    splitPoint = 0;
-    length_ = 0;
-    ListNode* temp = head_;
-    head_ = tail_->next;
-    tail_ = nullptr;
-    // length_ = 0;
+    // std::cout << "head_->data" << head_->data << std::endl;
+    ListNode* temp = head_->next;
+    head_->next = nullptr;
+    if (temp != nullptr) {
+      temp -> prev = nullptr;
+    }
+    tail_ = head_;
     return temp;
   }
 
-  splitPoint--;
+  // length_ = splitPoint;
 
-  for (int i = 0; i < length_ && (i < splitPoint) && curr != NULL && curr != tail_; i++) {
+  // splitPoint--; //to make this the index to stop at
+
+  for (int i = 0; (i + 1 < splitPoint) && curr != NULL; i++) { //i <= length_ && // && curr != tail_ //not necessary, if it fails, let it fail.
     // std::cout << "i: " << i << std::endl;
     // std::cout << "curr: " << curr << std::endl;
     // std::cout << "curr data: " << curr->data << std::endl;
@@ -208,18 +240,23 @@ typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint) {
     curr = curr->next;
   }
   // tail_ -> next = nullptr;
+  // if (curr == NULL) {
+  //   // curr -> prev = nullptr;
+  //   return NULL;
+  // }
+
   if (curr == NULL) {
-    // curr -> prev = nullptr;
     return NULL;
   }
 
-  if (curr != NULL) {
-    ListNode* temp = curr;
-    curr = curr -> next;
-    tail_ = temp;
-    curr->prev->next = NULL;
-    curr->prev = NULL;
+  ListNode* temp = curr;
+  curr = curr -> next;
+  tail_ = temp;
+  if (tail_ != nullptr) {
+    tail_ -> next = nullptr;
   }
+  // curr->prev->next = NULL;
+  curr->prev = NULL;
 
   // ListNode* temp = curr;
   // curr = curr -> next;
@@ -328,7 +365,7 @@ void List<T>::tripleRotate() {
     // this->printv2();
   }
   if (size == 3 && curr != nullptr) {
-    std::cout << "curr->data: " << curr->data << std::endl;
+    // std::cout << "curr->data: " << curr->data << std::endl;
     ListNode* one = curr -> prev;
     ListNode* before = one -> prev;
     // ListNode* two = curr;

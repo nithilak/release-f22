@@ -385,4 +385,513 @@ TEST_CASE("List::ListIterator::end is not ::begin in a non-empty list", "[weight
     REQUIRE( (bool)(list.begin() != list.end()) );
 }
 
+TEST_CASE("List::split works as expected for size 5", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 6;
+    const int kSplitNum = 5;
 
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< 0 1 2 3 4 5 >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< 0 1 2 3 4 >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< 5 >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+} 
+TEST_CASE("List::split works as expected for size -1", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 6;
+    const int kSplitNum = -1;
+
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< 0 1 2 3 4 5 >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< 0 1 2 3 4 5 >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+} 
+TEST_CASE("List::split works as expected for size 0", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 6;
+    const int kSplitNum = 0;
+
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< 0 1 2 3 4 5 >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< 0 1 2 3 4 5 >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+} 
+TEST_CASE("List::split works as expected for size 1", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 6;
+    const int kSplitNum = 1;
+
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< 0 1 2 3 4 5 >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< 0 >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< 1 2 3 4 5 >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+} 
+TEST_CASE("List::split works as expected for size 2", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 6;
+    const int kSplitNum = 2;
+
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< 0 1 2 3 4 5 >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< 0 1 >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< 2 3 4 5 >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+} 
+TEST_CASE("List::split works as expected for size 3", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 6;
+    const int kSplitNum = 3;
+
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< 0 1 2 3 4 5 >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< 0 1 2 >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< 3 4 5 >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+} 
+
+TEST_CASE("List::split works as expected for size 4", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 6;
+    const int kSplitNum = 4;
+
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< 0 1 2 3 4 5 >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< 0 1 2 3 >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< 4 5 >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+}   
+TEST_CASE("List::split works as expected for size 6", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 6;
+    const int kSplitNum = 6;
+
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< 0 1 2 3 4 5 >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< 0 1 2 3 4 5 >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+} 
+TEST_CASE("List::split works as expected for size 7", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 6;
+    const int kSplitNum = 7;
+
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< 0 1 2 3 4 5 >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< 0 1 2 3 4 5 >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+} 
+
+TEST_CASE("List::split works as expected for list size 0, split 5", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 0;
+    const int kSplitNum = 5;
+
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+} 
+
+TEST_CASE("List::split works as expected for list size 0, split 0", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 0;
+    const int kSplitNum = 0;
+
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+} 
+
+TEST_CASE("List::split works as expected for list size 1, split 5", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 1;
+    const int kSplitNum = 5;
+
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< 0 >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< 0 >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+} 
+
+TEST_CASE("List::split works as expected for list size 1, split 0", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 1;
+    const int kSplitNum = 0;
+
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< 0 >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< 0 >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+} 
+
+TEST_CASE("List::split works as expected for list size 1, split 1", "[weight=1][part=1][valgrind]") {
+    const int kListSize = 1;
+    const int kSplitNum = 1;
+
+    List<int> list;
+    for (int i = 0; i < kListSize; i++) {
+        list.insertBack(i);
+    }
+    // std::cout << "\nlist: ";
+    // list.printv2();
+    // std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+
+    stringstream s;
+    list.print(s);  
+
+    REQUIRE("< 0 >" == s.str());
+
+    stringstream s2;
+
+    // std::cout << "list split at 2" << std::endl;
+    List<int> list4 = list.split(kSplitNum);
+    list.print(s2);  
+
+    REQUIRE("< 0 >" == s2.str());
+
+    stringstream s3;
+
+    list4.print(s3);  
+
+    REQUIRE("< >" == s3.str());
+
+    // list.printv2();
+    // std::cout << " expected: {0, 1}" << std::endl;
+    // list4.printv2();
+    // std::cout << " expected: {2, 3, 4, 5}" << std::endl;
+} 

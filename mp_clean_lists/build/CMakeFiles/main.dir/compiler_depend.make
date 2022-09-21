@@ -236,8 +236,16 @@ CMakeFiles/main.dir/entry/main.cpp.o: ../entry/main.cpp \
   /usr/include/c++/11/pstl/execution_defs.h \
   ../src/List-ListIterator.hpp \
   ../src/List.hpp \
-  ../src/List-given.hpp
+  ../src/List-given.hpp \
+  /usr/include/c++/11/sstream \
+  /usr/include/c++/11/bits/sstream.tcc \
+  /usr/include/c++/11/cassert \
+  /usr/include/assert.h
 
+
+/usr/include/c++/11/bits/sstream.tcc:
+
+/usr/include/c++/11/sstream:
 
 ../src/List-given.hpp:
 
@@ -284,6 +292,8 @@ CMakeFiles/main.dir/entry/main.cpp.o: ../entry/main.cpp \
 /usr/include/c++/11/pstl/glue_algorithm_defs.h:
 
 /usr/include/c++/11/bits/stl_heap.h:
+
+/usr/include/c++/11/cassert:
 
 /usr/include/c++/11/bits/stl_algo.h:
 
@@ -500,6 +510,8 @@ CMakeFiles/main.dir/entry/main.cpp.o: ../entry/main.cpp \
 /usr/include/c++/11/system_error:
 
 /usr/include/aarch64-linux-gnu/gnu/stubs-lp64.h:
+
+/usr/include/assert.h:
 
 /usr/include/c++/11/cstdlib:
 
