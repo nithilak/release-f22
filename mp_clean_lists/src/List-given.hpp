@@ -147,7 +147,8 @@ void List<T>::printv2(ostream& os) const {
     os << "\n";
 
     curr = head_;
-    while (curr != NULL) {
+    int count = 0;
+    while (curr != NULL && count < 100) {
         // os << " " << curr->data;
 
         if (curr == head_) {
@@ -166,6 +167,7 @@ void List<T>::printv2(ostream& os) const {
 
 
         curr = curr->next;
+        count++;
     }
 }
 

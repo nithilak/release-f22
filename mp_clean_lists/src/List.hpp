@@ -444,7 +444,7 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   // }
   // std::cout << "Swap: " << startPoint << " " << endPoint << std::endl;
   // std::cout << "Swap: " << startPoint->data << " " << endPoint->data << std::endl;
-  // // Swap(startPoint, endPoint);
+  Swap(startPoint, endPoint);
   // std::cout << "result: " << startPoint << " " << endPoint << std::endl;
   
   // ListIterator startIter = ListIterator(startPoint);
@@ -478,6 +478,26 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
 template <typename T>
 void List<T>::reverseNth(int n) {
   /// @todo Graded in MP3.2
+  if (n > size()) {
+    reverse();
+    return;
+  }
+
+  ListNode* current = head_;
+  for (int count = size(); current != nullptr && count >= n; count -= n) {
+    ListNode* temp = current;
+    for (int i = 0; i < n; i++) {
+      if (current->next != nullptr) {
+        current = current->next;
+      } else {
+        break;
+      }
+    }
+    reverse(temp, current);
+  }
+  if (current != nullptr) {
+    reverse(current, tail_);
+  }
 }
 
 
@@ -519,7 +539,56 @@ void List<T>::mergeWith(List<T> & otherList) {
 template <typename T>
 typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) {
   /// @todo Graded in MP3.2
-  return NULL;
+  ListNode* output = nullptr; //ok compiler, I'll initialize this to nullptr
+  ListNode* current_one = first;
+  ListNode* current_two = second;
+  if (current_one == nullptr && current_two == nullptr) {
+    return output;
+  }
+  if (current_one == nullptr) {
+    return current_two;
+  } else if (current_two == nullptr) {
+    return current_one;
+  }
+  //no more nullptr cases
+
+  if (current_one != nullptr && current_two != nullptr) {
+    if (current_two->data < current_one->data ) {
+      output = current_one;
+    } else {
+      output = current_two;
+    }
+    current_one = current_one->next;
+    current_two = current_two->next;
+  }
+
+  ListNode* temp = output;
+
+  while (current_one != nullptr && current_two != nullptr) {
+    if (current_two->data < current_one->data) {
+      output->next = current_one;
+    } else {
+      output->next = current_two;
+    }
+    output = output->next;
+    current_one = current_one->next;
+    current_two = current_two->next;
+  }
+
+  if (current_one != nullptr) {
+    while (current_one != nullptr) {
+      output->next = current_one;
+      output = output->next;
+      current_one = current_one->next;
+    }
+  } else {
+    while (current_two != nullptr) {
+      output->next = current_two;
+      output = output->next;
+      current_two = current_two->next;
+    }
+  }
+  return temp;
 }
 
 /**
@@ -536,7 +605,30 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
 template <typename T>
 typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength) {
   /// @todo Graded in MP3.2
-  return NULL;
+  if (chainLength <= 1 || start == nullptr) {
+    return start;
+  }
+  if (chainLength == 2) {
+    if (start->next != nullptr && start->data > start->next->data) {
+      Swap(start, start->next);
+    }
+    return start;
+  }
+
+  int num = chainLength/2;
+
+  mergesort(start, num);
+
+  ListNode* current = start;  
+  int i = 0;
+  for (; current != nullptr && i < num + 1; i++) {
+    current = current->next;
+  }
+
+  mergesort(current, i); //chainLength - num
+
+
+  return start;
 }
 
 //helper function
@@ -564,64 +656,248 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
 template <typename T>
 //copied from List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
 void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
-  // std::cout << "start Swap" << std::endl;
-  // std::cout << "points: " << startPoint << " " << endPoint << std::endl;
-  // std::cout << "data: " << startPoint->data << " " << endPoint->data << std::endl;
+  std::cout << "start Swap" << std::endl;
+  std::cout << "points: " << startPoint << " " << endPoint;
+  std::cout << " data: ";
+  if (startPoint != nullptr) {
+    std::cout << startPoint->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  if (endPoint != nullptr) {
+    std::cout << endPoint->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  std::cout << std::endl;
+
+  std::cout << "before: " << startPoint->prev << " " << endPoint->prev;
+  std::cout << " data: ";
+  if (startPoint->prev != nullptr) {
+    std::cout << startPoint->prev->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  if (endPoint->prev != nullptr) {
+    std::cout << endPoint->prev->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  std::cout << std::endl;
   
+  std::cout << "after: " << startPoint->next << " " << endPoint->next;
+  std::cout << " data: ";
+  if (startPoint->next != nullptr) {
+    std::cout << startPoint->next->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  if (endPoint->next != nullptr) {
+    std::cout << endPoint->next->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  std::cout << std::endl;
+
   if (startPoint == endPoint || (startPoint == nullptr && endPoint == nullptr)) {
     return;
   }
 
-  // if (endPoint == nullptr) {
-  //   endPoint = startPoint;
-  //   endPoint->prev = startPoint->prev;
-  //   endPoint->next = startPoint->next;
-  //   startPoint->prev = nullptr;
-  //   startPoint->next = nullptr;
-  //   startPoint = nullptr;
-  //   return;
-  // }
+  if (endPoint == nullptr) {
+    endPoint = startPoint;
+    endPoint->prev = startPoint->prev;
+    endPoint->next = startPoint->next;
+    startPoint->prev = nullptr;
+    startPoint->next = nullptr;
+    startPoint = nullptr;
+    return;
+  }
 
-  // if (startPoint == nullptr) {
-  //   startPoint = endPoint;
-  //   startPoint->prev = endPoint->prev;
-  //   startPoint->next = endPoint->next;
-  //   endPoint->prev = nullptr;
-  //   endPoint->next = nullptr;
-  //   endPoint = nullptr;
-  //   return;
-  // }
+  if (startPoint == nullptr) {
+    startPoint = endPoint;
+    startPoint->prev = endPoint->prev;
+    startPoint->next = endPoint->next;
+    endPoint->prev = nullptr;
+    endPoint->next = nullptr;
+    endPoint = nullptr;
+    return;
+  }
 
   
-  // ListNode* temp_prev = startPoint->prev;
-  // ListNode* temp_next = startPoint->next;
+  ListNode* temp_prev = startPoint->prev;
+  ListNode* temp_next = startPoint->next;
 
-  // startPoint->prev = endPoint->prev;
-  // startPoint->next = endPoint->next;
+  ListNode* temp_prev2 = endPoint->prev;
+  ListNode* temp_next2 = endPoint->next;
 
-  // endPoint->prev = temp_prev;
-  // endPoint->next = temp_next;
+  ListNode* start_before = nullptr;
+  ListNode* start_after = nullptr;
+  ListNode* end_before = nullptr;
+  ListNode* end_after = nullptr;
+  if (temp_prev != nullptr) {
+    start_before = temp_prev->prev;      //before   //prev     // startPoint    //next    //after
+  }
+  if (temp_next != nullptr) {
+    start_after = temp_next->next;
+  }
+
+  if (temp_prev2 != nullptr) {
+    end_before = temp_prev2->prev;      //before   //prev     // endPoint    //next    //after
+  }
+  if (temp_next2 != nullptr) {
+    end_after = temp_next2->next;
+  }
+
+  startPoint->prev = endPoint->prev;
+  startPoint->next = endPoint->next;
+
+  endPoint->prev = temp_prev;
+  endPoint->next = temp_next;
+
+  //update the collatoral damage
+
+  // if (start_before != nullptr) {
+  //   start_before->next = temp_prev->prev;      //before   //prev     // startPoint    //next    //after
+  // }
+  // if (temp_next != nullptr) {
+  //   start_after = temp_next->next;
+  // }
+
+  // if (temp_prev2 != nullptr) {
+  //   end_before = temp_prev2->prev;      //before   //prev     // endPoint    //next    //after
+  // }
+  // if (temp_next2 != nullptr) {
+  //   end_after = temp_next2->next;
+  // }
+
   
   ListNode* temp = startPoint;
   startPoint = endPoint;
   endPoint = temp;
 
-  ListNode* temp_prev = startPoint->prev;
-  startPoint->prev = endPoint->prev;
-  endPoint->prev = temp_prev;
+  // ListNode* temp_prev = startPoint->prev;
+  // startPoint->prev = endPoint->prev;
+  // endPoint->prev = temp_prev;
 
   // std::cout << "startPoint: " << startPoint << std::endl;
   // std::cout << "endPoint: " << endPoint << std::endl;
   // std::cout << "startPoint->next: " << startPoint->next << std::endl;
   // std::cout << "endPoint->next: " << endPoint->next << std::endl;
 
-  ListNode* temp_next = startPoint->next;
-  startPoint->next = nullptr;
+  // ListNode* temp_next = startPoint->next;
+  // startPoint->next = nullptr;
   // endPoint->next = nullptr;
 
 
+  //startPoint and endPoint are now their opposite names
 
-  // std::cout << "points: " << startPoint << " " << endPoint << std::endl;
-  // std::cout << "data: " << startPoint->data << " " << endPoint->data << std::endl;
-  // std::cout << "exit Swap" << std::endl;
+
+  if (temp_prev != nullptr) {
+    temp_prev -> next = startPoint;
+  }
+  if (temp_next != nullptr) {
+    temp_next -> prev = startPoint;
+  }
+
+  if (temp_prev2 != nullptr) {
+    temp_prev2 -> next = endPoint;
+  }
+  if (temp_next2 != nullptr) {
+    temp_next2 -> prev = endPoint;
+  }
+
+
+  std::cout << "points: " << startPoint << " " << endPoint;
+  std::cout << " data: ";
+  if (startPoint != nullptr) {
+    std::cout << startPoint->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  if (endPoint != nullptr) {
+    std::cout << endPoint->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  std::cout << std::endl;
+
+  std::cout << "before: " << startPoint->prev << " " << endPoint->prev;
+  std::cout << " data: ";
+  if (startPoint->prev != nullptr) {
+    std::cout << startPoint->prev->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  if (endPoint->prev != nullptr) {
+    std::cout << endPoint->prev->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  std::cout << std::endl;
+  
+  std::cout << "after: " << startPoint->next << " " << endPoint->next;
+  std::cout << " data: ";
+  if (startPoint->next != nullptr) {
+    std::cout << startPoint->next->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  if (endPoint->next != nullptr) {
+    std::cout << endPoint->next->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  std::cout << std::endl;
+
+
+  // startPoint->prev = nullptr;
+  // startPoint->prev = endPoint;
+  // endPoint->next = startPoint;
+  // startPoint->next = temp_next;
+  // endPoint->next = nullptr;
+  // std::cout << "< ";
+  // for (ListNode* current = startPoint; current != nullptr; current = current->next) {
+  //   std::cout << current->data << " ";
+  // }
+  // std::cout << ">" << std::endl;
+
+  // std::cout << "< ";
+  // for (ListNode* current = endPoint; current != nullptr; current = current->prev) {
+  //   std::cout << current->data << " ";
+  // }
+  // std::cout << ">" << std::endl;
+
+  // std::cout << temp_next->data << std::endl;
+  ListNode* curr = temp_next;
+  if (curr == head_) {
+          std::cout << "head_: ";
+        }
+        if (curr == tail_) {
+            std::cout << "tail_: ";
+        }
+
+        if (curr == NULL) {
+            std::cout << "NULL ";
+        } else {
+            std::cout << "curr_->prev: " << curr->prev << " curr: " << curr << " curr->data: " << curr->data << " curr->next: " << curr->next;
+        }
+        std::cout << "\n";
+
+  // std::cout << temp_prev->data << std::endl;
+  curr = temp_prev2;
+  if (curr == head_) {
+          std::cout << "head_: ";
+        }
+        if (curr == tail_) {
+            std::cout << "tail_: ";
+        }
+
+        if (curr == NULL) {
+            std::cout << "NULL ";
+        } else {
+            std::cout << "curr_->prev: " << curr->prev << " curr: " << curr << " curr->data: " << curr->data << " curr->next: " << curr->next;
+        }
+        std::cout << "\n";
+
+  std::cout << "exit Swap" << std::endl;
 }
