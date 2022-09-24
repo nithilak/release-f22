@@ -111,26 +111,26 @@ int main() {
   std::cout << std::endl;
   std::cout << "list07" << std::endl;
   List<int> list07;
-  for (int i = 0; i < 8; i++) {
+  for (int i = 0; i < 7; i++) {
     list07.insertBack(i);
   }
   std::cout << std::endl;
   list07.printv2();
-  std::cout << " expected: {0, 1, 2, 3, 4, 5, 6, 7}" << std::endl;
+  std::cout << " expected: {0, 1, 2, 3, 4, 5, 6}" << std::endl;
   std::cout << std::endl;
   list07.printv2back();
-  std::cout << " expected: {7, 6, 5, 4, 3, 2, 1, 0}" << std::endl;
-  std::cout << "list.size() : " << list07.size() << " expected: 8" << std::endl; 
+  std::cout << " expected: {6, 5, 4, 3, 2, 1, 0}" << std::endl;
+  std::cout << "list.size() : " << list07.size() << " expected: 7" << std::endl; 
   std::cout << "list.empty() : " << list07.empty() << " expected: false" << std::endl; 
   std::cout << std::endl;
   list07.reverse();
   std::cout << std::endl;
   std::cout << std::endl;
   list07.printv2();
-  std::cout << " expected: {7, 6, 5, 4, 3, 2, 1, 0}" << std::endl;
+  std::cout << " expected: {6, 5, 4, 3, 2, 1, 0}" << std::endl;
   std::cout << std::endl;
   list07.printv2back();
-  std::cout << " expected: {0, 12, 3, 4, 5, 6, 7}" << std::endl;
+  std::cout << " expected: {0, 1, 2, 3, 4, 5, 6}" << std::endl;
 
 
   // std::cout << "\nlist: ";
