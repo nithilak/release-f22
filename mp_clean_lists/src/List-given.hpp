@@ -137,10 +137,12 @@ void List<T>::print(ostream& os) const {
 template <class T>
 void List<T>::printv2(ostream& os) const {
     os << "<";
+    int count2 = 0;
     ListNode* curr = head_;
-    while (curr != NULL) {
+    while (curr != NULL && count2 < 100) {
         os << " " << curr->data;
         curr = curr->next;
+        count2++;
     }
     os << " >";
 
