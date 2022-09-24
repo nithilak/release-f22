@@ -82,6 +82,8 @@ int main() {
   list.reverse();
   list.printv2();
   std::cout << " expected: {5, 4, 3, 2, 1, 0}" << std::endl;
+  list.printv2back();
+  std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
 
 
   std::cout << "list01" << std::endl;
