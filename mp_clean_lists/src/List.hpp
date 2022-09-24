@@ -732,10 +732,6 @@ void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
     return;
   }
 
-  // if (startPoint == nullptr || endPoint == nullptr) {
-  //   return;
-  // }
-  
   if (endPoint == nullptr) {
     endPoint = startPoint;
     endPoint->prev = startPoint->prev;
@@ -756,102 +752,58 @@ void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
     return;
   }
 
+  if (startPoint -> next == endPoint) {
     ListNode* prev_both = startPoint->prev;
     ListNode* next_both = endPoint->next;
 
     ListNode* temp = startPoint;
     ListNode* temp2 = endPoint;
-
-    ListNode* temp_next = startPoint->next;
-    ListNode* temp2_prev = endPoint->prev;
     
-    if (prev_both != nullptr) {
-      prev_both->next = temp2;
-    } else {
-      head_ = temp2;
-    }
+    prev_both->next = temp2;
     temp2->prev = prev_both;
 
     temp->next = next_both;
-    if (next_both != nullptr) {
-      next_both->prev = temp;
-    } else {
-      tail_ = temp;
-    }
+    next_both->prev = temp;
 
-    //change this part
-
-    if (startPoint -> next == endPoint) {
-      temp2->next = temp;
-      temp->prev = temp2;
-    } else {
-      // ListNode* temp_next = temp->next;
-      // ListNode* temp2_prev = temp2->prev;
-
-      temp2->next = temp_next;
-      temp->prev = temp2_prev;
-    }
+    temp2->next = temp;
+    temp->prev = temp2;
 
     startPoint = temp2;
     endPoint = temp;
 
-
-  // if (startPoint -> next == endPoint) {
-  //   ListNode* prev_both = startPoint->prev;
-  //   ListNode* next_both = endPoint->next;
-
-  //   ListNode* temp = startPoint;
-  //   ListNode* temp2 = endPoint;
-    
-  //   prev_both->next = temp2;
-  //   temp2->prev = prev_both;
-
-  //   temp->next = next_both;
-  //   next_both->prev = temp;
-
-  //   temp2->next = temp;
-  //   temp->prev = temp2;
-
-  //   startPoint = temp2;
-  //   endPoint = temp;
-
-  //   return;
-  // }
-
-
-
-  //old code
+    return;
+  }
 
   
-  // ListNode* temp_prev = startPoint->prev;
-  // ListNode* temp_next = startPoint->next;
+  ListNode* temp_prev = startPoint->prev;
+  ListNode* temp_next = startPoint->next;
 
-  // ListNode* temp_prev2 = endPoint->prev;
-  // ListNode* temp_next2 = endPoint->next;
+  ListNode* temp_prev2 = endPoint->prev;
+  ListNode* temp_next2 = endPoint->next;
 
-  // ListNode* start_before = nullptr;
-  // ListNode* start_after = nullptr;
-  // ListNode* end_before = nullptr;
-  // ListNode* end_after = nullptr;
-  // if (temp_prev != nullptr) {
-  //   start_before = temp_prev->prev;      //before   //prev     // startPoint    //next    //after
-  // }
-  // if (temp_next != nullptr) {
-  //   start_after = temp_next->next;
-  // }
+  ListNode* start_before = nullptr;
+  ListNode* start_after = nullptr;
+  ListNode* end_before = nullptr;
+  ListNode* end_after = nullptr;
+  if (temp_prev != nullptr) {
+    start_before = temp_prev->prev;      //before   //prev     // startPoint    //next    //after
+  }
+  if (temp_next != nullptr) {
+    start_after = temp_next->next;
+  }
 
-  // if (temp_prev2 != nullptr) {
-  //   end_before = temp_prev2->prev;      //before   //prev     // endPoint    //next    //after
-  // }
-  // if (temp_next2 != nullptr) {
-  //   end_after = temp_next2->next;
-  // }
+  if (temp_prev2 != nullptr) {
+    end_before = temp_prev2->prev;      //before   //prev     // endPoint    //next    //after
+  }
+  if (temp_next2 != nullptr) {
+    end_after = temp_next2->next;
+  }
 
-  // startPoint->prev = endPoint->prev;
-  // startPoint->next = endPoint->next;
+  startPoint->prev = endPoint->prev;
+  startPoint->next = endPoint->next;
 
-  // endPoint->prev = temp_prev;
-  // endPoint->next = temp_next;
+  endPoint->prev = temp_prev;
+  endPoint->next = temp_next;
 
   //update the collatoral damage
 
@@ -870,9 +822,9 @@ void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
   // }
 
   
-  // ListNode* temp = startPoint;
-  // startPoint = endPoint;
-  // endPoint = temp;
+  ListNode* temp = startPoint;
+  startPoint = endPoint;
+  endPoint = temp;
 
   // ListNode* temp_prev = startPoint->prev;
   // startPoint->prev = endPoint->prev;
@@ -891,19 +843,19 @@ void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
   //startPoint and endPoint are now their opposite names
 
 
-  // if (temp_prev != nullptr) {
-  //   temp_prev -> next = startPoint;
-  // }
-  // if (temp_next != nullptr) {
-  //   temp_next -> prev = startPoint;
-  // }
+  if (temp_prev != nullptr) {
+    temp_prev -> next = startPoint;
+  }
+  if (temp_next != nullptr) {
+    temp_next -> prev = startPoint;
+  }
 
-  // if (temp_prev2 != nullptr) {
-  //   temp_prev2 -> next = endPoint;
-  // }
-  // if (temp_next2 != nullptr) {
-  //   temp_next2 -> prev = endPoint;
-  // }
+  if (temp_prev2 != nullptr) {
+    temp_prev2 -> next = endPoint;
+  }
+  if (temp_next2 != nullptr) {
+    temp_next2 -> prev = endPoint;
+  }
 
 
   std::cout  << "points: " << startPoint << " " << endPoint;
@@ -967,7 +919,7 @@ void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
   // std::cout << ">" << std::endl;
 
   // std::cout << temp_next->data << std::endl;
-  ListNode* curr = startPoint; // temp_next
+  ListNode* curr = temp_next;
   if (curr == head_) {
           // std::cout  << "head_: ";
         }
@@ -983,7 +935,7 @@ void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
         // std::cout  << "\n";
 
   // std::cout << temp_prev->data << std::endl;
-  curr = endPoint; // temp_prev2
+  curr = temp_prev2;
   if (curr == head_) {
           // std::cout  << "head_: ";
         }
