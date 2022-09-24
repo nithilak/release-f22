@@ -840,18 +840,18 @@ void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
     
     if (prev_both != nullptr) {
       prev_both->next = temp2;
-    } //else {
-    //   head_ = temp2; //not necessary, startPoint and endPoint are passed by ref
-    // }
+    } else {
+      head_ = temp2; //do not need this for it to work? //not necessary, startPoint and endPoint are passed by ref
+    }
     temp2->prev = prev_both;
     std::cout << "test" << std::endl;
 
     temp->next = next_both;
     if (next_both != nullptr) {
       next_both->prev = temp;
-    } //else {
-    //   tail_ = temp; //not necessary, startPoint and endPoint are passed by ref
-    // }
+    } else {
+      tail_ = temp; //do not need this for it to work? //not necessary, startPoint and endPoint are passed by ref
+    }
     std::cout << "test" << std::endl;
 
     temp2->next = temp;
