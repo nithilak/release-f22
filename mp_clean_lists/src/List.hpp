@@ -445,6 +445,7 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
     return;
   }
   std::cout << "test3" << std::endl;
+  std::cout << std::endl;
   // std::cout << "Swap: " << startPoint << " " << endPoint << std::endl;
   // std::cout << "Swap: " << startPoint->data << " " << endPoint->data << std::endl;
 
@@ -958,9 +959,9 @@ void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
 
   if (both_prev != nullptr) {
     both_prev -> next = temp2;
-  } // else {
-    // head_ = temp2;
-  // }
+  } else {
+    head_ = temp2;
+  }
   if (start_next != nullptr) {
     start_next -> prev = temp2;
   }
@@ -970,9 +971,9 @@ void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
   }
   if (both_next != nullptr) {
     both_next -> prev = temp;
-  } // else {
-    // tail_ = temp;
-  // }
+  } else {
+    tail_ = temp;
+  }
 
   // ListNode* temp = startPoint;
   // startPoint = endPoint;
@@ -981,9 +982,13 @@ void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
   startPoint = temp2;
   endPoint = temp;
 
-  while (head_->prev != nullptr) {
-    head_ = head_->prev;
-  }
+  // while (head_->prev != nullptr) {
+  //   head_ = head_->prev;
+  // }
+  // if (tail_->next != nullptr) {
+  //   tail_ = tail_->next;
+  //   tail_->next = nullptr;
+  // }
 
   // if (endPoint -> prev == nullptr) {
   //   head_ = endPoint;
