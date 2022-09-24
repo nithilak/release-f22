@@ -74,12 +74,32 @@ int main() {
   list.insertBack(5);
   list.printv2();
   std::cout << " expected: {0, 1, 2, 3, 4, 5}" << std::endl;
+  list.printv2back();
+  std::cout << " expected: {5, 4, 3, 2, 1, 0}" << std::endl;
   std::cout << "list.size() : " << list.size() << " expected: 6" << std::endl; 
   std::cout << "list.empty() : " << list.empty() << " expected: false" << std::endl; 
   std::cout << "list.reverse(): " << std::endl;
   list.reverse();
   list.printv2();
   std::cout << " expected: {5, 4, 3, 2, 1, 0}" << std::endl;
+
+
+  std::cout << "list01" << std::endl;
+  List<int> list01;
+  list01.insertBack(0);
+  list01.insertBack(1);
+  list01.printv2();
+  std::cout << " expected: {0, 1}" << std::endl;
+  list01.printv2back();
+  std::cout << " expected: {1, 0}" << std::endl;
+  std::cout << "list.size() : " << list01.size() << " expected: 2" << std::endl; 
+  std::cout << "list.empty() : " << list01.empty() << " expected: false" << std::endl; 
+  list01.reverse();
+  list01.printv2();
+  std::cout << " expected: {1, 0}" << std::endl;
+  list01.printv2back();
+  std::cout << " expected: {0, 1}" << std::endl;
+
 
   // std::cout << "\nlist: ";
   // list.printv2();

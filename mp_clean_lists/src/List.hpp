@@ -435,13 +435,13 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   if (startPoint == endPoint || startPoint == nullptr || endPoint == nullptr) {
     return;
   }
-  // if (startPoint->next == endPoint) {
-  //   std::cout << "Swap: " << startPoint << " " << endPoint << std::endl;
-  //   std::cout << "Swap: " << startPoint->data << " " << endPoint->data << std::endl;
-  //   Swap(startPoint, endPoint);
-  //   std::cout << "result: " << startPoint << " " << endPoint << std::endl;
-  //   return;
-  // }
+  if (startPoint->next == endPoint) {
+    std::cout << "Swap: " << startPoint << " " << endPoint << std::endl;
+    std::cout << "Swap: " << startPoint->data << " " << endPoint->data << std::endl;
+    Swap(startPoint, endPoint);
+    std::cout << "result: " << startPoint << " " << endPoint << std::endl;
+    return;
+  }
   // std::cout << "Swap: " << startPoint << " " << endPoint << std::endl;
   // std::cout << "Swap: " << startPoint->data << " " << endPoint->data << std::endl;
 
@@ -495,10 +495,31 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   // reverse(&*begin(), NULL); 
 
 
+  //current != endpoint
+  //endPoint should not be nullptr
+  ListNode* current = startPoint;
+  do {
+    ListNode* temp = current;
+    current = current->next;
+    ListNode* temp_prev = temp->prev;
+    ListNode* temp_next = temp->next;
+    temp->prev = temp_next;
+    temp->next = temp_prev;
+  } while (current != endPoint) ;
+  //current == endpoint
+  //endPoint should not be nullptr
+
+  if (startPoint == head_) {
+    head_ = endPoint;
+  }
+  if (endPoint == tail_) {
+    tail_ = startPoint;
+  }
   
-
-
-
+  ListNode* temp_start = startPoint;
+  ListNode* temp_end = endPoint;
+  startPoint = temp_end;
+  endPoint = temp_start;
 
   if (startPoint != nullptr && startPoint->next == endPoint) {
     return;
@@ -767,31 +788,46 @@ void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
   ListNode* temp2 = endPoint;
 
   if (startPoint -> next == endPoint) {
+    std::cout << "test" << std::endl;
     ListNode* prev_both = startPoint->prev;
     ListNode* next_both = endPoint->next;
+    std::cout << "test" << std::endl;
     
-    prev_both->next = temp2;
+    if (prev_both != nullptr) {
+      prev_both->next = temp2;
+    } //else {
+    //   head_ = temp2; //not necessary, startPoint and endPoint are passed by ref
+    // }
     temp2->prev = prev_both;
+    std::cout << "test" << std::endl;
 
     temp->next = next_both;
-    next_both->prev = temp;
+    if (next_both != nullptr) {
+      next_both->prev = temp;
+    } //else {
+    //   tail_ = temp; //not necessary, startPoint and endPoint are passed by ref
+    // }
+    std::cout << "test" << std::endl;
 
     temp2->next = temp;
     temp->prev = temp2;
+    std::cout << "test" << std::endl;
 
 
     // while (head_->prev != nullptr) {
     //   head_ = head_->prev;
     // }
-    if (prev_both == nullptr) {
-      head_ = temp2;
-    }
-    if (next_both == nullptr) {
-      tail_ = temp;
-    }
+    // if (prev_both == nullptr) {
+    //   head_ = temp2;
+    // }
+    // if (next_both == nullptr) {
+    //   tail_ = temp;
+    // }
+    std::cout << "test" << std::endl;
 
     startPoint = temp2;
     endPoint = temp;
+    std::cout << "test" << std::endl;
 
     return;
   }

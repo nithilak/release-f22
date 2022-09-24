@@ -216,6 +216,7 @@ class List {
 
     //print, but better to show more information
     void printv2(ostream& os = std::cout) const; // = std::cout copied from other print function
+    void printv2back(ostream& os = std::cout) const; // same as printv2 but backwards
 
   private:
     /*

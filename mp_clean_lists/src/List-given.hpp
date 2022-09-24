@@ -173,6 +173,45 @@ void List<T>::printv2(ostream& os) const {
     }
 }
 
+template <class T>
+void List<T>::printv2back(ostream& os) const {
+    os << "<";
+    int count2 = 0;
+    ListNode* curr = tail_;
+    while (curr != NULL && count2 < 100) {
+        os << " " << curr->data;
+        curr = curr->prev;
+        count2++;
+    }
+    os << " >";
+
+    os << "\n";
+
+    curr = tail_;
+    int count = 0;
+    while (curr != NULL && count < 100) {
+        // os << " " << curr->data;
+
+        if (curr == head_) {
+            os << "head_: ";
+        }
+        if (curr == tail_) {
+            os << "tail_: ";
+        }
+
+        if (curr == NULL) {
+            os << "NULL ";
+        } else {
+            os << "curr_->prev: " << curr->prev << " curr: " << curr << " curr->data: " << curr->data << " curr->next: " << curr->next;
+        }
+        os << "\n";
+
+
+        curr = curr->prev;
+        count++;
+    }
+}
+
 // overloaded operator<<
 template <class T>
 ostream& operator<<(ostream& os, const List<T>& list) {
