@@ -432,9 +432,11 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   /// @todo Graded in MP3.2
   std::cout << "start reverse: " << startPoint << " " << endPoint << std::endl;
   std::cout << "data: " << startPoint->data << " " << endPoint->data << std::endl;
+  std::cout << "test1" << std::endl;
   if (startPoint == endPoint || startPoint == nullptr || endPoint == nullptr) {
     return;
   }
+  std::cout << "test2" << std::endl;
   if (startPoint->next == endPoint) {
     std::cout << "Swap: " << startPoint << " " << endPoint << std::endl;
     std::cout << "Swap: " << startPoint->data << " " << endPoint->data << std::endl;
@@ -442,6 +444,7 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
     std::cout << "result: " << startPoint << " " << endPoint << std::endl;
     return;
   }
+  std::cout << "test3" << std::endl;
   // std::cout << "Swap: " << startPoint << " " << endPoint << std::endl;
   // std::cout << "Swap: " << startPoint->data << " " << endPoint->data << std::endl;
 
@@ -494,19 +497,32 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   // // std::cout << "begin() -> next == startIter" << (begin() -> next == startIter) << std::endl;
   // reverse(&*begin(), NULL); 
 
+  ListNode* temp_start = startPoint;
+  ListNode* temp_end = endPoint;
+  std::cout << "test4" << std::endl;
 
   //current != endpoint
+  //current->next != endpoint
   //endPoint should not be nullptr
-  ListNode* current = startPoint;
-  do {
-    ListNode* temp = current;
+  ListNode* current = temp_start;
+  std::cout << "test5" << std::endl;
+  while (current != nullptr) {
+    ListNode*& temp = current;
+    std::cout << "test6" << std::endl;
+    ListNode*& temp_prev = temp->prev;
+    // ListNode*& temp_next = temp->prev;
+    std::cout << "test7" << std::endl;
     current = current->next;
-    ListNode* temp_prev = temp->prev;
-    ListNode* temp_next = temp->next;
-    temp->prev = temp_next;
-    temp->next = temp_prev;
-  } while (current != endPoint) ;
-  //current == endpoint
+    if (temp != nullptr) {
+      std::cout << "test8" << std::endl;
+      temp->prev = current;
+      std::cout << "test9" << std::endl;
+      temp->next = temp_prev;
+    }
+    std::cout << "test10" << std::endl;
+  }
+  std::cout << "test11" << std::endl;
+  //current == nullptr
   //endPoint should not be nullptr
  
   // if (startPoint == head_) { //not necessary, in this case head_ and tail_ are passed by ref
@@ -516,14 +532,32 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   //   tail_ = startPoint;
   // }
   
-  ListNode* temp_start = startPoint;
-  ListNode* temp_end = endPoint;
+  // ListNode* temp_start = startPoint;
+  // ListNode* temp_end = endPoint;
   startPoint = temp_end;
+  std::cout << "test12" << std::endl;
   endPoint = temp_start;
+  std::cout << "test13" << std::endl;
+  if (startPoint != nullptr && temp_end != nullptr) {
+    startPoint->next = temp_end->next;
+    std::cout << "test14" << std::endl;
+    startPoint->prev = temp_end->prev;
+    std::cout << "test15" << std::endl;
+  }
+  std::cout << "test16" << std::endl;
+  if (endPoint != nullptr && temp_start != nullptr) {
+    endPoint->next = temp_start->next;
+    std::cout << "test17" << std::endl;
+    endPoint->prev = temp_start->prev;
+    std::cout << "test18" << std::endl;
+  }
+  std::cout << "test19" << std::endl;
 
   if (startPoint != nullptr && startPoint->next == endPoint) {
+    std::cout << "test20" << std::endl;
     return;
   }
+  std::cout << "test21" << std::endl;
 
   // reverse(startPoint->next, endPoint->prev);
   std::cout << "end reverse: " << startPoint << " " << endPoint << std::endl;
@@ -1045,3 +1079,14 @@ void List<T>::Swap(ListNode *& startPoint, ListNode *& endPoint) {
   // printv2();
   // printv2back();
 }
+
+template <typename T>
+void List<T>::Swapbasic(ListNode *& startPoint, ListNode *& endPoint) {
+  if (startPoint == endPoint || startPoint == nullptr || endPoint == nullptr) {
+    return;
+  }
+  ListNode* temp = startPoint;
+  startPoint = endPoint;
+  endPoint = temp;
+}
+

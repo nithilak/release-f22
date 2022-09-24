@@ -213,6 +213,7 @@ class List {
     //copied from List.hpp
     //copied from List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
     void Swap(ListNode *& startPoint, ListNode *& endPoint);
+    void Swapbasic(ListNode *& startPoint, ListNode *& endPoint);
 
     //print, but better to show more information
     void printv2(ostream& os = std::cout) const; // = std::cout copied from other print function
