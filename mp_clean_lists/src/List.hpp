@@ -508,13 +508,13 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   } while (current != endPoint) ;
   //current == endpoint
   //endPoint should not be nullptr
-
-  if (startPoint == head_) {
-    head_ = endPoint;
-  }
-  if (endPoint == tail_) {
-    tail_ = startPoint;
-  }
+ 
+  // if (startPoint == head_) { //not necessary, in this case head_ and tail_ are passed by ref
+  //   head_ = endPoint;
+  // }
+  // if (endPoint == tail_) {
+  //   tail_ = startPoint;
+  // }
   
   ListNode* temp_start = startPoint;
   ListNode* temp_end = endPoint;
