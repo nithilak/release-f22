@@ -508,18 +508,24 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   std::cout << "test5" << std::endl;
   while (current != nullptr) {
     ListNode*& temp = current;
+    std::cout << "insert before" << std::endl;
+    printPointAndData(temp);
     std::cout << "test6" << std::endl;
-    ListNode*& temp_prev = temp->prev;
-    // ListNode*& temp_next = temp->prev;
-    std::cout << "test7" << std::endl;
-    current = current->next;
+    ListNode* temp_prev = temp->prev;
+    ListNode* temp_next = temp->next;
+     std::cout << "test7.0" << std::endl;
+    std::cout << "test7.1" << std::endl;
     if (temp != nullptr) {
+      temp->prev = temp_next;
       std::cout << "test8" << std::endl;
-      temp->prev = current;
-      std::cout << "test9" << std::endl;
       temp->next = temp_prev;
+      std::cout << "test9" << std::endl;
     }
     std::cout << "test10" << std::endl;
+    current = temp_next;
+    std::cout << "insert after" << std::endl;
+    printPointAndData(temp);
+    std::cout << "test102" << std::endl;
   }
   std::cout << "test11" << std::endl;
   //current == nullptr
@@ -1090,3 +1096,93 @@ void List<T>::Swapbasic(ListNode *& startPoint, ListNode *& endPoint) {
   endPoint = temp;
 }
 
+
+template <typename T>
+void List<T>::printPointsAndData(const ListNode *& startPoint, const ListNode *& endPoint) {
+  std::cout  << "points: " << startPoint << " " << endPoint;
+  std::cout  << " data: ";
+  if (startPoint != nullptr) {
+    std::cout  << startPoint->data << " ";
+  } else {
+    std::cout  << "nan" << " ";
+  }
+  if (endPoint != nullptr) {
+    std::cout  << endPoint->data << " ";
+  } else {
+    std::cout  << "nan" << " ";
+  }
+  std::cout  << std::endl;
+
+  std::cout  << "before: " << startPoint->prev << " " << endPoint->prev;
+  std::cout  << " data: ";
+  if (startPoint->prev != nullptr) {
+    std::cout  << startPoint->prev->data << " ";
+  } else {
+    std::cout  << "nan" << " ";
+  }
+  if (endPoint->prev != nullptr) {
+    std::cout  << endPoint->prev->data << " ";
+  } else {
+    std::cout  << "nan" << " ";
+  }
+  std::cout  << std::endl;
+  
+  std::cout  << "after: " << startPoint->next << " " << endPoint->next;
+  std::cout  << " data: ";
+  if (startPoint->next != nullptr) {
+    std::cout  << startPoint->next->data << " ";
+  } else {
+    std::cout  << "nan" << " ";
+  }
+  if (endPoint->next != nullptr) {
+    std::cout  << endPoint->next->data << " ";
+  } else {
+    std::cout  << "nan" << " ";
+  }
+  std::cout  << std::endl;
+}
+
+template <typename T>
+void List<T>::printPointAndData(ListNode *& startPoint) {
+  std::cout  << "points: " << startPoint; //  << " " << endPoint;
+  std::cout  << " data: ";
+  if (startPoint != nullptr) {
+    std::cout  << startPoint->data << " ";
+  } else {
+    std::cout  << "nan" << " ";
+  }
+  // if (endPoint != nullptr) {
+  //   std::cout  << endPoint->data << " ";
+  // } else {
+  //   std::cout  << "nan" << " ";
+  // }
+  std::cout  << std::endl;
+
+  std::cout  << "before: " << startPoint->prev; //  << " " << endPoint->prev;
+  std::cout  << " data: ";
+  if (startPoint->prev != nullptr) {
+    std::cout  << startPoint->prev->data << " ";
+  } else {
+    std::cout  << "nan" << " ";
+  }
+  // if (endPoint->prev != nullptr) {
+  //   std::cout  << endPoint->prev->data << " ";
+  // } else {
+  //   std::cout  << "nan" << " ";
+  // }
+  std::cout  << std::endl;
+  
+  std::cout  << "after: " << startPoint->next; //  << " " << endPoint->next;
+  std::cout  << " data: ";
+  if (startPoint->next != nullptr) {
+    std::cout  << startPoint->next->data << " ";
+  } else {
+    std::cout  << "nan" << " ";
+  }
+  // if (endPoint->next != nullptr) {
+  //   std::cout  << endPoint->next->data << " ";
+  // } else {
+  //   std::cout  << "nan" << " ";
+  // }
+  std::cout  << std::endl;
+}
