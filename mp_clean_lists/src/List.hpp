@@ -448,24 +448,28 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   // std::cout << "Swap: " << startPoint << " " << endPoint << std::endl;
   // std::cout << "Swap: " << startPoint->data << " " << endPoint->data << std::endl;
 
-  // ListNode* start = startPoint;
-  // ListNode* end = endPoint;
-  // while (startPoint != endPoint) {
-  //   if (startPoint == nullptr || endPoint == nullptr) {
-  //     break;
-  //   }
-  //   if (startPoint->next == endPoint) {
-  //     Swap(startPoint, endPoint);
-  //     break;
-  //   }
-  //   Swap(startPoint, endPoint);
-  //   printv2();
-  //   startPoint = startPoint -> next;
-  //   endPoint = endPoint -> prev;
-  // }
+  ListNode* start = startPoint;
+  ListNode* end = endPoint;
+  while (startPoint != endPoint) {
+    if (startPoint == nullptr || endPoint == nullptr) {
+      break;
+    }
+    if (startPoint->next == endPoint) {
+      Swap(startPoint, endPoint);
+      break;
+    }
+    Swap(startPoint, endPoint);
+    std::cout << std::endl;
+    printv2();
+    std::cout << std::endl;
+    printv2back();
+    std::cout << std::endl;
+    startPoint = startPoint -> next;
+    endPoint = endPoint -> prev;
+  }
 
-  // endPoint = start;
-  // startPoint = end;
+  endPoint = start;
+  startPoint = end;
 
   // Swap(startPoint, endPoint);
   // printv2back();
@@ -497,73 +501,73 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   // // std::cout << "begin() -> next == startIter" << (begin() -> next == startIter) << std::endl;
   // reverse(&*begin(), NULL); 
 
-  ListNode* temp_start = startPoint;
-  ListNode* temp_end = endPoint;
-  std::cout << "test4" << std::endl;
+  // ListNode* temp_start = startPoint;
+  // ListNode* temp_end = endPoint;
+  // std::cout << "test4" << std::endl;
 
   //current != endpoint
   //current->next != endpoint
   //endPoint should not be nullptr
-  ListNode* current = temp_start;
-  std::cout << "test5" << std::endl;
-  while (current != nullptr) {
-    ListNode*& temp = current;
-    std::cout << "insert before" << std::endl;
-    printPointAndData(temp);
-    std::cout << "test6" << std::endl;
-    ListNode* temp_prev = temp->prev;
-    ListNode* temp_next = temp->next;
-     std::cout << "test7.0" << std::endl;
-    std::cout << "test7.1" << std::endl;
-    if (temp != nullptr) {
-      temp->prev = temp_next;
-      std::cout << "test8" << std::endl;
-      temp->next = temp_prev;
-      std::cout << "test9" << std::endl;
-    }
-    std::cout << "test10" << std::endl;
-    current = temp_next;
-    std::cout << "insert after" << std::endl;
-    printPointAndData(temp);
-    std::cout << "test102" << std::endl;
-  }
-  std::cout << "test11" << std::endl;
-  //current == nullptr
-  //endPoint should not be nullptr
+  // ListNode* current = temp_start;
+  // std::cout << "test5" << std::endl;
+  // while (current != nullptr) {
+  //   ListNode*& temp = current;
+  //   std::cout << "insert before" << std::endl;
+  //   printPointAndData(temp);
+  //   std::cout << "test6" << std::endl;
+  //   ListNode* temp_prev = temp->prev;
+  //   ListNode* temp_next = temp->next;
+  //    std::cout << "test7.0" << std::endl;
+  //   std::cout << "test7.1" << std::endl;
+  //   if (temp != nullptr) {
+  //     temp->prev = temp_next;
+  //     std::cout << "test8" << std::endl;
+  //     temp->next = temp_prev;
+  //     std::cout << "test9" << std::endl;
+  //   }
+  //   std::cout << "test10" << std::endl;
+  //   current = temp_next;
+  //   std::cout << "insert after" << std::endl;
+  //   printPointAndData(temp);
+  //   std::cout << "test102" << std::endl;
+  // }
+  // std::cout << "test11" << std::endl;
+  // //current == nullptr
+  // //endPoint should not be nullptr
  
-  // if (startPoint == head_) { //not necessary, in this case head_ and tail_ are passed by ref
-  //   head_ = endPoint;
-  // }
-  // if (endPoint == tail_) {
-  //   tail_ = startPoint;
-  // }
+  // // if (startPoint == head_) { //not necessary, in this case head_ and tail_ are passed by ref
+  // //   head_ = endPoint;
+  // // }
+  // // if (endPoint == tail_) {
+  // //   tail_ = startPoint;
+  // // }
   
-  // ListNode* temp_start = startPoint;
-  // ListNode* temp_end = endPoint;
-  startPoint = temp_end;
-  std::cout << "test12" << std::endl;
-  endPoint = temp_start;
-  std::cout << "test13" << std::endl;
-  if (startPoint != nullptr && temp_end != nullptr) {
-    startPoint->next = temp_end->next;
-    std::cout << "test14" << std::endl;
-    startPoint->prev = temp_end->prev;
-    std::cout << "test15" << std::endl;
-  }
-  std::cout << "test16" << std::endl;
-  if (endPoint != nullptr && temp_start != nullptr) {
-    endPoint->next = temp_start->next;
-    std::cout << "test17" << std::endl;
-    endPoint->prev = temp_start->prev;
-    std::cout << "test18" << std::endl;
-  }
-  std::cout << "test19" << std::endl;
+  // // ListNode* temp_start = startPoint;
+  // // ListNode* temp_end = endPoint;
+  // startPoint = temp_end;
+  // std::cout << "test12" << std::endl;
+  // endPoint = temp_start;
+  // std::cout << "test13" << std::endl;
+  // if (startPoint != nullptr && temp_end != nullptr) {
+  //   startPoint->next = temp_end->next;
+  //   std::cout << "test14" << std::endl;
+  //   startPoint->prev = temp_end->prev;
+  //   std::cout << "test15" << std::endl;
+  // }
+  // std::cout << "test16" << std::endl;
+  // if (endPoint != nullptr && temp_start != nullptr) {
+  //   endPoint->next = temp_start->next;
+  //   std::cout << "test17" << std::endl;
+  //   endPoint->prev = temp_start->prev;
+  //   std::cout << "test18" << std::endl;
+  // }
+  // std::cout << "test19" << std::endl;
 
-  if (startPoint != nullptr && startPoint->next == endPoint) {
-    std::cout << "test20" << std::endl;
-    return;
-  }
-  std::cout << "test21" << std::endl;
+  // if (startPoint != nullptr && startPoint->next == endPoint) {
+  //   std::cout << "test20" << std::endl;
+  //   return;
+  // }
+  // std::cout << "test21" << std::endl;
 
   // reverse(startPoint->next, endPoint->prev);
   std::cout << "end reverse: " << startPoint << " " << endPoint << std::endl;
