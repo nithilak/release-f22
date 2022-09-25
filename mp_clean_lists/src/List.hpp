@@ -600,7 +600,7 @@ void List<T>::reverseNth(int n) {
 
   // reverse(current, current_last);
 
-  //                 //meant to be truncated here
+  //                 //meant to be truncated here //this part is important (current_last != nullptr) //could be optimized to be better here!
   for (int count = size()/n; current != nullptr && current_last != nullptr && count > 0; count--) {
     reverse(current, current_last);
     current = current_last->next;
@@ -610,7 +610,7 @@ void List<T>::reverseNth(int n) {
   }
 
   if (current != nullptr) {
-    reverse(current->prev, tail_);
+    reverse(current, tail_);
   }
 
 }

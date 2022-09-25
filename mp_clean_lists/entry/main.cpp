@@ -220,18 +220,35 @@ int main() {
   
 
   // // mp part 2
+  // std::cout << std::endl;
+  // std::cout << "list.reverseNth(3): " << std::endl;
+  // std::cout << std::endl;
+  // list.print();
+  // std::cout << std::endl;
+  // list.reverseNth(3);
+  // std::cout << std::endl;
+  // list.printv2();
+  // std::cout << " expected: {2, 1, 0, 5, 4, 3}"<< std::endl;
+  // std::cout << std::endl;
+  // list.printv2back();
+  // std::cout << " expected: {3, 4, 5, 0, 1, 2}"<< std::endl;
+
   std::cout << std::endl;
-  std::cout << "list.reverseNth(3): " << std::endl;
+  std::cout << "list.reverseNth(4): " << std::endl;
   std::cout << std::endl;
-  list.print();
+  list.print(); // {0, 1, 2, 3, 4, 5}
   std::cout << std::endl;
-  list.reverseNth(3);
+  list.reverseNth(4);
   std::cout << std::endl;
   list.printv2();
-  std::cout << " expected: {2, 1, 0, 5, 4, 3}"<< std::endl;
+  std::cout << " expected: {3, 2, 1, 0, 5, 4}"<< std::endl;
   std::cout << std::endl;
   list.printv2back();
-  std::cout << " expected: {3, 4, 5, 0, 1, 2}"<< std::endl;
+  std::cout << " expected: {4, 5, 0, 1, 2, 3}"<< std::endl;
+
+
+
+
   // std::cout << "list.reverseNth(4): " << std::endl;
   // list.reverseNth(4);
   // list.printv2();
