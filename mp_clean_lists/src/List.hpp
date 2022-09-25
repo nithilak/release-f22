@@ -659,35 +659,34 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   ListNode* current_two = second;
   if (current_one == nullptr && current_two == nullptr) {
     return output;
-  }
-  if (current_one == nullptr) {
+  } else if (current_one == nullptr) {
     return current_two;
   } else if (current_two == nullptr) {
     return current_one;
   }
   //no more nullptr cases
 
-  if (current_one != nullptr && current_two != nullptr) {
+  // if (current_one != nullptr && current_two != nullptr) {
     if (current_two->data < current_one->data ) {
       output = current_one;
+      current_one = current_one->next;
     } else {
       output = current_two;
+      current_two = current_two->next;
     }
-    current_one = current_one->next;
-    current_two = current_two->next;
-  }
+  // }
 
   ListNode* temp = output;
 
   while (current_one != nullptr && current_two != nullptr) {
     if (current_two->data < current_one->data) {
       output->next = current_one;
+      current_one = current_one->next;
     } else {
       output->next = current_two;
+      current_two = current_two->next;
     }
     output = output->next;
-    current_one = current_one->next;
-    current_two = current_two->next;
   }
 
   if (current_one != nullptr) {

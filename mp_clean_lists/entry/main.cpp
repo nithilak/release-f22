@@ -352,5 +352,55 @@ int main() {
   // list.printv2();
   // std::cout << " expected (call reverse): {6, 5, 2, 4, 3, 1, 0}" << std::endl;
 
+  // list.reverse();
+  List<int> list2;
+
+  // list2.insertBack(2);
+  // list2.insertBack(6);
+  // list2.insertBack(9);
+  // list2.insertBack(4);
+  // list2.insertBack(8);
+  // list2.insertBack(43);
+  // list2.insertBack(2);
+  // list2.insertBack(200);
+  // list2.insertBack(2);
+  // list2.insertBack(235);
+  // list2.insertBack(8675);
+  // list2.insertBack(-1);
+  // list2.insertBack(-5);
+  // list2.insertBack(132);
+  // list2.insertBack(7);
+
+  list2.insertBack(-5);
+  list2.insertBack(-1);
+  list2.insertBack(2);
+  list2.insertBack(2);
+  list2.insertBack(2);
+  list2.insertBack(4);
+  list2.insertBack(6);
+  list2.insertBack(9);
+  list2.insertBack(7);
+  list2.insertBack(8);
+  list2.insertBack(43);
+  list2.insertBack(132);
+  list2.insertBack(200);
+  list2.insertBack(235);
+  list2.insertBack(8675);
+
+
+  //mergeWith
+  list.mergeWith(list2);
+  list2.printv2();
+  std::cout << " expected: {}" << std::endl;
+  list2.printv2back();
+  std::cout << " expected: {}" << std::endl;
+  list.printv2();
+  std::cout << " expected: {-5, -1, 0, 1, 2, 2, 2, 2, 3, 4, 4, 5, 6, 7, 8, 9, 43, 132, 200, 235, 8675}" << std::endl;
+  list.printv2back();
+  std::cout << " expected: {8675, 235, 200, 132, 43, 9, 8, 7, 6, 5, 4, 4, 3, 2, 2, 2, 2, 2, 0, -1, -5}" << std::endl;
+
+  //mergesort
+  // list.merge();
+
   return 0;
 }
