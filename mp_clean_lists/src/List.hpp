@@ -585,25 +585,34 @@ template <typename T>
 void List<T>::reverseNth(int n) {
   /// @todo Graded in MP3.2
   if (n > size()) {
-    reverse();
+    reverse(head_, tail_);
+    return;
+  }
+  if (n <= 1) {
     return;
   }
 
   ListNode* current = head_;
-  for (int count = size(); current != nullptr && count >= n; count -= n) {
-    ListNode* temp = current;
-    for (int i = 0; i < n; i++) {
-      if (current->next != nullptr) {
-        current = current->next;
-      } else {
-        break;
-      }
+  ListNode* current_last = head_;
+  for (int i = 0; current_last != nullptr && i + 1 < n; i++) {
+    current_last = current_last->next;
+  }
+
+  // reverse(current, current_last);
+
+  //                 //meant to be truncated here
+  for (int count = size()/n; current != nullptr && current_last != nullptr && count > 0; count--) {
+    reverse(current, current_last);
+    current = current_last->next;
+    for (int i = 0; current_last != nullptr && i < n; i++) {
+      current_last = current_last->next;
     }
-    reverse(temp, current);
   }
+
   if (current != nullptr) {
-    reverse(current, tail_);
+    reverse(current->prev, tail_);
   }
+
 }
 
 
