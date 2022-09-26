@@ -751,6 +751,7 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   head_ = temp;
   // tail_ = output; //taken care of by mergeWith, I think
   while (tail_->next != nullptr) {
+    tail_->next->prev = tail_; //just making sure, it gets broken later but not sure how it fix it in a more efficient way
     tail_ = tail_->next;
   }
   return temp;
