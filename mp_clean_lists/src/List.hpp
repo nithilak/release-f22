@@ -624,6 +624,8 @@ void List<T>::reverseNth(int n) {
 template <typename T>
 void List<T>::mergeWith(List<T> & otherList) {
     // set up the current list
+    std::cout << "mergeWith" << std::endl;
+    printPointsAndData(head_, otherList.head_);
     head_ = merge(head_, otherList.head_);
     tail_ = head_;
 
@@ -657,6 +659,7 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   ListNode* output = nullptr; //ok compiler, I'll initialize this to nullptr
   ListNode* current_one = first;
   ListNode* current_two = second;
+  printPointsAndData(first, second);
   if (current_one == nullptr && current_two == nullptr) {
     return output;
   } else if (current_one == nullptr) {
@@ -666,25 +669,41 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   }
   //no more nullptr cases
 
-  // if (current_one != nullptr && current_two != nullptr) {
-    if (current_two->data < current_one->data ) {
+  if (current_one != nullptr && current_two != nullptr) {
+    std::cout << "first data: " << current_two->data <<  " , " <<  current_one->data << std::endl;
+    std::cout << "first next data: " << current_two->next->data <<  " , " <<  current_one->next->data << std::endl;
+    std::cout << "expect true: " << (current_one->data < current_two->data) << std::endl;
+    if (current_one->data < current_two->data) {
+      std::cout << "data: " << current_two->data <<  " < " <<  current_one->data << std::endl;
       output = current_one;
       current_one = current_one->next;
     } else {
+      std::cout << "data: " << current_two->data <<  " >= " <<  current_one->data << std::endl;
       output = current_two;
       current_two = current_two->next;
     }
-  // }
+    std::cout << "updated data: " << current_two->data <<  " , " <<  current_one->data << std::endl;
+  }
 
+  output->next = nullptr;
   ListNode* temp = output;
+  head_ = temp;
 
-  while (current_one != nullptr && current_two != nullptr) {
-    if (current_two->data < current_one->data) {
+  while (output != nullptr) {
+    output->next = nullptr;
+    print(); std::cout << std::endl;
+    printPointsAndData(current_one, current_two);
+    if (current_one->data < current_two->data) {
+      std::cout << "data < : "; printPointsAndData(current_one, current_two);
       output->next = current_one;
       current_one = current_one->next;
     } else {
+      std::cout << "data > : "; printPointsAndData(current_one, current_two);
       output->next = current_two;
       current_two = current_two->next;
+    }
+    if (current_one == nullptr || current_two == nullptr) {
+      break;
     }
     output = output->next;
   }
@@ -695,13 +714,15 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
       output = output->next;
       current_one = current_one->next;
     }
-  } else {
+  } else if (current_two != nullptr) {
     while (current_two != nullptr) {
       output->next = current_two;
       output = output->next;
       current_two = current_two->next;
     }
   }
+  head_ = temp;
+  tail_ = output;
   return temp;
 }
 
@@ -1115,7 +1136,7 @@ void List<T>::Swapbasic(ListNode *& startPoint, ListNode *& endPoint) {
 
 
 template <typename T>
-void List<T>::printPointsAndData(const ListNode *& startPoint, const ListNode *& endPoint) {
+void List<T>::printPointsAndData(ListNode * startPoint, ListNode * endPoint) {
   std::cout  << "points: " << startPoint << " " << endPoint;
   std::cout  << " data: ";
   if (startPoint != nullptr) {
@@ -1160,7 +1181,7 @@ void List<T>::printPointsAndData(const ListNode *& startPoint, const ListNode *&
 }
 
 template <typename T>
-void List<T>::printPointAndData(ListNode *& startPoint) {
+void List<T>::printPointAndData(const ListNode *& startPoint) {
   std::cout  << "points: " << startPoint; //  << " " << endPoint;
   std::cout  << " data: ";
   if (startPoint != nullptr) {

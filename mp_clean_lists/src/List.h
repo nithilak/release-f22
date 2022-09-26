@@ -219,8 +219,8 @@ class List {
     void printv2(ostream& os = std::cout) const; // = std::cout copied from other print function
     void printv2back(ostream& os = std::cout) const; // same as printv2 but backwards
 
-    void printPointsAndData(const ListNode *& startPoint, const ListNode *& endPoint);
-    void printPointAndData(ListNode *& startPoint);
+    void printPointsAndData(ListNode * startPoint, ListNode * endPoint);
+    void printPointAndData(const ListNode *& startPoint);
 
   private:
     /*
