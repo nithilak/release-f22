@@ -659,7 +659,7 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   ListNode* output = nullptr; //ok compiler, I'll initialize this to nullptr
   ListNode* current_one = first;
   ListNode* current_two = second;
-  // std::cout << "merge: "; printPointsAndData(first, second); std::cout << std::endl;
+  std::cout << "merge: "; printPointsAndData(first, second); std::cout << std::endl;
   if (current_one == nullptr && current_two == nullptr) {
     return output;
   } else if (current_one == nullptr) {
@@ -670,68 +670,89 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   //no more nullptr cases
 
   if (current_one != nullptr && current_two != nullptr) {
-    // std::cout << "first data: " << current_two->data <<  " , " <<  current_one->data << std::endl;
-    // std::cout << "first next data: " << current_two->next->data <<  " , " <<  current_one->next->data << std::endl;
-    // std::cout << "expect true: " << (current_one->data < current_two->data) << std::endl;
+    std::cout << "first data: "; printPointsAndData(current_one, current_two); std::cout << std::endl;
+    std::cout << "expect false: " << (current_one->data < current_two->data) << std::endl;
     if (current_one->data < current_two->data) {
-      // std::cout << "data: " << current_two->data <<  " < " <<  current_one->data << std::endl;
+      std::cout << "data: " << current_one->data <<  " < " <<  current_two->data << std::endl;
       output = current_one;
       current_one = current_one->next;
     } else {
-      // std::cout << "data: " << current_two->data <<  " >= " <<  current_one->data << std::endl;
+      std::cout << "data: " << current_one->data <<  " >= " <<  current_two->data << std::endl;
       output = current_two;
       current_two = current_two->next;
     }
-    // std::cout << "updated data: " << current_two->data <<  " , " <<  current_one->data << std::endl;
+    std::cout << "updated data: " << current_one->data <<  " , " <<  current_two->data << std::endl;
   }
 
-  output->next = nullptr;
+  // output->next = nullptr;
   ListNode* temp = output;
   head_ = temp;
 
   while (output != nullptr) {
     output->next = nullptr;
-    // print(); std::cout << std::endl;
-    // printPointsAndData(current_one, current_two);
+    print(); std::cout << std::endl;
+    printPointsAndData(current_one, current_two);
     if (current_one->data < current_two->data) {
-      // std::cout << "data < : "; printPointsAndData(current_one, current_two);
+      std::cout << "data < : "; printPointsAndData(current_one, current_two);
       output->next = current_one;
       current_one = current_one->next;
     } else {
-      // std::cout << "data > : "; printPointsAndData(current_one, current_two);
+      std::cout << "data > : "; printPointsAndData(current_one, current_two);
       output->next = current_two;
       current_two = current_two->next;
     }
+    print(); std::cout << std::endl;
+    std::cout << "updated dat2a: "; printPointsAndData(current_one, current_two);
+    std::cout << "test" << std::endl;
     if (current_one == nullptr || current_two == nullptr) {
+      tail_ = output;
+      if (current_one == nullptr) {
+        std::cout << "current_one == nullptr" << std::endl;
+        ListNode* temp2 = output;
+        // temp2 = output;
+        output = output->next;
+        if (output != nullptr) {
+          output->prev = temp2;
+        }
+        output->next = current_two;
+        break;
+      } 
+      if (current_two == nullptr) {
+        std::cout << "current_two == nullptr" << std::endl;
+        ListNode* temp2 = output;
+        // temp2 = output;
+        output = output->next;
+        if (output != nullptr) {
+          output->prev = temp2;
+        }
+        output->next = current_one;
+        break;
+      }
+      // print(); std::cout << std::endl;
       break;
-    }
-    ListNode* temp2 = output;
-    // temp2 = output;
-    output = output->next;
-    if (output != nullptr) {
-      output->prev = temp2;
+    } else {
+      ListNode* temp2 = output;
+      // temp2 = output;
+      output = output->next;
+      if (output != nullptr) {
+        output->prev = temp2;
+      }
     }
   }
 
-  if (current_one != nullptr) {
-    while (current_one != nullptr) {
-      ListNode* temp2 = output;
-      output->next = current_one;
-      output->next->prev = temp2;
-      output = output->next;
-      current_one = current_one->next;
-    }
-  } else if (current_two != nullptr) {
-    while (current_two != nullptr) {
-      ListNode* temp2 = output;
-      output->next = current_two;
-      output->next->prev = temp2;
-      output = output->next;
-      current_two = current_two->next;
-    }
-  }
+  // if (current_two == nullptr) {
+  //   std::cout << "current_one == nullptr" << std::endl;
+  //   output->next = current_one;
+  // } else if (current_one == nullptr) {
+  //   std::cout << "current_two == nullptr" << std::endl;
+  //   output->next = current_two;
+  // }
+  // output = output->next;
   head_ = temp;
-  tail_ = output;
+  // tail_ = output; //taken care of by mergeWith, I think
+  while (tail_->next != nullptr) {
+    tail_ = tail_->next;
+  }
   return temp;
 }
 
@@ -754,27 +775,42 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
   }
   if (chainLength == 2) {
     if (start->next != nullptr && start->data > start->next->data) {
-      Swap(start, start->next);
+      Swap(start, start->next); //swap works in this special case
     }
     return start;
   }
 
   int num = chainLength/2;
 
-  // mergesort(start, num);
+  List<T> list2 = this->split(num);
 
-  ListNode* current = start;  
-  int i = 0;
-  for (; current != nullptr && i < num; i++) {
-    current = current->next;
-  }
+  // mergesort(this->head_, num);
+  // print();
+  // list2.print();
+  // // mergesort(list2.head_, chainLength - num);
+
+  // this->mergeWith(list2);
+  // print();
+
+  // // mergesort(start, num);
+
+  // ListNode* current = start;  
+  // int i = 0;
+  // for (; current != nullptr && i < num; i++) {
+  //   current = current->next;
+  // }
 
   // mergesort(current, i); //chainLength - num
 
   // std::cout << "start: "; printPointAndData(start); std::cout << " count: " << num << std::endl;
   // std::cout << "current: "; printPointAndData(current); std::cout << " count: " << (chainLength - num) << std::endl;
 
-  //(mergesort(start, num)); 
+
+  // printPointsAndData(start, start->next);
+  // Swap(start, start->next);
+
+
+  // (mergesort(start, num)); 
   // (mergesort(current, (chainLength - num)));
 
   return start;
@@ -1148,50 +1184,87 @@ void List<T>::Swapbasic(ListNode *& startPoint, ListNode *& endPoint) {
   endPoint = temp;
 }
 
+// template <typename T>
+// void List<T>::Swapad(ListNode *& startPoint, ListNode *& endPoint) {
+//   if (startPoint == endPoint || startPoint == nullptr || endPoint == nullptr) {
+//     return;
+//   }
+//   // Swapbasic()
+//   ListNode* temp = startPoint;
+//   startPoint = endPoint;
+//   endPoint = temp;
+// }
+
 
 template <typename T>
 void List<T>::printPointsAndData(ListNode * startPoint, ListNode * endPoint) {
-  std::cout  << "points: " << startPoint << " " << endPoint;
-  std::cout  << " data: ";
+  std::cout << "points: " << startPoint << " " << endPoint;
+  std::cout << " data: ";
   if (startPoint != nullptr) {
-    std::cout  << startPoint->data << " ";
+    std::cout << startPoint->data << " ";
   } else {
-    std::cout  << "nan" << " ";
+    std::cout << "nan" << " ";
   }
   if (endPoint != nullptr) {
-    std::cout  << endPoint->data << " ";
+    std::cout << endPoint->data << " ";
   } else {
-    std::cout  << "nan" << " ";
+    std::cout << "nan" << " ";
   }
-  std::cout  << std::endl;
+  std::cout << std::endl;
 
-  std::cout  << "before: " << startPoint->prev << " " << endPoint->prev;
+  std::cout << "before: ";
+  if (startPoint != nullptr) {
+    std::cout << startPoint->prev;
+  } else {
+    std::cout << "nan" << " ";
+  }
+  std::cout << " ";
+  if (endPoint != nullptr) {
+    std::cout << endPoint->prev;
+  } else {
+    std::cout << "nan" << " ";
+  }
+  std::cout << std::endl;
+
   std::cout  << " data: ";
-  if (startPoint->prev != nullptr) {
-    std::cout  << startPoint->prev->data << " ";
+  if (startPoint != nullptr && startPoint->prev != nullptr) {
+    std::cout << startPoint->prev->data << " ";
   } else {
-    std::cout  << "nan" << " ";
+    std::cout << "nan" << " ";
   }
-  if (endPoint->prev != nullptr) {
-    std::cout  << endPoint->prev->data << " ";
+  if (endPoint != nullptr && endPoint->prev != nullptr) {
+    std::cout << endPoint->prev->data << " ";
   } else {
-    std::cout  << "nan" << " ";
+    std::cout << "nan" << " ";
   }
-  std::cout  << std::endl;
+  std::cout << std::endl;
   
-  std::cout  << "after: " << startPoint->next << " " << endPoint->next;
-  std::cout  << " data: ";
-  if (startPoint->next != nullptr) {
-    std::cout  << startPoint->next->data << " ";
+  std::cout << "after: ";
+  if (startPoint != nullptr) {
+    std::cout << startPoint->next;
   } else {
-    std::cout  << "nan" << " ";
+    std::cout << "nan" << " ";
   }
-  if (endPoint->next != nullptr) {
-    std::cout  << endPoint->next->data << " ";
+  std::cout << " ";
+  if (endPoint != nullptr) {
+    std::cout << endPoint->next;
   } else {
-    std::cout  << "nan" << " ";
+    std::cout << "nan" << " ";
   }
-  std::cout  << std::endl;
+  std::cout << std::endl;
+
+  std::cout << " data: ";
+  if (startPoint != nullptr && startPoint->next != nullptr) {
+    std::cout << startPoint->next->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  if (endPoint != nullptr && endPoint->next != nullptr) {
+    std::cout << endPoint->next->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  std::cout << std::endl;
 }
 
 template <typename T>

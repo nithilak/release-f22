@@ -355,8 +355,8 @@ int main() {
   // list.reverse();
   List<int> list2;
 
-  list2.insertBack(2);
   list2.insertBack(6);
+  list2.insertBack(2);
   list2.insertBack(9);
   list2.insertBack(4);
   list2.insertBack(8);
@@ -407,9 +407,16 @@ int main() {
   list2.printv2();
   list2.printv2back();
   // list.reverse();
-  list2.sort();
-  list2.printv2();
-  list2.printv2back();
+  std::cout << "sort: " << std::endl;
+  List<int> list3;
+  list3.insertBack(6);
+  List<int> list4;
+  list4.insertBack(2);
+  list4.insertBack(9);
+  list3.mergeWith(list4);
+  // list2.sort();
+  list3.printv2();
+  list3.printv2back();
 
   return 0;
 }
