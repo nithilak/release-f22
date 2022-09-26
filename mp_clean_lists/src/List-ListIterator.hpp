@@ -75,14 +75,14 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
 
     // Pre-Decrement, --iter
     ListIterator& operator--() {
-        std::cout << "operator-- (pre-decrement)" << std::endl;
+        // std::cout << "operator-- (pre-decrement)" << std::endl;
         // @TODO: graded in MP3.1
         // // // // // // // //std::cout << "enter operator--" << std::endl;
         if (atEnd) {
-            std::cout << "position_ == atEnd" << std::endl;
+            // std::cout << "position_ == atEnd" << std::endl;
             atEnd = false;
             position_ = tail_;
-            return tail_;
+            return *this;
         } else if (position_ != nullptr) {
             position_ = position_ -> prev;
         }
@@ -115,11 +115,12 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
         //could do this recursively instead, if that is okay
         //or if this is not okay, based on preferences
 
-        std::cout << "operator-- (post-decrement)" << std::endl;
+        // std::cout << "operator-- (post-decrement)" << std::endl;
         // @TODO: graded in MP3.1
         // // // // // // // //std::cout << "enter operator--" << std::endl;
+        //copied from the new operator-- pre increment
         if (atEnd) {
-            std::cout << "position_ == atEnd" << std::endl;
+            // std::cout << "position_ == atEnd" << std::endl;
             atEnd = false;
             position_ = tail_;
             return temp;
