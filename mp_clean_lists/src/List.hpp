@@ -631,8 +631,11 @@ void List<T>::mergeWith(List<T> & otherList) {
 
     // make sure there is a node in the new list
     if (tail_ != NULL) {
-        while (tail_->next != NULL)
+        while (tail_->next != NULL) {
+            //I mean, if you're going to go through the whole list anyways, why not do it this way?
+            tail_->next->prev = tail_; // borrowing this spot here to reduce time complexity
             tail_ = tail_->next;
+        }
     }
     length_ = length_ + otherList.length_;
 
@@ -750,10 +753,10 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   // output = output->next;
   head_ = temp;
   // tail_ = output; //taken care of by mergeWith, I think
-  while (tail_->next != nullptr) {
-    tail_->next->prev = tail_; //just making sure, it gets broken later but not sure how it fix it in a more efficient way
-    tail_ = tail_->next;
-  }
+  // while (tail_->next != nullptr) {
+  //   tail_->next->prev = tail_; //just making sure, it gets broken later but not sure how it fix it in a more efficient way
+  //   tail_ = tail_->next;
+  // }
   return temp;
 }
 
@@ -790,7 +793,7 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
   // list2.print();
   // // mergesort(list2.head_, chainLength - num);
 
-  // this->mergeWith(list2);
+  this->mergeWith(list2);
   // print();
 
   // // mergesort(start, num);
