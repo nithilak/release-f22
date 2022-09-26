@@ -409,16 +409,16 @@ int main() {
   list2.printv2back();
   // list.reverse();
   std::cout << "sort: " << std::endl;
-  // List<int> list3;
-  // list3.insertBack(6);
-  // List<int> list4;
-  // list4.insertBack(2);
-  // list4.insertBack(9);
-  // list3.mergeWith(list4);
-  list2.sort();
+  List<int> list3;
+  list3.insertBack(6);
+  List<int> list4;
+  list4.insertBack(9);
+  list4.insertBack(2);
+  list3.mergeWith(list4);
+  // list4.sort();
   std::cout << "final: " << std::endl;
-  list2.printv2();
-  list2.printv2back();
+  list3.printv2();
+  list3.printv2back();
 
   // //iterator
   // List<int>::ListIterator listIter = list.end();
