@@ -689,10 +689,8 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   ListNode* temp = output;
   head_ = temp;
 
-  ListNode* temp2 = nullptr;
   while (output != nullptr) {
     output->next = nullptr;
-    output->prev = temp2;
     print(); std::cout << std::endl;
     printPointsAndData(current_one, current_two);
     if (current_one->data < current_two->data) {
@@ -707,23 +705,27 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
     if (current_one == nullptr || current_two == nullptr) {
       break;
     }
-    temp2 = output;
+    ListNode* temp2 = output;
+    // temp2 = output;
     output = output->next;
+    if (output != nullptr) {
+      output->prev = temp2;
+    }
   }
 
   if (current_one != nullptr) {
     while (current_one != nullptr) {
-      temp2 = output;
+      ListNode* temp2 = output;
       output->next = current_one;
-      output->prev = temp2;
+      output->next->prev = temp2;
       output = output->next;
       current_one = current_one->next;
     }
   } else if (current_two != nullptr) {
     while (current_two != nullptr) {
-      temp2 = output;
+      ListNode* temp2 = output;
       output->next = current_two;
-      output->prev = temp2;
+      output->next->prev = temp2;
       output = output->next;
       current_two = current_two->next;
     }
