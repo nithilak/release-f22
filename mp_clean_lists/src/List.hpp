@@ -27,13 +27,7 @@ typename List<T>::ListIterator List<T>::begin() const {
 template <typename T>
 typename List<T>::ListIterator List<T>::end() const {
   // @TODO: graded in MP3.1
-  if (tail_ == nullptr){
-    if (head_ == nullptr) {
-
-    }
-    return NULL;
-  }
-  return List<T>::ListIterator(tail_ -> next); //should be NULL/nullptr when I set it manually
+  return List<T>::ListIterator(head_, tail_); //should be NULL/nullptr when I set it manually
 }
 
 
@@ -624,7 +618,7 @@ void List<T>::reverseNth(int n) {
 template <typename T>
 void List<T>::mergeWith(List<T> & otherList) {
     // set up the current list
-    std::cout << "mergeWith" << std::endl;
+    std::cout << "mergeWith"; print(); otherList.print(); std::cout << std::endl;
     printPointsAndData(head_, otherList.head_);
     head_ = merge(head_, otherList.head_);
     tail_ = head_;
@@ -757,6 +751,7 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   //   tail_->next->prev = tail_; //just making sure, it gets broken later but not sure how it fix it in a more efficient way
   //   tail_ = tail_->next;
   // }
+  print(); std::cout << std::endl;
   return temp;
 }
 
@@ -774,12 +769,19 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
 template <typename T>
 typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength) {
   /// @todo Graded in MP3.2
-  if (chainLength <= 1 || start == nullptr) {
+  if (start == nullptr) {
+    std::cout << "mergesort: nullptr" << std::endl;
+    return start;
+  }
+  std::cout << "mergesort: "; print(); std::cout << std::endl;
+  if (chainLength <= 1) {
+    std::cout << "mergesort end : "; print(); std::cout << std::endl;
     return start;
   }
   if (chainLength == 2) {
     if (start->next != nullptr && start->data > start->next->data) {
       Swap(start, start->next); //swap works in this special case
+      std::cout << "mergesort end: "; print(); std::cout << std::endl;
     }
     return start;
   }
@@ -787,13 +789,17 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
   int num = chainLength/2;
 
   List<T> list2 = this->split(num);
+  std::cout << "next: " << list2.head_->data << "size: " << list2.size() << std::endl;
 
   // mergesort(this->head_, num);
-  // print();
-  // list2.print();
-  // // mergesort(list2.head_, chainLength - num);
+  // // print();
+  // // list2.print();
+  // std::cout << "next: " << list2.head_->data << "size: " << list2.size() << std::endl;
+  // mergesort(list2.head_, list2.size());
 
-  this->mergeWith(list2);
+  merge(mergesort(this->head_, num), mergesort(list2.head_, list2.size()));
+
+  // this->mergeWith(list2);
   // print();
 
   // // mergesort(start, num);
@@ -817,7 +823,7 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
   // (mergesort(start, num)); 
   // (mergesort(current, (chainLength - num)));
 
-  return start;
+  return head_;
 }
 
 //helper function
@@ -1314,4 +1320,24 @@ void List<T>::printPointAndData(ListNode * startPoint) {
   //   std::cout  << "nan" << " ";
   // }
   std::cout  << std::endl;
+}
+
+template <typename T>
+typename List<T>::ListNode* List<T>::head() { return head_; }
+template <typename T>
+typename List<T>::ListNode* List<T>::tail() { return tail_; }
+
+template <typename T>
+T List<T>::head_data() { 
+  if (head_ == nullptr) {
+    return 0;
+  }
+  return head_->data; 
+}
+template <typename T>
+T List<T>::tail_data() { 
+  if (tail_ == nullptr) {
+    return 0;
+  }
+  return tail_->data; 
 }

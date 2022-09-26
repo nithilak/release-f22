@@ -222,6 +222,12 @@ class List {
     void printPointsAndData(ListNode * startPoint, ListNode * endPoint);
     void printPointAndData(ListNode * startPoint);
 
+    //getters
+    ListNode* head();
+    ListNode* tail();
+    T head_data();
+    T tail_data();
+
   private:
     /*
      * Private member variables.

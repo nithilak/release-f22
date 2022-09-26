@@ -3,16 +3,34 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
   private:
     // @TODO: graded in MP3.1
     ListNode* position_;
+    ListNode* head_;
+    ListNode* tail_;
+    bool atEnd = false;
 
   public:
-    ListIterator() : position_(NULL) { }
-    ListIterator(ListNode* x) : position_(x) { }
+    ListIterator() : position_(NULL), head_(NULL), tail_(NULL), atEnd(false) { }
+    ListIterator(ListNode* x) : position_(x), head_(x), tail_(x), atEnd(false) {
+        while (head_ != nullptr && head_->prev != nullptr) {
+            head_ = head_->prev;
+        }
+        while (tail_ != nullptr && tail_->next!= nullptr) {
+            tail_ = tail_->next;
+        }
+    }
+    ListIterator(ListNode* head, ListNode* tail) : position_(NULL), head_(head), tail_(tail), atEnd(true) {
+    }
+    ListIterator(const List& list) : position_(list.head_), head_(list.head_), tail_(list.tail_), atEnd(false) { }
 
 
     // Pre-Increment, ++iter
     ListIterator& operator++() {
         // @TODO: graded in MP3.1
         // // // // // // // //std::cout << "enter operator++" << std::endl;
+        if (position_ == tail_) {
+            atEnd = true;
+        } else {
+            atEnd = false;
+        }
         if (position_ != nullptr) {
             position_ = position_ -> next;
         }
@@ -23,6 +41,11 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
     ListIterator operator++(int count) {
         //std::cout << "operator++ post" << std::endl;
         // @TODO: graded in MP3.1
+        if (position_ == tail_) {
+            atEnd = true;
+        } else {
+            atEnd = false;
+        }
         ListNode* temp = position_;
         //could do this recursively instead, if that is okay
         //or if this is not okay, based on preferences
@@ -54,7 +77,10 @@ class ListIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
     ListIterator& operator--() {
         // @TODO: graded in MP3.1
         // // // // // // // //std::cout << "enter operator--" << std::endl;
-        if (position_ == NULL) {
+        if (atEnd) {
+            std::cout << "position_ == atEnd" << std::endl;
+            atEnd = false;
+            position_ = tail_;
             return tail_;
         }
         position_ = position_ -> prev;

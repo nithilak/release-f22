@@ -1,4 +1,5 @@
 #include "List.h"
+// #include "List-ListIterator.hpp"
 #include <sstream>
 #include <cassert>
 
@@ -407,16 +408,30 @@ int main() {
   list2.printv2();
   list2.printv2back();
   // list.reverse();
-  std::cout << "sort: " << std::endl;
-  List<int> list3;
-  list3.insertBack(6);
-  List<int> list4;
-  list4.insertBack(2);
-  list4.insertBack(9);
-  list3.mergeWith(list4);
+  // std::cout << "sort: " << std::endl;
+  // List<int> list3;
+  // list3.insertBack(6);
+  // List<int> list4;
+  // list4.insertBack(2);
+  // list4.insertBack(9);
+  // list3.mergeWith(list4);
   // list2.sort();
-  list3.printv2();
-  list3.printv2back();
+  // std::cout << "final: " << std::endl;
+  // list2.printv2();
+  // list2.printv2back();
+
+  //iterator
+  List<int>::ListIterator listIter = list.end();
+  // for (int i = 0; i + 1 < list.size(); i++) {
+  //   std::cout << "*listIter: " << *listIter << std::endl;
+  //   listIter++;
+  // }
+
+  // std::cout << "*listIter: " << *listIter << std::endl;
+  // listIter++;
+  // std::cout << "listIter: " << listIter << std::endl;
+  // listIter--;
+  // std::cout << "*listIter: " << *listIter << std::endl;
 
   return 0;
 }

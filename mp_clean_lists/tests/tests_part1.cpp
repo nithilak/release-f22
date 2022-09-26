@@ -279,7 +279,7 @@ TEST_CASE("List::split images", "[weight=5][part=1]") {
     out3.writeToFile("actual-split_3.png");
 
     INFO("Third split output saved as actual-split_3.png");
-    REQUIRE(out3 == expected_3);
+    REQUIRE(out3 == expected_3);// ListIterator(const List<T>& list) : position_(list.head_) { }
 }
 
 TEST_CASE("List::_destroy empty list", "[weight=3][part=1][valgrind]") {
@@ -357,6 +357,61 @@ TEST_CASE("List::ListIterator::operator-- (post-increment) returns an un-increme
 
     REQUIRE( *seven == 7 );
 }
+
+TEST_CASE("List::ListIterator::begin() returns head_", "[weight=1][part=1][valgrind]") {
+    List<unsigned> list;
+    for (unsigned i = 0; i < 10; i++) { list.insertFront(i); }
+
+    List<unsigned>::ListIterator iter = list.begin();
+
+    // iter++; // 9 --> 8
+    // iter++; // 8 --> 7
+    // List<unsigned>::ListIterator seven = iter--;
+
+    REQUIRE( *iter == list.head_data() );
+}
+
+TEST_CASE("List::ListIterator::end() returns tail_", "[weight=1][part=1][valgrind]") {
+    List<unsigned> list;
+    for (unsigned i = 0; i < 10; i++) { list.insertFront(i); }
+
+    List<unsigned>::ListIterator iter = list.end();
+
+    // iter++; // 9 --> 8
+    // iter++; // 8 --> 7
+    // List<unsigned>::ListIterator seven = iter--;
+
+    REQUIRE( *iter == list.tail_data() );
+}
+
+TEST_CASE("List::ListIterator::operator-- (post-increment) returns tail_ for input NULL", "[weight=1][part=1][valgrind]") {
+    List<unsigned> list;
+    for (unsigned i = 0; i < 10; i++) { list.insertFront(i); }
+
+    List<unsigned>::ListIterator iter = list.end();
+
+    iter++; // 9 --> 8
+    REQUIRE( *iter == 0 );
+    iter--; // 8 --> 7
+    // List<unsigned>::ListIterator seven = iter--;
+
+    REQUIRE( *iter == list.tail_data() );
+}
+
+TEST_CASE("List::ListIterator::operator-- (pre-increment) returns tail_ for input NULL", "[weight=1][part=1][valgrind]") {
+    List<unsigned> list;
+    for (unsigned i = 0; i < 10; i++) { list.insertFront(i); }
+
+    List<unsigned>::ListIterator iter = list.begin();
+
+    iter++; // 9 --> 8
+    REQUIRE( *iter == 0);
+    iter--; // 8 --> 7
+    // List<unsigned>::ListIterator seven = iter--;
+
+    REQUIRE( *iter == (list.tail_data()) );
+}
+
 
 TEST_CASE("List::ListIterator::end is reached", "[weight=1][part=1][valgrind]") {
     List<unsigned> list;
