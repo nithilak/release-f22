@@ -220,7 +220,7 @@ class List {
     void printv2back(ostream& os = std::cout) const; // same as printv2 but backwards
 
     void printPointsAndData(ListNode * startPoint, ListNode * endPoint);
-    void printPointAndData(const ListNode *& startPoint);
+    void printPointAndData(ListNode * startPoint);
 
   private:
     /*

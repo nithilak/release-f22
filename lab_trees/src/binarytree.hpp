@@ -85,17 +85,21 @@ void BinaryTree<T>::mirror()
 //helpers
     template <typename T>
 void BinaryTree<T>::mirror(Node* node) {
-    std::cout << "mirror" << std::endl;
+    // std::cout << "mirror" << std::endl;
     if (node == nullptr) {
         return;
     }
-    std::cout << "mirror left" << std::endl;
-    mirror(node->left);
-    std::cout << "mirror right" << std::endl;
-    mirror(node->right);
+    // std::cout << "mirror left" << std::endl;
+    if (node->left != nullptr) {
+        mirror(node->left);
+    }
+    // // std::cout << "mirror right" << std::endl;
+    if (node->right != nullptr) {
+        mirror(node->right);
+    }
 
-    std::cout << node->elem << std::endl;
-    Node* temp = node;
+    // std::cout << node->elem << std::endl;
+    Node* temp = node->right;
     node->right = node->left;
     node->left = temp;
 
@@ -108,10 +112,76 @@ void BinaryTree<T>::mirror(Node* node) {
  *  criterion for a binary tree to be a binary search tree.
  */
 template <typename T>
-bool BinaryTree<T>::isOrderedIterative() const
+bool BinaryTree<T>::isOrderedRecursive(Node* node, int max) const
 {
     // your code here
-    return false;
+    if (node == nullptr) {
+        return true;
+    }
+    std::cout << "node: " << node->elem << std::endl;
+    if (node->left == nullptr && node->right == nullptr) {
+        return true;
+    }
+    if (node->left != nullptr && (node->left->elem >= max || node->left->elem >= node->elem)) {
+        return false;
+    }
+    if (node->right != nullptr && (node->right->elem < max || node->right->elem < node->elem)) {
+        return false;
+    }
+
+    return isOrderedRecursive(node->left, max) && isOrderedRecursive(node->right, max);
+    
+}
+
+template <typename T>
+bool BinaryTree<T>::isOrderedIterative() const {
+    if (root == nullptr) {
+        return true;
+    }
+    std::vector<int> nums;
+    int max = root->elem;
+    std::stack<Node*> stack;
+    Node* current = root;
+    while (current != NULL) {
+        stack.push(current);
+        current = current->left;
+    }
+    while (!stack.empty()) {
+        // std::cout << stack.top()->elem << std::endl;
+        nums.push_back(stack.top()->elem);
+        current = stack.top()->right;
+        stack.pop();
+        while (current != NULL) {
+            stack.push(current);
+            current = current->left;
+        }
+    }
+
+
+    // while (!nums.empty()) {
+    //     int top = nums.top();
+    //     nums.pop();
+    //     std::cout << top << std::endl;
+    //     if (nums.empty()) {
+    //         break;
+    //     }
+    //     int top_next = nums.top();
+    //     // nums.pop();
+    //     if (top > top_next) {
+    //         return false;
+    //     }
+
+    // }
+
+    for (size_t i = 0; i + 1 < nums.size(); i++) {
+        std::cout << i << " ";
+        if (nums.at(i) > nums.at(i + 1)) {
+            return false;
+        }
+    }
+    std::cout << std::endl;
+
+    return true;
 }
 
 /**
@@ -124,6 +194,10 @@ template <typename T>
 bool BinaryTree<T>::isOrderedRecursive() const
 {
     // your code here
-    return false;
+    if (root == nullptr) {
+        return true;
+    }
+    std::cout << "max: " << root->elem << std::endl;
+    return isOrderedRecursive(root, root->elem);
 }
 

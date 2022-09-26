@@ -25,7 +25,11 @@ class InorderTraversal : public TreeTraversal<T> {
     InorderTraversal(typename BinaryTree<T>::Node* root)
 	    : root(root)
     {
-      stack.push(root);	
+      auto* temp = root;
+      while (temp != nullptr && temp->right != nullptr) {
+        temp = temp->left;
+      }
+      stack.push(temp);	
       // your code here
     }
 
@@ -62,15 +66,50 @@ class InorderTraversal : public TreeTraversal<T> {
     void add(typename BinaryTree<T>::Node *& treeNode) {
       // your code here
       //copied from add in PreorderTraversal.h
-      // if () 
-      if (treeNode->right != NULL) {
-        add(treeNode->right);
-        stack.push(treeNode->right);
-      }
-      if (treeNode->left != NULL) {
-        add(treeNode->left);
-        stack.push(treeNode->left);
-      }
+      //  if (treeNode->right != NULL) {
+      //           stack.push(treeNode->right);
+      //   }	
+      //   if (treeNode->left != NULL) { 
+      //       stack.push(treeNode->left);
+      //   }
+      // if (treeNode->right != nullptr) {
+
+
+        // while (current != NULL) {
+        //   stack.push(current);
+        //   current = current->left;
+        // }
+        // while (!stack.empty()) {
+        //   // std::cout << stack.top()->elem << std::endl;
+        //   nums.push_back(stack.top()->elem);
+        //   current = stack.top()->right;
+        //   stack.pop();
+        //   while (current != NULL) {
+        //     stack.push(current);
+        //     current = current->left;
+        //   }
+        // }
+
+
+
+
+
+        auto* temp = treeNode;
+        while (temp->right != nullptr) {
+          temp = temp->right;
+        }
+        // treeNode = temp;
+        std::cout << "treeNode->elem: " << treeNode->elem << std::endl;
+        if (treeNode->left != nullptr) {
+          stack.push(treeNode->left);
+        }
+        if (temp != treeNode && temp != nullptr) {
+          stack.push(temp);
+        }
+      // }
+
+      
+
       return;	
     }
 

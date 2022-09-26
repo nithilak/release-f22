@@ -130,6 +130,8 @@ void printTreeInfo(const BinaryTree<T>& tree, const string& name,
 	for (TreeTraversal<int>::Iterator it = iot.begin(); it != iot.end(); ++it) {
 		cout<<(*it)->elem<<" ";
 	}
+    tree.isOrderedIterative();
+
 
 
     cout << endl<< endl;

@@ -149,6 +149,7 @@ class BinaryTree
         //helpers
 
         void mirror(Node* node);
+        bool isOrderedRecursive(Node* node, int max) const;
 
     protected:
         Node* root;

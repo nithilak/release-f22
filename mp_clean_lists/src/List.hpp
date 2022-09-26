@@ -659,7 +659,7 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   ListNode* output = nullptr; //ok compiler, I'll initialize this to nullptr
   ListNode* current_one = first;
   ListNode* current_two = second;
-  printPointsAndData(first, second);
+  // std::cout << "merge: "; printPointsAndData(first, second); std::cout << std::endl;
   if (current_one == nullptr && current_two == nullptr) {
     return output;
   } else if (current_one == nullptr) {
@@ -670,19 +670,19 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   //no more nullptr cases
 
   if (current_one != nullptr && current_two != nullptr) {
-    std::cout << "first data: " << current_two->data <<  " , " <<  current_one->data << std::endl;
-    std::cout << "first next data: " << current_two->next->data <<  " , " <<  current_one->next->data << std::endl;
-    std::cout << "expect true: " << (current_one->data < current_two->data) << std::endl;
+    // std::cout << "first data: " << current_two->data <<  " , " <<  current_one->data << std::endl;
+    // std::cout << "first next data: " << current_two->next->data <<  " , " <<  current_one->next->data << std::endl;
+    // std::cout << "expect true: " << (current_one->data < current_two->data) << std::endl;
     if (current_one->data < current_two->data) {
-      std::cout << "data: " << current_two->data <<  " < " <<  current_one->data << std::endl;
+      // std::cout << "data: " << current_two->data <<  " < " <<  current_one->data << std::endl;
       output = current_one;
       current_one = current_one->next;
     } else {
-      std::cout << "data: " << current_two->data <<  " >= " <<  current_one->data << std::endl;
+      // std::cout << "data: " << current_two->data <<  " >= " <<  current_one->data << std::endl;
       output = current_two;
       current_two = current_two->next;
     }
-    std::cout << "updated data: " << current_two->data <<  " , " <<  current_one->data << std::endl;
+    // std::cout << "updated data: " << current_two->data <<  " , " <<  current_one->data << std::endl;
   }
 
   output->next = nullptr;
@@ -691,14 +691,14 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
 
   while (output != nullptr) {
     output->next = nullptr;
-    print(); std::cout << std::endl;
-    printPointsAndData(current_one, current_two);
+    // print(); std::cout << std::endl;
+    // printPointsAndData(current_one, current_two);
     if (current_one->data < current_two->data) {
-      std::cout << "data < : "; printPointsAndData(current_one, current_two);
+      // std::cout << "data < : "; printPointsAndData(current_one, current_two);
       output->next = current_one;
       current_one = current_one->next;
     } else {
-      std::cout << "data > : "; printPointsAndData(current_one, current_two);
+      // std::cout << "data > : "; printPointsAndData(current_one, current_two);
       output->next = current_two;
       current_two = current_two->next;
     }
@@ -761,16 +761,21 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
 
   int num = chainLength/2;
 
-  mergesort(start, num);
+  // mergesort(start, num);
 
   ListNode* current = start;  
   int i = 0;
-  for (; current != nullptr && i < num + 1; i++) {
+  for (; current != nullptr && i < num; i++) {
     current = current->next;
   }
 
-  mergesort(current, i); //chainLength - num
+  // mergesort(current, i); //chainLength - num
 
+  // std::cout << "start: "; printPointAndData(start); std::cout << " count: " << num << std::endl;
+  // std::cout << "current: "; printPointAndData(current); std::cout << " count: " << (chainLength - num) << std::endl;
+
+  //(mergesort(start, num)); 
+  // (mergesort(current, (chainLength - num)));
 
   return start;
 }
@@ -1190,8 +1195,8 @@ void List<T>::printPointsAndData(ListNode * startPoint, ListNode * endPoint) {
 }
 
 template <typename T>
-void List<T>::printPointAndData(const ListNode *& startPoint) {
-  std::cout  << "points: " << startPoint; //  << " " << endPoint;
+void List<T>::printPointAndData(ListNode * startPoint) {
+  std::cout  << "point: " << startPoint; //  << " " << endPoint;
   std::cout  << " data: ";
   if (startPoint != nullptr) {
     std::cout  << startPoint->data << " ";
