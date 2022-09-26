@@ -430,8 +430,8 @@ int main() {
   // std::cout << "*listIter: " << *listIter << std::endl;
   // listIter++;
   // std::cout << "listIter: " << listIter << std::endl;
-  // listIter--;
-  // std::cout << "*listIter: " << *listIter << std::endl;
+  listIter--;
+  std::cout << "*listIter: " << *listIter << std::endl;
 
   return 0;
 }
