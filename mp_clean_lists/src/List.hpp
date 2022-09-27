@@ -824,27 +824,23 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
   std::cout << "this: " << this << " next: " << &list2 << std::endl;
  
 
-  // std::cout << "sorting this: " << *this << std::endl;
-  ListNode* one = mergesort(this->head_, this->size());
-  // std::cout << "end sorting this: " << *this << std::endl;
+  std::cout << "sorting this: " << *this << std::endl;
+  mergesort(this->head_, this->size());
+  std::cout << "end sorting this: " << *this << std::endl;
 
-  // // merge(mergesort(this->head_, num), mergesort(list2.head_, list2.size()));
+  // merge(mergesort(this->head_, num), mergesort(list2.head_, list2.size()));
 
-  // std::cout << "sorting next: " << list2 << std::endl;
+  std::cout << "sorting next: " << list2 << std::endl;
   ListNode* list2_head_copy = list2.head_;
-  // printPointAndData(list2_head_copy); std::cout << std::endl;
-  ListNode* two = mergesort(list2_head_copy, list2.size());
-  // std::cout << "end sorting next: " << list2 << std::endl;
+  printPointAndData(list2_head_copy); std::cout << std::endl;
+  mergesort(list2_head_copy, list2.size());
+  // list2.tail_ = list2.head_;
+  // while (list2.tail_ != nullptr && list2.tail_->next != nullptr) {
+  //   list2.tail_ = list2.tail_->next;
+  // }
+  std::cout << "end sorting next: " << list2 << std::endl;
 
-  ListNode* new_head = merge(one, two);
-
-  head_ = nullptr;
-  tail_ = nullptr;
-  head_ = new_head;
-  tail_ = head_;
-  while (tail_ != nullptr && tail_->next != nullptr) {
-    tail_ = tail_->next;
-  }
+  this->mergeWith(list2);
   // print();
 
   // // mergesort(start, num);
