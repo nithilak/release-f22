@@ -618,7 +618,7 @@ void List<T>::reverseNth(int n) {
 template <typename T>
 void List<T>::mergeWith(List<T> & otherList) {
     // set up the current list
-    // std::cout << "mergeWith"; print(); otherList.print(); std::cout << std::endl;
+    std::cout << "    mergeWith " << *this << " " << otherList << std::endl;
     // printPointsAndData(head_, otherList.head_);
     head_ = merge(head_, otherList.head_);
     tail_ = head_;
@@ -656,7 +656,8 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   ListNode* output = nullptr; //ok compiler, I'll initialize this to nullptr
   ListNode* current_one = first;
   ListNode* current_two = second;
-  std::cout << "merge: "; printPointsAndData(first, second); std::cout << std::endl;
+  // std::cout << "merge: " << list1 << " " << list2 << std::endl;
+  // std::cout << "merge: "; printPointsAndData(first, second); std::cout << std::endl;
   if (current_one == nullptr && current_two == nullptr) {
     return output;
   } else if (current_one == nullptr) {
@@ -669,19 +670,19 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   ListNode* temp = output;
 
   if (current_one != nullptr && current_two != nullptr) {
-    std::cout << "first data: "; printPointsAndData(current_one, current_two); std::cout << std::endl;
+    // std::cout << "first data: "; printPointsAndData(current_one, current_two); std::cout << std::endl;
     // std::cout << "expect false: " << (current_one->data < current_two->data) << std::endl;
     if (current_one->data < current_two->data) {
-      std::cout << "data < : "; printPointsAndData(current_one, current_two);
+      // std::cout << "data < : "; printPointsAndData(current_one, current_two);
       output = current_one;
       current_one = current_one->next;
     } else {
-      std::cout << "data >= : "; printPointsAndData(current_one, current_two);
+      // std::cout << "data >= : "; printPointsAndData(current_one, current_two);
       output = current_two;
       current_two = current_two->next;
     }
-    print(); std::cout << std::endl;
-    std::cout << "updated data: "; printPointsAndData(current_one, current_two);
+    // print(); std::cout << std::endl;
+    // std::cout << "updated data: "; printPointsAndData(current_one, current_two);
 
     temp = output;
 
@@ -690,14 +691,14 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
       ListNode* temp2 = output;
 
       if (current_one->data < current_two->data) {
-        std::cout << "data < : "; printPointsAndData(current_one, current_two);
+        // std::cout << "data < : "; printPointsAndData(current_one, current_two);
         output->next = current_one;
         output = output->next;
         output->prev = temp2;
 
         current_one = current_one->next;
       } else {
-        std::cout << "data >= : "; printPointsAndData(current_one, current_two);
+        // std::cout << "data >= : "; printPointsAndData(current_one, current_two);
         output->next = current_two;
         output = output->next;
         output->prev = temp2;
@@ -705,8 +706,8 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
         current_two = current_two->next;
       }
 
-      print(); std::cout << std::endl;
-      std::cout << "updated data: "; printPointsAndData(current_one, current_two);
+      // print(); std::cout << std::endl;
+      // std::cout << "updated data: "; printPointsAndData(current_one, current_two);
 
     }
 
@@ -715,22 +716,22 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   ListNode* temp2 = output;
   
   if (current_one != nullptr) {
-    std::cout << "(current_one != nullptr)" << std::endl;
+    // std::cout << "(current_one != nullptr)" << std::endl;
     output->next = current_one;
   } else {
-    std::cout << "(current_one == nullptr)" << std::endl;
+    // std::cout << "(current_one == nullptr)" << std::endl;
     output->next = current_two;
   }
 
-  std::cout << "output: "; printPointAndData(output);
+  // std::cout << "output: "; printPointAndData(output);
   output = output->next;
   // std::cout << "updated data: "; printPointsAndData(current_one, current_two); //does not matter anymore!
-  std::cout << "updated output: "; printPointAndData(output);
+  // std::cout << "updated output: "; printPointAndData(output);
   if (output != nullptr) {
     output->prev = temp2;
     // output->next = nullptr; //don't do this, erases the rest of the pre-established list
   }
-  std::cout << "updated output: "; printPointAndData(output);
+  // std::cout << "updated output: "; printPointAndData(output);
 
 
   head_ = temp;
@@ -828,7 +829,7 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
   // merge(mergesort(this->head_, num), mergesort(list2.head_, list2.size()));
 
   std::cout << "sorting next: " << list_second << std::endl;
-  mergesort(list_second.head_, list_second.size());
+  // mergesort(list_second.head_, list_second.size());
   std::cout << "end sorting next: " << list_second << std::endl;
 
   this->mergeWith(list_second);
