@@ -802,14 +802,13 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
 
   int num = chainLength/2;
 
-  List<T> list2;
-  list2 = this->split(num);
+  List<T> list2 = this->split(num);
 
 
-  List<T> list_first; 
-  list_first = *this;
-  List<T> list_second; 
-  list_second = list2;
+  // List<T> list_first; 
+  // list_first = *this;
+  // List<T> list_second; 
+  // list_second = list2;
 
 
   // std::cout << "this: " << list_first << std::endl;
@@ -822,17 +821,30 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
   // mergesort(list2.head_, list2.size());
 
 
-  std::cout << "sorting this: " << *this << std::endl;
-  mergesort(this->head_, this->size());
-  std::cout << "end sorting this: " << *this << std::endl;
+  std::cout << "this: " << this << " next: " << &list2 << std::endl;
+ 
 
-  // merge(mergesort(this->head_, num), mergesort(list2.head_, list2.size()));
+  // std::cout << "sorting this: " << *this << std::endl;
+  ListNode* one = mergesort(this->head_, this->size());
+  // std::cout << "end sorting this: " << *this << std::endl;
 
-  std::cout << "sorting next: " << list_second << std::endl;
-  // mergesort(list_second.head_, list_second.size());
-  std::cout << "end sorting next: " << list_second << std::endl;
+  // // merge(mergesort(this->head_, num), mergesort(list2.head_, list2.size()));
 
-  this->mergeWith(list_second);
+  // std::cout << "sorting next: " << list2 << std::endl;
+  ListNode* list2_head_copy = list2.head_;
+  // printPointAndData(list2_head_copy); std::cout << std::endl;
+  ListNode* two = mergesort(list2_head_copy, list2.size());
+  // std::cout << "end sorting next: " << list2 << std::endl;
+
+  ListNode* new_head = merge(one, two);
+
+  head_ = nullptr;
+  tail_ = nullptr;
+  head_ = new_head;
+  tail_ = head_;
+  while (tail_ != nullptr && tail_->next != nullptr) {
+    tail_ = tail_->next;
+  }
   // print();
 
   // // mergesort(start, num);
@@ -1310,48 +1322,74 @@ void List<T>::printPointsAndData(ListNode * startPoint, ListNode * endPoint) {
 }
 
 template <typename T>
-void List<T>::printPointAndData(ListNode * startPoint) {
-  std::cout  << "point: " << startPoint; //  << " " << endPoint;
-  std::cout  << " data: ";
+void List<T>::printPointAndData(ListNode * startPoint) { //recopied over from the plural version
+std::cout << "points: " << startPoint; // << " " << endPoint;
+  std::cout << " data: ";
   if (startPoint != nullptr) {
-    std::cout  << startPoint->data << " ";
+    std::cout << startPoint->data << " ";
   } else {
-    std::cout  << "nan" << " ";
+    std::cout << "nan" << " ";
   }
   // if (endPoint != nullptr) {
-  //   std::cout  << endPoint->data << " ";
+  //   std::cout << endPoint->data << " ";
   // } else {
-  //   std::cout  << "nan" << " ";
+  //   std::cout << "nan" << " ";
   // }
-  std::cout  << std::endl;
+  std::cout << std::endl;
 
-  std::cout  << "before: " << startPoint->prev; //  << " " << endPoint->prev;
-  std::cout  << " data: ";
-  if (startPoint->prev != nullptr) {
-    std::cout  << startPoint->prev->data << " ";
+  std::cout << "before: ";
+  if (startPoint != nullptr) {
+    std::cout << startPoint->prev;
   } else {
-    std::cout  << "nan" << " ";
+    std::cout << "nan" << " ";
   }
-  // if (endPoint->prev != nullptr) {
-  //   std::cout  << endPoint->prev->data << " ";
+  // std::cout << " ";
+  // if (endPoint != nullptr) {
+  //   std::cout << endPoint->prev;
   // } else {
-  //   std::cout  << "nan" << " ";
+  //   std::cout << "nan" << " ";
   // }
-  std::cout  << std::endl;
+  std::cout << std::endl;
+
+  std::cout  << " data: ";
+  if (startPoint != nullptr && startPoint->prev != nullptr) {
+    std::cout << startPoint->prev->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  // if (endPoint != nullptr && endPoint->prev != nullptr) {
+  //   std::cout << endPoint->prev->data << " ";
+  // } else {
+  //   std::cout << "nan" << " ";
+  // }
+  std::cout << std::endl;
   
-  std::cout  << "after: " << startPoint->next; //  << " " << endPoint->next;
-  std::cout  << " data: ";
-  if (startPoint->next != nullptr) {
-    std::cout  << startPoint->next->data << " ";
+  std::cout << "after: ";
+  if (startPoint != nullptr) {
+    std::cout << startPoint->next;
   } else {
-    std::cout  << "nan" << " ";
+    std::cout << "nan" << " ";
   }
-  // if (endPoint->next != nullptr) {
-  //   std::cout  << endPoint->next->data << " ";
+  // std::cout << " ";
+  // if (endPoint != nullptr) {
+  //   std::cout << endPoint->next;
   // } else {
-  //   std::cout  << "nan" << " ";
+  //   std::cout << "nan" << " ";
   // }
-  std::cout  << std::endl;
+  std::cout << std::endl;
+
+  std::cout << " data: ";
+  if (startPoint != nullptr && startPoint->next != nullptr) {
+    std::cout << startPoint->next->data << " ";
+  } else {
+    std::cout << "nan" << " ";
+  }
+  // if (endPoint != nullptr && endPoint->next != nullptr) {
+  //   std::cout << endPoint->next->data << " ";
+  // } else {
+  //   std::cout << "nan" << " ";
+  // }
+  std::cout << std::endl;
 }
 
 template <typename T>
