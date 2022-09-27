@@ -82,6 +82,7 @@ int main() {
   std::cout << std::endl;
   std::cout << "list.size() : " << list.size() << " expected: 6" << std::endl; 
   std::cout << "list.empty() : " << list.empty() << " expected: false" << std::endl; 
+  std::cout << std::endl;
   // std::cout << "list.reverse(): " << std::endl;
   // std::cout << std::endl;
   // list.reverse();
@@ -406,18 +407,23 @@ int main() {
 
   //mergesort
   list2.printv2();
+  std::cout << std::endl;
   list2.printv2back();
+  std::cout << std::endl;
   // list.reverse();
-  std::cout << "sort: " << std::endl;
+  std::cout << "sort: < 6 > < 9 2 > " << std::endl;
+  std::cout << std::endl;
   List<int> list3;
   list3.insertBack(6);
   List<int> list4;
-  list4.insertBack(9);
   list4.insertBack(2);
+  list4.insertBack(9);
   list3.mergeWith(list4);
   // list4.sort();
+  std::cout << std::endl;
   std::cout << "final: " << std::endl;
   list3.printv2();
+  std::cout << std::endl;
   list3.printv2back();
 
   // //iterator

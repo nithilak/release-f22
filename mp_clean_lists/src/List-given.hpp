@@ -115,12 +115,14 @@ List<T> List<T>::split(int splitPoint) {
  */
 template <typename T>
 void List<T>::sort() {
+    std::cout << "sort: " << *this << std::endl;
     if (empty())
         return;
     head_ = mergesort(head_, length_);
     tail_ = head_;
     while (tail_->next != NULL)
         tail_ = tail_->next;
+    std::cout << "end sort: " << std::endl;
 }
 
 template <class T>
