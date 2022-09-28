@@ -81,6 +81,9 @@ class List {
      */
     List(const List<T>& other);
 
+    //makes a list with the head node
+    List(ListNode* head); //not const
+
     /**
      * Overloaded assignment operator for Lists.
      * Part of the Big Three that we must define because the class
