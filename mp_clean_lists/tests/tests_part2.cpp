@@ -122,6 +122,99 @@ TEST_CASE("List::sort simple #2", "[weight=2][part=2][valgrind]") {
 
 }
 
+TEST_CASE("List::sort simple #3", "[weight=2][part=2][valgrind]") {
+    List<int> list;
+
+    list.insertBack(-2);
+    list.insertBack(-5);
+    list.insertBack(-2);
+
+    list.sort();
+
+    stringstream s;
+    list.print(s);
+
+    REQUIRE(s.str() == "< -5 -2 -2 >");
+}
+
+TEST_CASE("List::sort simple #4", "[weight=2][part=2][valgrind]") {
+    List<int> list;
+
+    list.insertBack(-2);
+    list.insertBack(5);
+    list.insertBack(-2);
+
+    list.sort();
+
+    stringstream s;
+    list.print(s);
+
+    REQUIRE(s.str() == "< -2 -2 5 >");
+}
+
+TEST_CASE("List::sort simple #5", "[weight=2][part=2][valgrind]") {
+    List<int> list;
+
+    list.insertBack(-2);
+    list.insertBack(5);
+    list.insertBack(-2);
+    list.insertBack(5);
+    list.insertBack(5);
+    list.insertBack(5);
+    list.insertBack(5);
+    list.insertBack(5);
+
+    list.sort();
+
+    stringstream s;
+    list.print(s);
+
+    REQUIRE(s.str() == "< -2 -2 5 5 5 5 5 5 >");
+}
+
+TEST_CASE("List::sort simple #6", "[weight=2][part=2][valgrind]") {
+    List<int> list;
+
+    list.insertBack(-2);
+    list.insertBack(5);
+    list.insertBack(-2);
+    list.insertBack(5);
+    list.insertBack(6);
+    list.insertBack(9);
+    list.insertBack(8);
+    list.insertBack(7);
+    list.insertBack(5);
+
+    list.sort();
+
+    stringstream s;
+    list.print(s);
+
+    REQUIRE(s.str() == "< -2 -2 5 5 5 6 7 8 9 >");
+}
+
+TEST_CASE("List::sort simple #7", "[weight=2][part=2][valgrind]") {
+    List<int> list;
+
+    list.insertBack(-2);
+    list.insertBack(5);
+    list.insertBack(-2);
+    list.insertBack(5);
+    list.insertBack(6);
+    list.insertBack(9);
+    list.insertBack(8);
+    list.insertBack(7);
+    list.insertBack(5);
+    list.insertBack(0);
+
+    list.sort();
+
+    stringstream s;
+    list.print(s);
+
+    REQUIRE(s.str() == "< -2 -2 0 5 5 5 6 7 8 9 >");
+}
+
 TEST_CASE("List::sort #1", "[weight=5][part=2]") {
   PNG expected;  expected.readFromFile("../tests/expected-sort_1.png");
 

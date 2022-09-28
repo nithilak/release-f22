@@ -783,12 +783,12 @@ template <typename T>
 typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength) {
   /// @todo Graded in MP3.2
   if (start == nullptr) {
-    std::cout << "mergesort: nullptr" << std::endl;
+    // std::cout << "mergesort: nullptr" << std::endl;
     return start;
   }
-  std::cout << "mergesort: "; print(); std::cout << std::endl;
+  // std::cout << "mergesort: "; print(); std::cout << std::endl;
   if (chainLength <= 1) {
-    std::cout << "mergesort end : "; print(); std::cout << std::endl;
+    // std::cout << "mergesort end : "; print(); std::cout << std::endl;
     return start;
   }
   // if (chainLength == 2) { //this case is already covered by case 1
@@ -825,8 +825,8 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
   // list_second = list2;
 
 
-  std::cout << "this: " << *this << std::endl;
-  std::cout << "next: " << list2 << std::endl;
+  // std::cout << "this: " << *this << std::endl;
+  // std::cout << "next: " << list2 << std::endl;
 
   // mergesort(this->head_, this->size());
   // // print();
@@ -835,16 +835,16 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
   // mergesort(list2.head_, list2.size());
 
 
-  std::cout << "this: " << this << " next: " << &list2 << std::endl;
+  // std::cout << "this: " << this << " next: " << &list2 << std::endl;
  
 
-  std::cout << "sorting this: " << *this << std::endl;
+  // std::cout << "sorting this: " << *this << std::endl;
   mergesort(start, this->size());
-  std::cout << "end sorting this: " << *this << std::endl;
+  // std::cout << "end sorting this: " << *this << std::endl;
 
   // merge(mergesort(this->head_, num), mergesort(list2.head_, list2.size()));
 
-  std::cout << "sorting next: " << &list2 << " " << list2 << std::endl;
+  // std::cout << "sorting next: " << &list2 << " " << list2 << std::endl;
   // ListNode* list2_head_copy = list2.head_;
   // printPointAndData(list2_head_copy); std::cout << std::endl;
   list2.mergesort(list2.head_, list2.size());
@@ -852,7 +852,7 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
   // while (list2.tail_ != nullptr && list2.tail_->next != nullptr) {
   //   list2.tail_ = list2.tail_->next;
   // }
-  std::cout << "end sorting next: " << list2 << std::endl;
+  // std::cout << "end sorting next: " << list2 << std::endl;
 
   this->mergeWith(list2);
   // print();
