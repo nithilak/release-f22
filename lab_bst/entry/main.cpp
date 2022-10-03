@@ -69,9 +69,15 @@ void exampleRemove()
     tree.insert(8, 0);
     tree.insert(11, 0);
     tree.insert(2, 0);
+    tree.insert(13, 0);
     tree.print();
+    std::cout << "removing 2" << std::endl;
     tree.remove(2);
     tree.print();
+    std::cout << "removing 12" << std::endl;
+    tree.remove(12);
+    tree.print();
+    std::cout << "removing 9" << std::endl;
     tree.remove(9);
     tree.print();
     printEnd();
@@ -103,11 +109,11 @@ void exampleBuildFromList()
 
     cout << tree.height() << endl;
 
-    /*
+    //*
     for(unsigned i = 0; i < outList.size(); i++){
         cout << outList[i].first << " " << outList[i].second << endl;
     }
-    */
+    //*/
 }
 
 void exampleAllBuild()
@@ -200,6 +206,8 @@ int main(int argc, char** argv)
     // exampleAllBuild();
     // exampleFind();
     // exampleManyInsertions();
-    exampleRemove();
+    // exampleRemove();
+    // exampleBuildFromList();
+    exampleAllBuild();
     return 0;
 }

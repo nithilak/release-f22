@@ -81,20 +81,83 @@ void BST<K, V>::swap(Node*& first, Node*& second)
             second_right_temp = second->right;
         }
 
-        // if (first != nullptr) {
-        //     first->left = second_left_temp;
-        //     first->right = second_right_temp;
-        // }
+
+        if (first != nullptr) {
+            std::cout << "first: " << first->key << std::endl;
+            if (first->left != nullptr) { 
+                std::cout << "first->left: " << first->left->key << std::endl;
+            } else {
+                std::cout << "first->left: nullptr" << std::endl;
+            }
+            if (first->right != nullptr) {
+                std::cout << "first->right: " << first->right->key << std::endl;
+            } else {
+                std::cout << "first->right: nullptr" << std::endl;
+            }
+        } else {
+            std::cout << "first: nullptr" << std::endl;
+        }
+        if (second != nullptr) {
+            std::cout << "second: " << second->key << std::endl;
+            if (second->left != nullptr) { 
+                std::cout << "second->left: " << second->left->key << std::endl;
+            } else {
+                std::cout << "second->left: nullptr" << std::endl;
+            }
+            if (second->right != nullptr) {
+                std::cout << "second->right: " << second->right->key << std::endl;
+            } else {
+                std::cout << "seocnd->right: nullptr" << std::endl;
+            }
+        } else {
+            std::cout << "second: nullptr" << std::endl;
+        }
+
         first = second_temp;
-
-        // if (second != nullptr) {
-        //     second->left = first_left_temp;
-        //     second->right = first_right_temp;
-        // }
         second = first_temp;
+    
+        if (first != nullptr) {
+            first->left = first_left_temp;
+            first->right = first_right_temp;
+        }
+        if (second != nullptr) {
+            second->left = second_left_temp;
+            second->right = second_right_temp;
+        }
 
+       if (first != nullptr) {
+            std::cout << "first: " << first->key << std::endl;
+            if (first->left != nullptr) { 
+                std::cout << "first->left: " << first->left->key << std::endl;
+            } else {
+                std::cout << "first->left: nullptr" << std::endl;
+            }
+            if (first->right != nullptr) {
+                std::cout << "first->right: " << first->right->key << std::endl;
+            } else {
+                std::cout << "first->right: nullptr" << std::endl;
+            }
+        } else {
+            std::cout << "first: nullptr" << std::endl;
+        }
+        if (second != nullptr) {
+            std::cout << "second: " << second->key << std::endl;
+            if (second->left != nullptr) { 
+                std::cout << "second->left: " << second->left->key << std::endl;
+            } else {
+                std::cout << "second->left: nullptr" << std::endl;
+            }
+            if (second->right != nullptr) {
+                std::cout << "second->right: " << second->right->key << std::endl;
+            } else {
+                std::cout << "seocnd->right: nullptr" << std::endl;
+            }
+        } else {
+            std::cout << "second: nullptr" << std::endl;
+        }
 
     }
+    // print();
 }
 
 template <class K, class V>
@@ -127,14 +190,16 @@ void BST<K, V>::remove(Node*& subtree, const K& key)
     }
 
     //1child
-    if (subtree != nullptr && subtree->left == nullptr) {
+    //left is not nullptr
+    if (subtree != nullptr && subtree->left != nullptr && subtree->right == nullptr) {
         BST<K, V>::Node* temp2 = subtree->left;
         delete subtree;
         subtree = nullptr;
         subtree = temp2;
         return;
     }
-    if (subtree != nullptr && subtree->right == nullptr) {
+    //right is not nullptr
+    if (subtree != nullptr && subtree->left == nullptr && subtree->right != nullptr) {
         BST<K, V>::Node* temp2 = subtree->right;
         delete subtree;
         subtree = nullptr;
@@ -143,14 +208,79 @@ void BST<K, V>::remove(Node*& subtree, const K& key)
     }
 
     //2child
-    if (subtree != nullptr) {
-        subtree = subtree->left;
-        while (subtree != nullptr && subtree->right != nullptr) {
-            subtree = subtree->right;
+    if (subtree != nullptr && subtree->left != nullptr && subtree->right != nullptr) {
+        
+        //go smaller
+        Node*& temp2 = subtree;
+        temp2 = temp2->left;
+        //get as close as you can to get bigger
+        while (temp2 != nullptr && temp2->right != nullptr) { //&& temp2->right != nullptr
+            temp2 = temp2->right; //to get to the insertion spot that we need
         }
-        swap(temp, subtree);
-        delete subtree;
-        subtree = nullptr;
+        if (temp != nullptr) {
+            std::cout << "temp: " << temp->key << std::endl;
+        } else {
+            std::cout << "temp: nullptr" << std::endl;
+        }
+        if (temp2 != nullptr) {
+            std::cout << "temp2: " << temp2->key << std::endl;
+        } else {
+            std::cout << "temp2: nullptr" << std::endl;
+        }
+
+        // Node*& temp3 = find(temp2->key);
+
+
+        swap(temp->left, temp2); //something is wrong here
+
+        // while (temp2 != nullptr && temp2->right != nullptr) {
+        //     temp2 = temp2->right;
+        // }
+
+        // std::cout << "temp: " << temp->key << std::endl;
+        // std::cout << "temp2: " << temp2->key << std::endl;
+
+        // delete temp2;
+        // temp2 = nullptr;
+
+        // delete temp2;
+        // temp2 = nullptr;
+
+        if (temp2 != nullptr) {
+            
+        }
+
+        print();
+
+
+
+
+
+
+
+
+
+
+
+
+        // //go smaller
+        // Node* temp2 = subtree;
+        // std::cout << "temp: " << temp->key << std::endl;
+        // std::cout << "temp2: " << temp2->key << std::endl;
+        // temp2 = temp2->left;
+        // //get as close as you can to get bigger
+        // while (temp != nullptr && temp->right != nullptr) {
+        //     temp = temp->right;
+        // }
+        // std::cout << "temp: " << temp->key << std::endl;
+        // std::cout << "temp2: " << temp2->key << std::endl;
+        // swap(temp, temp2); //something is wrong here
+        // std::cout << "temp: " << temp->key << std::endl;
+        // std::cout << "temp2: " << temp2->key << std::endl;
+        // delete temp2;
+        // temp2 = nullptr;
+        // std::cout << "temp: " << temp->key << std::endl;
+        // std::cout << "temp2: " << temp2 << std::endl;
     }
 }
 
@@ -167,23 +297,34 @@ BST<K, V> listBuild(std::vector<std::pair<K, V>> inList){
 template <class K, class V>
 std::vector<int> allBuild(std::vector<std::pair<K, V>> inList){
     // your code here
+
+    // size_t n_factorial = 1;
+     
+    // for (size_t i = 1; i <= inList.size(); i++) {
+    //     n_factorial *= i;
+    // }
+    
     std::vector<int> output;
     if (inList.size() <= 0) {
         return output;
     }
-    std::stable_sort(inList.begin(), inList.end());
+    std::sort(inList.begin(), inList.end());
 
-    size_t n_factorial = 1;
-
-    for (size_t i = 1; i <= inList.size(); i++) {
-        n_factorial *= i;
-    }
-
-    for (size_t i = 0; i < n_factorial; i++) {
+    do {
+        // std::cout << "output size: " << output.size() << std::endl;
         BST<K, V> bst = listBuild(inList);
-        output.push_back(bst.height());
+        size_t height = bst.height();
+        // std::cout << "height " << height << std::endl;
+        while (height >= output.size()) {
+            output.push_back(0);
+        }
+        output.at(height) += 2;
         std::next_permutation(inList.begin(), inList.end());
-    }
+    } while (std::next_permutation(inList.begin(), inList.end()));
+
+    // for (size_t i = 0; i < output.size(); i++) {
+    //     output.at(i) *= 2;
+    // }
 
     return output;
 }
