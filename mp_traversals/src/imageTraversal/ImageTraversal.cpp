@@ -35,8 +35,8 @@ ImageTraversal::Iterator::Iterator() {
   /** @todo [Part 1] */
 }
 
-Iterator(const Point& point) : point_(point) {
-}
+// ImageTraversal::Iterator(const Point& point) : point_(point) {
+// }
 
 /**
  * Iterator increment opreator.
@@ -46,9 +46,9 @@ Iterator(const Point& point) : point_(point) {
  //this is where most of the logic of this mp should go.
 ImageTraversal::Iterator & ImageTraversal::Iterator::operator++() {
   /** @todo [Part 1] */
-  if (calculateDelta(point, start_) < tolerance_) {
+  // if (calculateDelta(position_, start_) < tolerance_) {
 
-  }
+  // }
   return *this;
 }
 

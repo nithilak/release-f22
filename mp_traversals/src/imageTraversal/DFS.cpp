@@ -20,9 +20,13 @@
  * @param start The start point of this DFS
  * @param tolerance If the current point is too different (difference larger than tolerance) with the start point,
  * it will not be included in this DFS
- */
-DFS::DFS(const PNG & png, const Point & start, double tolerance) {  
+ */                                                                                                                 //copied from BFS.cpp (visited constructor)
+DFS::DFS(const PNG & png, const Point & start, double tolerance) : png_(png), start_(start), tolerance_(tolerance), visited(png_.width(), std::vector<bool>(png_.height(), false)) {  
   /** @todo [Part 1] */
+  if (tolerance_ < 0) {
+    tolerance_ = 0;
+  }
+  add(start_);
 }
 
 /**
@@ -30,7 +34,11 @@ DFS::DFS(const PNG & png, const Point & start, double tolerance) {
  */
 ImageTraversal::Iterator DFS::begin() {
   /** @todo [Part 1] */
-  return ImageTraversal::Iterator();
+  while (!stack.empty()) {
+    stack.pop();
+  }
+  add(start_);
+  return ImageTraversal::Iterator(); //stack.top()
 }
 
 /**
@@ -46,6 +54,38 @@ ImageTraversal::Iterator DFS::end() {
  */
 void DFS::add(const Point & point) {
   /** @todo [Part 1] */
+  //copied from BFS.cpp, queue -> stack
+  //we do not control what they do with these points, only if it is included or not
+  //tolerance is declared here so that it can be used in the upper class, I think
+  // std::cout << "Point: " << point.x << " " << point.y << std::endl;
+  stack.push(point); //not even the next after this? ok then
+  // //     (col, row)
+  // //left (1, 0)
+  // if (!visited.at(point.x + 1).at(point.y)) {
+  //   // std::cout << "Point left: " << point.x + 1 << " " << point.y << std::endl;
+  //   stack.push(Point(point.x + 1, point.y));
+  // }
+  // //down (0, 1)
+  // if (!visited.at(point.x).at(point.y + 1)) {
+  //   // std::cout << "Point down: " << point.x << " " << point.y + 1 << std::endl;
+  //   stack.push(Point(point.x, point.y + 1));
+  // }
+  // //right (-1, 0)
+  // size_t i = 0;
+  // for (; i + 1 < point.x; i++) {
+  // }
+  // if (!visited.at(i).at(point.y)) {
+  //   // std::cout << "Point right: " << i << " " << point.y << std::endl;
+  //   stack.push(Point(i, point.y));
+  // }
+  // //up (0, -1)
+  // size_t j = 0;
+  // for (; j + 1 < point.x; j++) {
+  // }
+  // if (!visited.at(point.x).at(j)) {
+  //   // std::cout << "Point up: " << point.x << " " << j << std::endl;
+  //   stack.push(Point(point.x, j));
+  // }
 }
 
 /**
@@ -53,6 +93,13 @@ void DFS::add(const Point & point) {
  */
 Point DFS::pop() {
   /** @todo [Part 1] */
+  if (!stack.empty()) {
+    Point temp = stack.top();
+    stack.pop();
+    visited.at(temp.x).at(temp.y) = true;
+    std::cout << "Point: " << temp.x << " " << temp.y << std::endl;
+    return temp;
+  }
   return Point(0, 0);
 }
 
@@ -61,6 +108,10 @@ Point DFS::pop() {
  */
 Point DFS::peek() const {
   /** @todo [Part 1] */
+  //copied from Point DFS::pop(), then modified a little bit
+  if (!stack.empty()) {
+    return stack.top();
+  }
   return Point(0, 0);
 }
 
@@ -69,5 +120,5 @@ Point DFS::peek() const {
  */
 bool DFS::empty() const {
   /** @todo [Part 1] */
-  return true;
+  return stack.empty();
 }

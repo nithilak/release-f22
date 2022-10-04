@@ -49,6 +49,11 @@ ImageTraversal::Iterator BFS::end() {
 void BFS::add(const Point & point) {
   /** @todo [Part 1] */
   queue.push(point);
+
+  if (tolerance_ < 100) {
+
+  }
+
   //     (col, row)
   //left (1, 0)
   queue.push(Point(point.x + 1, point.y));
