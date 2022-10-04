@@ -47,7 +47,7 @@ ImageTraversal::Iterator BFS::begin() {
     queue.pop();
   }
   add(start_);
-  return ImageTraversal::Iterator(); //stack.top()
+  return ImageTraversal::Iterator(start_); //stack.top()
 }
 //copied from here:
 // ImageTraversal::Iterator DFS::begin() {
@@ -64,7 +64,7 @@ ImageTraversal::Iterator BFS::begin() {
  */
 ImageTraversal::Iterator BFS::end() {
   /** @todo [Part 1] */
-  return ImageTraversal::Iterator();
+  return ImageTraversal::Iterator(Point(-1, -1));
 }
 
 /**

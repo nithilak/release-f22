@@ -28,8 +28,8 @@ public:
    */
   class Iterator : std::iterator<std::forward_iterator_tag, Point> {
   public:
-    Iterator();
-    // Iterator(const Point& point);
+    // Iterator();
+    Iterator(const Point& point);
 
     Iterator & operator++();
     Point operator*();
@@ -79,5 +79,5 @@ public:
 
 private:
   static double calculateDelta(const HSLAPixel & p1, const HSLAPixel & p2); 
-  Iterator position_;
+  // Iterator position_;
 };
