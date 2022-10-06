@@ -434,9 +434,6 @@ src/CMakeFiles/src.dir/FloodFilledImage.cpp.o: ../src/FloodFilledImage.cpp \
   ../src/imageTraversal/ImageTraversal.h \
   /usr/include/c++/11/iterator \
   /usr/include/c++/11/bits/stream_iterator.h \
-  ../src/Point.h \
-  ../src/Point.h \
-  ../src/Animation.h \
   /usr/include/c++/11/vector \
   /usr/include/c++/11/bits/stl_uninitialized.h \
   /usr/include/c++/11/bits/stl_vector.h \
@@ -445,6 +442,9 @@ src/CMakeFiles/src.dir/FloodFilledImage.cpp.o: ../src/FloodFilledImage.cpp \
   /usr/include/c++/11/debug/vector \
   /usr/include/c++/11/utility \
   /usr/include/c++/11/bits/stl_relops.h \
+  ../src/Point.h \
+  ../src/Point.h \
+  ../src/Animation.h \
   ../src/FloodFilledImage.h
 
 src/CMakeFiles/src.dir/Point.cpp.o: ../src/Point.cpp \
@@ -2346,7 +2346,22 @@ src/CMakeFiles/src.dir/imageTraversal/ImageTraversal.cpp.o: ../src/imageTraversa
   /usr/include/c++/11/bits/sstream.tcc \
   ../lib/cs225/PNG.h \
   ../src/Point.h \
-  ../src/imageTraversal/ImageTraversal.h
+  ../src/imageTraversal/ImageTraversal.h \
+  /usr/include/c++/11/vector \
+  /usr/include/c++/11/bits/stl_uninitialized.h \
+  /usr/include/c++/11/bits/stl_vector.h \
+  /usr/include/c++/11/bits/stl_bvector.h \
+  /usr/include/c++/11/bits/vector.tcc \
+  /usr/include/c++/11/debug/vector \
+  /usr/include/c++/11/utility \
+  /usr/include/c++/11/bits/stl_relops.h \
+  /usr/include/c++/11/debug/safe_sequence.h \
+  /usr/include/c++/11/debug/safe_base.h \
+  /usr/include/c++/11/ext/concurrence.h \
+  /usr/include/c++/11/debug/safe_sequence.tcc \
+  /usr/include/c++/11/debug/safe_container.h \
+  /usr/include/c++/11/debug/safe_iterator.h \
+  /usr/include/c++/11/debug/safe_iterator.tcc
 
 
 ../src/imageTraversal/DFS.h:

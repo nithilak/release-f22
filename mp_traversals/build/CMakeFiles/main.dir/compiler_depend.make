@@ -209,9 +209,6 @@ CMakeFiles/main.dir/entry/main.cpp.o: ../entry/main.cpp \
   ../src/imageTraversal/ImageTraversal.h \
   /usr/include/c++/11/iterator \
   /usr/include/c++/11/bits/stream_iterator.h \
-  ../src/Point.h \
-  ../src/Point.h \
-  ../src/Animation.h \
   /usr/include/c++/11/vector \
   /usr/include/c++/11/bits/stl_uninitialized.h \
   /usr/include/c++/11/bits/stl_vector.h \
@@ -220,6 +217,9 @@ CMakeFiles/main.dir/entry/main.cpp.o: ../entry/main.cpp \
   /usr/include/c++/11/debug/vector \
   /usr/include/c++/11/utility \
   /usr/include/c++/11/bits/stl_relops.h \
+  ../src/Point.h \
+  ../src/Point.h \
+  ../src/Animation.h \
   ../src/imageTraversal/DFS.h \
   /usr/include/c++/11/cmath \
   /usr/include/math.h \

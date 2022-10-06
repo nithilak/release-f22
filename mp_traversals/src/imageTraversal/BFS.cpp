@@ -47,7 +47,7 @@ ImageTraversal::Iterator BFS::begin() {
     queue.pop();
   }
   add(start_);
-  return ImageTraversal::Iterator(start_); //stack.top()
+  return ImageTraversal::Iterator(this, start_, start_, png_, tolerance_); //stack.top()
 }
 //copied from here:
 // ImageTraversal::Iterator DFS::begin() {
@@ -64,7 +64,7 @@ ImageTraversal::Iterator BFS::begin() {
  */
 ImageTraversal::Iterator BFS::end() {
   /** @todo [Part 1] */
-  return ImageTraversal::Iterator(Point(-1, -1));
+  return ImageTraversal::Iterator(this, Point(-1, -1), start_, png_, tolerance_);
 }
 
 /**
@@ -72,7 +72,9 @@ ImageTraversal::Iterator BFS::end() {
  */
 void BFS::add(const Point & point) {
   /** @todo [Part 1] */
-  queue.push(point);
+  if (!visited.at(point.x).at(point.y)) {
+    queue.push(point);
+  }
 
   if (tolerance_ < 100) {
 
@@ -93,6 +95,14 @@ void BFS::add(const Point & point) {
   // for (; j + 1 < point.x; j++) {
   // }
   // queue.push(Point(point.x, j));
+  // // int count = 0;
+
+  // while (!queue.empty() && count < 100) {
+  //   // path_.push_back(queue.front());
+  //   queue.pop();
+  //   // count++;
+  //   // add(queue.front());
+  // }
 }
 
 /**
@@ -100,6 +110,7 @@ void BFS::add(const Point & point) {
  */
 Point BFS::pop() {
   /** @todo [Part 1] */
+  std::cout << "pop" << std::endl;
   if (!queue.empty()) {
     Point temp = queue.front();
     queue.pop();

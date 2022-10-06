@@ -40,4 +40,5 @@ private:
   const PNG& png_;
   double tolerance_;
   std::vector<std::vector<bool>> visited;
+  std::vector<Point> path_;
 };
