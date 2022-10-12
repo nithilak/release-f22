@@ -47,7 +47,7 @@ ImageTraversal::Iterator BFS::begin() {
     queue.pop();
   }
   add(start_);
-  return ImageTraversal::Iterator(this, queue.front(), png_, tolerance_); //stack.top()
+  return ImageTraversal::Iterator(this, start_, start_, png_, tolerance_); //stack.top()
 }
 //copied from here:
 // ImageTraversal::Iterator DFS::begin() {
@@ -64,7 +64,7 @@ ImageTraversal::Iterator BFS::begin() {
  */
 ImageTraversal::Iterator BFS::end() {
   /** @todo [Part 1] */
-  return ImageTraversal::Iterator(this, Point(-1, -1), png_, tolerance_);
+  return ImageTraversal::Iterator(this, Point(-1, -1), start_, png_, tolerance_);
 }
 
 /**
@@ -72,18 +72,8 @@ ImageTraversal::Iterator BFS::end() {
  */
 void BFS::add(const Point & point) {
   /** @todo [Part 1] */
-  std::cout << "to add: " << point << std::endl;
-  // Point copy = point;
-  // std::cout << "copy: " << copy << std::endl;
   if (!visited.at(point.x).at(point.y)) {
     queue.push(point);
-  }
-
-  std::cout << "added: " << queue.front() << std::endl;
-  std::queue<Point> copy2 = queue;
-  while (!copy2.empty()) {
-    std::cout << "elem copy2: " << copy2.front() << std::endl;
-    copy2.pop();
   }
 
   if (tolerance_ < 100) {
@@ -126,14 +116,9 @@ Point BFS::pop() {
     queue.pop();
     visited.at(temp.x).at(temp.y) = true;
     std::cout << "Point: " << temp.x << " " << temp.y << std::endl;
-    std::queue<Point> copy2 = queue;
-    while (!copy2.empty()) {
-      std::cout << "elem copy2: " << copy2.front() << std::endl;
-      copy2.pop();
-    }
     return temp;
   }
-  return Point(-1, -1);
+  return Point(0, 0);
 }
 //copied from here:
 // Point DFS::pop() {
@@ -156,7 +141,7 @@ Point BFS::peek() const {
   if (!queue.empty()) {
     return queue.front();
   }
-  return Point(-1, -1); //from DFS.cpp turns out that Point(0, 0) is the default
+  return Point(0, 0); //from DFS.cpp turns out that Point(0, 0) is the default
 }
 
 /**
