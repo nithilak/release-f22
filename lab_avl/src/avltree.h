@@ -80,6 +80,11 @@ class AVLTree
     void insert(const K& key, const V& value);
 
     /**
+     * Returns the height of the tree, -1 if the root is NULL.
+     */
+    int height() const;
+
+    /**
      * Removes a key from the AVLTree. The key is assumed to exist in the tree.
      * @param key The key to remove
      */
@@ -195,6 +200,14 @@ class AVLTree
      * @return The height of the node if it's non-`NULL` or -1 if it is `NULL`
      */
     int heightOrNeg1(const Node* node) const;
+
+    /**
+     * Calculates the height of the node.
+     * Returns -1 if the node is NULL.
+     * @param node The node
+     * @return The height of the node, -1 if node is NULL
+     */
+    int height(const Node* node) const;
 
     /**
      * Swap the keys and values of two nodes.

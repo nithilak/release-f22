@@ -69,6 +69,7 @@ void testRotateLeft()
     printAfter(9);
     tree.insert(9, 9);
     tree.print();
+    // tree.rotateLeft(tree.root);
     printEnd();
 }
 
@@ -209,10 +210,10 @@ int main(int argc, char** argv)
     // Test AVL Tree
     testFind();
     testRotateLeft();
-    testRotateRight();
-    testRotateLeftRight();
-    testRotateRightLeft();
-    testManyInsertions();
-    testManyRemovals();
+    // testRotateRight();
+    // testRotateLeftRight();
+    // testRotateRightLeft();
+    // testManyInsertions();
+    // testManyRemovals();
     return 0;
 }

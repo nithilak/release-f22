@@ -41,6 +41,20 @@ TEST_CASE("test_find", "[weight=10][valgrind]") {
     REQUIRE(tree.find("Nico").compare("nii") == 0);
 }
 
+TEST_CASE("test_height_unbalanced", "[weight=10][valgrind]") {
+	AVLTree<string, string> tree;
+    tree.insert("C", "C++");
+    REQUIRE(tree.height() == 0);
+    tree.insert("free", "delete");
+    REQUIRE(tree.height() == 1);
+    tree.insert("malloc", "new");
+    REQUIRE(tree.height() == 2);
+    tree.insert("bool", "void");
+    REQUIRE(tree.height() == 2);
+    tree.insert("Nico", "nii");
+    REQUIRE(tree.height() == 3);
+}
+
 TEST_CASE("test_insert_small", "[weight=5]") {
     AVLTree<int, int> tree;
     tree.insert(1,2);
