@@ -104,7 +104,7 @@ bool ImageTraversal::Iterator::operator!=(const ImageTraversal::Iterator &other)
   std::cout << "point_: " << point_ << std::endl;
   std::cout << "other.point_: " << other.point_ << std::endl;
   std::cout << "!(point_ == other.point_) " << !(point_ == other.point_) << std::endl; 
-  if (other.point_.x > 400) {
+  if (other.point_.x !=  point_.x || other.point_.y !=  point_.y) {
     return false;
   }
   return (!(point_ == other.point_));

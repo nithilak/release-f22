@@ -58,15 +58,18 @@ void FloodFilledImage::addFloodFill(ImageTraversal & traversal, ColorPicker & co
 Animation FloodFilledImage::animate(unsigned frameInterval) const {
   Animation animation;
   /** @todo [Part 2] */
-  // ImageTraversal traversal;
-  // ColorPicker colorPicker;
-  // addFloodFill(traversal, colorPicker);
-  const double ktotalpixels = png_.width() * png_.height();
+  // const ImageTraversal* traversal;
+  // const ColorPicker* colorPicker;
+  // const ImageTraversal* traversal2;
+  // animation.addFloodFill(*traversal, *colorPicker);
+  // animation.addFloodFill(*traversal2, *colorPicker);
+
+  const double ktemptotalpixels = 360; // png_.width() * png_.height();
   size_t i = 0;
-  for (; i < ktotalpixels; i += frameInterval) {
+  for (; i < ktemptotalpixels; i += frameInterval) {
     animation.addFrame(png_);
   }
-  if (i < ktotalpixels) {
+  if (i < ktemptotalpixels) {
     animation.addFrame(png_);
   }
   return animation;
