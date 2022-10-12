@@ -39,7 +39,7 @@ ImageTraversal::Iterator DFS::begin() {
   }
   add(start_);
   std::cout << "start: " << start_.x << " " << start_.y << std::endl;
-  return ImageTraversal::Iterator(this, stack.top()); //stack.top()
+  return ImageTraversal::Iterator(this, stack.top(), png_, tolerance_); //stack.top()
 }
 
 /**
@@ -47,7 +47,7 @@ ImageTraversal::Iterator DFS::begin() {
  */
 ImageTraversal::Iterator DFS::end() {
   /** @todo [Part 1] */
-  return ImageTraversal::Iterator(this, Point(-1, -1));
+  return ImageTraversal::Iterator(this, Point(-1, -1), png_, tolerance_);
 }
 
 /**
