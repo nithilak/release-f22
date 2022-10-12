@@ -47,7 +47,7 @@ ImageTraversal::Iterator BFS::begin() {
     queue.pop();
   }
   add(start_);
-  return ImageTraversal::Iterator(this, start_, start_, png_, tolerance_); //stack.top()
+  return ImageTraversal::Iterator(this, queue.front()); //stack.top()
 }
 //copied from here:
 // ImageTraversal::Iterator DFS::begin() {
@@ -64,7 +64,7 @@ ImageTraversal::Iterator BFS::begin() {
  */
 ImageTraversal::Iterator BFS::end() {
   /** @todo [Part 1] */
-  return ImageTraversal::Iterator(this, Point(-1, -1), start_, png_, tolerance_);
+  return ImageTraversal::Iterator(this, Point(-1, -1));
 }
 
 /**
@@ -118,7 +118,7 @@ Point BFS::pop() {
     std::cout << "Point: " << temp.x << " " << temp.y << std::endl;
     return temp;
   }
-  return Point(0, 0);
+  return Point(-1, -1);
 }
 //copied from here:
 // Point DFS::pop() {
@@ -141,7 +141,7 @@ Point BFS::peek() const {
   if (!queue.empty()) {
     return queue.front();
   }
-  return Point(0, 0); //from DFS.cpp turns out that Point(0, 0) is the default
+  return Point(-1, -1); //from DFS.cpp turns out that Point(0, 0) is the default
 }
 
 /**

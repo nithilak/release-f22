@@ -30,7 +30,7 @@ public:
   class Iterator : std::iterator<std::forward_iterator_tag, Point> {
   public:
     Iterator();
-    Iterator(ImageTraversal* traversal, const Point& point, const Point& start, const PNG& png, double tolerance);
+    Iterator(ImageTraversal* traversal, const Point& point);
 
     Iterator & operator++();
     Point operator*();
@@ -45,9 +45,9 @@ public:
     ImageTraversal* traversal_;
     Point point_;
     const Point start_;
-    const PNG png_;
+    const PNG png_; //not sure if this can be taken out
     double tolerance_;
-    std::vector<Point> path_;
+    // std::vector<Point> path_;
     // Iterator position_;
   };
 
@@ -87,4 +87,5 @@ public:
 private:
   static double calculateDelta(const HSLAPixel & p1, const HSLAPixel & p2); 
   // Iterator position_;
+
 };
