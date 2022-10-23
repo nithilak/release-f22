@@ -279,7 +279,8 @@ void HuffmanTree::buildTree(const vector<Frequency>& frequencies)
         if (singleQueue.empty() && (mergeQueue.size() == 1)) {
             break;
         }
-        if (mergeQueue.empty() && (singleQueue.size() == 1)) {
+        if (mergeQueue.empty() && (singleQueue.size() == 1)) { //this should never happen
+            std::cout << "warning: unintended behaviour" << std::endl;
             break;
         }
     }
@@ -306,6 +307,7 @@ void HuffmanTree::buildTree(const vector<Frequency>& frequencies)
         root_ = mergeQueue.front();
         mergeQueue.pop();
     } else if (!singleQueue.empty()) {
+        std::cout << "warning: unintended behaviour" << std::endl;
         root_ = singleQueue.front(); //just in case, for some reason this were to happen,
         singleQueue.pop();
     } else {
