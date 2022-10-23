@@ -256,6 +256,8 @@ class HuffmanTree
      */
     void writeTree(TreeNode* current, BinaryFileWriter& bfile);
 
+    void writeBit(TreeNode* current);
+
     /**
      * Private helper to get the height of the HuffmanTree.
      * @param subRoot Where we're currently at.
