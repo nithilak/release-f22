@@ -249,11 +249,39 @@ void HuffmanTree::buildTree(const vector<Frequency>& frequencies)
         char small2Char = small2->freq.getCharacter();
         std::cout << "small2: " << small2Char << " " << small2Freq << std::endl;
 
+        std::cout << "make new" << std::endl;
         TreeNode* newNode = new TreeNode(Frequency(small1Char + small2Char, small1Freq + small2Freq));
         newNode->left = small1;
         newNode->right = small2;
+        std::cout << "node: " << newNode->freq.getCharacter() << " " << newNode->freq.getFrequency() << std::endl;
 
         mergeQueue.push(newNode);
+
+        // print both queues to std::cout
+        std::cout << "print both queues to std::cout" << std::endl;
+        copySingle = singleQueue;
+        copyMerge = mergeQueue;
+
+        std::cout << "single: " << std::endl;
+        while (!copySingle.empty()) {
+            TreeNode* current = copySingle.front();
+            std::cout << current->freq.getCharacter() << " " << current->freq.getFrequency() << std::endl;
+            copySingle.pop();
+        }
+        std::cout << "merge: " << std::endl;
+        while (!copyMerge.empty()) {
+            TreeNode* current = copyMerge.front();
+            std::cout << current->freq.getCharacter() << " " << current->freq.getFrequency() << std::endl;
+            copyMerge.pop();
+        }
+        std::cout << "end" << std::endl;
+
+        if (singleQueue.empty() && (mergeQueue.size() == 1)) {
+            break;
+        }
+        if (mergeQueue.empty() && (singleQueue.size() == 1)) {
+            break;
+        }
     }
 
     // // print both queues to std::cout
@@ -274,13 +302,15 @@ void HuffmanTree::buildTree(const vector<Frequency>& frequencies)
     //     copyMerge.pop();
     //  }
 
-    // if (!mergeQueue.empty()) {
-    //     root_ = mergeQueue.front();
-    // } else if (!singleQueue.empty()) {
-    //     root_ = singleQueue.front();
-    // } else {
-    //     root_ = NULL;
-    // }
+    if (!mergeQueue.empty()) {
+        root_ = mergeQueue.front();
+        mergeQueue.pop();
+    } else if (!singleQueue.empty()) {
+        root_ = singleQueue.front(); //just in case, for some reason this were to happen,
+        singleQueue.pop();
+    } else {
+        root_ = NULL;
+    }
 
     // std::cout << "tree: " << std::endl;
     // this->printInOrder();
