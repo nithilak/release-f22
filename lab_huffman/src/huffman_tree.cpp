@@ -83,7 +83,71 @@ HuffmanTree::removeSmallest(queue<TreeNode*>& singleQueue,
      * smaller of the two queues heads is the smallest item in either of
      * the queues. Return this item after removing it from its queue.
      */
-    return NULL;
+
+    std::cout << "remove smallest" << std::endl;
+    // // print both queues to std::cout
+    // std::cout << "print both queues to std::cout" <<std::endl;
+    // auto copySingle = singleQueue;
+    // auto copyMerge = mergeQueue;
+
+    //  std::cout << "single: " << std::endl;
+    //  while (!copySingle.empty()) {
+    //     TreeNode* current = copySingle.front();
+    //     std::cout << current->freq.getCharacter() << " " << current->freq.getFrequency() << std::endl;
+    //     copySingle.pop();
+    //  }
+    //  std::cout << "merge: " << std::endl;
+    //  while (!copyMerge.empty()) {
+    //     TreeNode* current = copyMerge.front();
+    //     std::cout << current->freq.getCharacter() << " " << current->freq.getFrequency() << std::endl;
+    //     copyMerge.pop();
+    //  }
+
+    std::cout << "test1" << std::endl;
+
+    // TreeNode* single = singleQueue.front();
+    // TreeNode* merge = mergeQueue.front();
+
+    if (singleQueue.empty() && mergeQueue.empty()) {
+        std::cout << "test3" << std::endl;
+        TreeNode* temp = nullptr;
+        return temp;
+    } else if (singleQueue.empty()) { //could move this outside of this function but keeping this here for code versatility, and for future plans
+        std::cout << "test4" << std::endl;
+        TreeNode* merge = mergeQueue.front();
+        mergeQueue.pop();
+        return merge;
+    } else if (mergeQueue.empty()) {
+        std::cout << "test5" << std::endl;
+        TreeNode* single = singleQueue.front();
+        singleQueue.pop();
+        return single;
+    }
+
+    std::cout << "test2" << std::endl;
+
+    TreeNode* single = singleQueue.front();
+    TreeNode* merge = mergeQueue.front();
+
+    std::cout << "test6" << std::endl;
+
+    int singleFreq = single->freq.getFrequency();
+    std::cout << "test7" << std::endl;
+    int mergeFreq = merge->freq.getFrequency();
+    std::cout << "test8" << std::endl;
+
+    if (singleFreq > mergeFreq) {
+        std::cout << "test9" << std::endl;
+        mergeQueue.pop();
+        std::cout << "test10" << std::endl;
+        return merge;
+    }
+    std::cout << "test11" << std::endl;
+    singleQueue.pop();
+    std::cout << "test12" << std::endl;
+    std::cout << single->freq.getCharacter() << " " << single->freq.getFrequency() << std::endl;
+    std::cout << merge->freq.getCharacter() << " " << merge->freq.getFrequency() << std::endl;
+    return single;
 }
 
 void HuffmanTree::buildTree(const vector<Frequency>& frequencies)
@@ -108,6 +172,118 @@ void HuffmanTree::buildTree(const vector<Frequency>& frequencies)
      * Finally, when there is a single node left, it is the root. Assign it
      * to the root and you're done!
      */
+
+    //build tree
+    std::cout << "build tree" << std::endl;
+
+    //  std::cout << "tree: " << std::endl;
+    //  this->printInOrder();
+
+    //  print both queues to std::cout
+     std::cout << "print both queues to std::cout" << std::endl;
+     auto copySingle = singleQueue;
+     auto copyMerge = mergeQueue;
+
+     std::cout << "single: " << std::endl;
+     while (!copySingle.empty()) {
+        TreeNode* current = copySingle.front();
+        std::cout << current->freq.getCharacter() << " " << current->freq.getFrequency() << std::endl;
+        copySingle.pop();
+     }
+     std::cout << "merge: " << std::endl;
+     while (!copyMerge.empty()) {
+        TreeNode* current = copyMerge.front();
+        std::cout << current->freq.getCharacter() << " " << current->freq.getFrequency() << std::endl;
+        copyMerge.pop();
+     }
+
+
+    std::cout << "add all nodes in frequency to singleQueue" << std::endl;
+    //add all nodes in frequency to singleQueue
+    for (Frequency freq : frequencies) { //already sorted
+        std::cout << "add frequency: " << freq.getCharacter() << " " << freq.getFrequency() << std::endl;
+        TreeNode* temp = new TreeNode(freq);
+        singleQueue.push(temp);
+    }
+
+    // print both queues to std::cout
+     std::cout << "print both queues to std::cout" << std::endl;
+     copySingle = singleQueue;
+     copyMerge = mergeQueue;
+
+     std::cout << "single: " << std::endl;
+     while (!copySingle.empty()) {
+        TreeNode* current = copySingle.front();
+        std::cout << current->freq.getCharacter() << " " << current->freq.getFrequency() << std::endl;
+        copySingle.pop();
+     }
+     std::cout << "merge: " << std::endl;
+     while (!copyMerge.empty()) {
+        TreeNode* current = copyMerge.front();
+        std::cout << current->freq.getCharacter() << " " << current->freq.getFrequency() << std::endl;
+        copyMerge.pop();
+     }
+     std::cout << "end" << std::endl;
+
+     int count = 0;
+
+    while (!(singleQueue.empty() && mergeQueue.empty())) {  // && count < 100
+        std::cout << "remove small1" << std::endl;
+        TreeNode* small1 = removeSmallest(singleQueue, mergeQueue);
+        int small1Freq = small1->freq.getFrequency();
+        char small1Char = small1->freq.getCharacter();
+        std::cout << "small1: " << small1Char << " " << small1Freq << std::endl;
+        count++;
+        // if (small1 == nullptr) {
+        //     std::cout << "small1 == nullptr" << endl;
+        //    return;
+        // }
+        
+        std::cout << "remove small2" << std::endl;
+        TreeNode* small2 = removeSmallest(singleQueue, mergeQueue);
+        // if (small2 == nullptr) {
+        //     std::cout << "small2 == nullptr" << endl;
+        //    return;
+        // }
+        int small2Freq = small2->freq.getFrequency();
+        char small2Char = small2->freq.getCharacter();
+        std::cout << "small2: " << small2Char << " " << small2Freq << std::endl;
+
+        TreeNode* newNode = new TreeNode(Frequency(small1Char + small2Char, small1Freq + small2Freq));
+        newNode->left = small1;
+        newNode->right = small2;
+
+        mergeQueue.push(newNode);
+    }
+
+    // // print both queues to std::cout
+    //  std::cout << "print both queues to std::cout" << std::endl;
+    //  copySingle = singleQueue;
+    //  copyMerge = mergeQueue;
+
+    //  std::cout << "single: " << std::endl;
+    //  while (!copySingle.empty()) {
+    //     TreeNode* current = copySingle.front();
+    //     std::cout << current->freq.getCharacter() << " " << current->freq.getFrequency() << std::endl;
+    //     copySingle.pop();
+    //  }
+    //  std::cout << "merge: " << std::endl;
+    //  while (!copyMerge.empty()) {
+    //     TreeNode* current = copyMerge.front();
+    //     std::cout << current->freq.getCharacter() << " " << current->freq.getFrequency() << std::endl;
+    //     copyMerge.pop();
+    //  }
+
+    // if (!mergeQueue.empty()) {
+    //     root_ = mergeQueue.front();
+    // } else if (!singleQueue.empty()) {
+    //     root_ = singleQueue.front();
+    // } else {
+    //     root_ = NULL;
+    // }
+
+    // std::cout << "tree: " << std::endl;
+    // this->printInOrder();
 
 }
 
