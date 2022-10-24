@@ -250,7 +250,7 @@ void HuffmanTree::buildTree(const vector<Frequency>& frequencies)
         // std::cout << "small2: " << small2Char << " " << small2Freq << std::endl;
 
         // std::cout << "make new" << std::endl;
-        TreeNode* newNode = new TreeNode(Frequency(small1Char + small2Char, small1Freq + small2Freq));
+        TreeNode* newNode = new TreeNode(Frequency(small1Freq + small2Freq));
         newNode->left = small1;
         newNode->right = small2;
         // std::cout << "node: " << newNode->freq.getCharacter() << " " << newNode->freq.getFrequency() << std::endl;
@@ -383,13 +383,18 @@ void HuffmanTree::writeTree(TreeNode* current, BinaryFileWriter& bfile)
      * version: this is fine, as the structure of the tree still reflects
      * what the relative frequencies were.
      */
+
+        this->print(std::cout);
      if (current == nullptr) {
         return;
      } if (current->left == nullptr && current->right == nullptr) {
+        std::cout << "1" << std::endl;
         bfile.writeBit(1);
+        std::cout << current->freq.getCharacter() << std::endl;
         bfile.writeBit(current->freq.getCharacter());
      } else {
         bfile.writeBit(0);
+        std::cout << "0" << std::endl;
         writeTree(current->left, bfile);
         writeTree(current->right, bfile);
      }
@@ -414,16 +419,22 @@ HuffmanTree::TreeNode* HuffmanTree::readTree(BinaryFileReader& bfile)
      *         if it did not create one.
      */
 
+     if (!bfile.hasBits()) {
+        return NULL;
+     }
+
      TreeNode* newNode = nullptr;
 
-     while (bfile.hasBits()) {
         char c = bfile.getNextBit();
+        std::cout << c << std::endl;
         if (c == 1) {
             newNode = new TreeNode(Frequency(bfile.getNextByte(), 0));
+            std::cout << newNode->freq.getCharacter() << std::endl;
         } else if (c == 0) {
            newNode = new TreeNode(0);
+           newNode->left = readTree(bfile);
+           newNode->right = readTree(bfile);
         }
-     }
 
     return newNode;
 }
