@@ -384,20 +384,31 @@ void HuffmanTree::writeTree(TreeNode* current, BinaryFileWriter& bfile)
      * what the relative frequencies were.
      */
 
-        this->print(std::cout);
-     if (current == nullptr) {
-        return;
-     } if (current->left == nullptr && current->right == nullptr) {
-        std::cout << "1" << std::endl;
-        bfile.writeBit(1);
-        std::cout << current->freq.getCharacter() << std::endl;
-        bfile.writeBit(current->freq.getCharacter());
-     } else {
-        bfile.writeBit(0);
-        std::cout << "0" << std::endl;
-        writeTree(current->left, bfile);
-        writeTree(current->right, bfile);
-     }
+        // this->print(std::cout);
+    //  if (current == nullptr) {
+    //     return;
+    //  } if (current->left == nullptr && current->right == nullptr) {
+    //     std::cout << "1" << std::endl;
+    //     bfile.writeBit(1);
+    //     std::cout << current->freq.getCharacter() << std::endl;
+    //     bfile.writeBit(current->freq.getCharacter());
+    //  } else {
+    //     bfile.writeBit(0);
+    //     std::cout << "0" << std::endl;
+    //     writeTree(current->left, bfile);
+    //     writeTree(current->right, bfile);
+    //  }
+    //take 2
+
+    //if we are at a leaf node:
+    if (current != nullptr && current->left == nullptr && current->right == nullptr) {
+         bfile.writeBit(1);
+         bfile.writeByte(current->freq.getCharacter());
+    } else if (current != nullptr && !(current->left == nullptr && current->right == nullptr)) { //"we are at an internal node"
+         bfile.writeBit(0);
+         writeTree(current->left, bfile);
+         writeTree(current->right, bfile);
+    }
 }
 
 HuffmanTree::TreeNode* HuffmanTree::readTree(BinaryFileReader& bfile)
@@ -426,10 +437,10 @@ HuffmanTree::TreeNode* HuffmanTree::readTree(BinaryFileReader& bfile)
      TreeNode* newNode = nullptr;
 
         char c = bfile.getNextBit();
-        std::cout << c << std::endl;
+        // std::cout << c << std::endl;
         if (c == 1) {
             newNode = new TreeNode(Frequency(bfile.getNextByte(), 0));
-            std::cout << newNode->freq.getCharacter() << std::endl;
+            // std::cout << newNode->freq.getCharacter() << std::endl;
         } else if (c == 0) {
            newNode = new TreeNode(0);
            newNode->left = readTree(bfile);
