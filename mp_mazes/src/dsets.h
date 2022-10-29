@@ -1,4 +1,6 @@
 /* Your code here! */
+//desriptions and function signatures copied from the Doxygen for this mp, and code style copied from 
+//past assignments such as lab_trees and mp_stickers //this comment copied from maze.h
 
 class DisjointSets {
     public:
