@@ -116,7 +116,7 @@ class SquareMaze {
      * 
      * @param a PNG of the unsolved SquareMaze
      */
-    PNG* drawMaze() const;
+    cs225::PNG* drawMaze() const;
 
     /**
      * This function calls drawMaze, then solveMaze; it modifies the PNG from drawMaze 
@@ -136,7 +136,7 @@ class SquareMaze {
      * 
      * @param a PNG of the solved SquareMaze
      */
-    PNG* drawMazeWithSolution();
+    cs225::PNG* drawMazeWithSolution();
 
     private:
 

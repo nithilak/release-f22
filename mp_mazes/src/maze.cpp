@@ -1,5 +1,7 @@
 /* Your code here! */
 #include "maze.h"
+#include "cs225/PNG.h"
+#include "cs225/HSLAPixel.h"
 
 SquareMaze::SquareMaze() {
     /**Your code here*/
@@ -21,15 +23,19 @@ void SquareMaze::setWall(int x, int y, int dir, bool exists) {
 
 std::vector<int> SquareMaze::solveMaze() {
     /**Your code here*/
+    std::vector<int> output;
+    return output;
 }
 
-PNG* SquareMaze::drawMaze() const {
+cs225::PNG* SquareMaze::drawMaze() const {
     /**Your code here*/
+    return nullptr;
 }
 
 
-PNG* SquareMaze::drawMazeWithSolution() {
+cs225::PNG* SquareMaze::drawMazeWithSolution() {
     /**Your code here*/
+    return nullptr;
 }
 
 
