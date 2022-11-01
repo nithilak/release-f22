@@ -38,10 +38,19 @@ void DisjointSets::setunion(int a, int b) {
     }
     int setsize = disjointSets.size();
     if (a >= 0 && b >= 0 && a < setsize && b < setsize) {
-        int b_index = find(b);
         int a_index = find(a);
-        disjointSets.at(b_index) -= disjointSets.at(a_index);
-        disjointSets.at(a_index) = b_index;
+        int b_index = find(b);
+        
+        int a_size = size(a_index);
+        int b_size = size(b_index);
+
+        if (a_size < b_size) {
+            disjointSets.at(b_index) -= size(a_index);
+            disjointSets.at(a_index) = b_index;
+        } else {
+            disjointSets.at(a_index) -= size(b_index);
+            disjointSets.at(b_index) = a_index;
+        }
     }
 }
 

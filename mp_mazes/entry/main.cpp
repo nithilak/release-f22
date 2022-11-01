@@ -36,19 +36,31 @@ int main()
 
     cout << "find every element" << endl;
 
-    // for (int i = 0; i < dset.setsize(); i++) {
-    //     cout << i << ": " << dset.find(i) << endl;
-    // }
+    for (int i = 0; i < dset.setsize(); i++) {
+        cout << i << ": " << dset.find(i) << endl;
+    }
 
     cout << "size of every element" << endl;
 
-    // for (int i = 0; i < dset.setsize(); i++) {
-    //     cout << i << ": " << dset.size(i) << endl;
-    // }
+    for (int i = 0; i < dset.setsize(); i++) {
+        cout << i << ": " << dset.size(i) << endl;
+    }
 
     cout << "set union the last two sets" << endl;
 
-    
+    dset.setunion(7, 9);
+
+    cout << "find every element" << endl;
+
+    for (int i = 0; i < dset.setsize(); i++) {
+        cout << i << ": " << dset.find(i) << endl;
+    }
+
+    cout << "size of every element" << endl;
+
+    for (int i = 0; i < dset.setsize(); i++) {
+        cout << i << ": " << dset.size(i) << endl;
+    }
 
 
     // cout << "2: " << dset.size(0) << endl;
