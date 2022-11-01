@@ -2,6 +2,8 @@
 //desriptions and function signatures copied from the Doxygen for this mp, and code style copied from 
 //past assignments such as lab_trees and mp_stickers //this comment copied from maze.h
 
+#include <vector>
+
 class DisjointSets {
     public:
 
@@ -48,4 +50,5 @@ class DisjointSets {
     int size(int elem);
 
     private:
+    std::vector<int> disjointSets;
 };
