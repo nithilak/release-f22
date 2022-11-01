@@ -48,7 +48,8 @@ int main()
 
     cout << "set union the last two sets" << endl;
 
-    dset.setunion(7, 9);
+    dset.setunion(1, 7); //change this to the other order, and it should flip
+    // dset.setunion(7, 9); //test this separately
 
     cout << "find every element" << endl;
 
