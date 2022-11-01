@@ -40,6 +40,17 @@ int main()
     //     cout << i << ": " << dset.find(i) << endl;
     // }
 
+    cout << "size of every element" << endl;
+
+    // for (int i = 0; i < dset.setsize(); i++) {
+    //     cout << i << ": " << dset.size(i) << endl;
+    // }
+
+    cout << "set union the last two sets" << endl;
+
+    
+
+
     // cout << "2: " << dset.size(0) << endl;
     // cout << "1: " << dset.size(3) << endl;
     // cout << "3: " << dset.size(6) << endl;
