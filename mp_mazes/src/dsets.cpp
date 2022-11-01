@@ -24,7 +24,7 @@ int DisjointSets::find(int elem) {
     while (current >= 0) {
         int next = disjointSets.at(current);
         if (next < 0) {
-            return next;
+            return current;
         }
         current = next;
     }
@@ -48,7 +48,7 @@ void DisjointSets::setunion(int a, int b) {
 int DisjointSets::size(int elem) {
     /**Your code here*/
     int setsize = disjointSets.size();
-    if (elem >= 0 || elem < setsize) {
+    if (elem >= 0 && elem < setsize) {
         int output = -1*(disjointSets.at(find(elem)));
         if (output >= 0) {
             return output;
@@ -66,7 +66,7 @@ int DisjointSets::setsize() const {
 void DisjointSets::print() const {
     std::cout << "";
     for (int elem : disjointSets) {
-        std::cout << std::to_string(elem) + " ";
+        std::cout << elem << " ";
     }
     std::cout << std::endl;
 }

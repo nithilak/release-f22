@@ -34,6 +34,12 @@ int main()
     cout << "setsize: " << dset.setsize() << endl;
     dset.print();
 
+    cout << "find every element" << endl;
+
+    // for (int i = 0; i < dset.setsize(); i++) {
+    //     cout << i << ": " << dset.find(i) << endl;
+    // }
+
     // cout << "2: " << dset.size(0) << endl;
     // cout << "1: " << dset.size(3) << endl;
     // cout << "3: " << dset.size(6) << endl;
