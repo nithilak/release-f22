@@ -34,6 +34,21 @@ int main()
     cout << "setsize: " << dset.setsize() << endl;
     dset.print();
 
+    // cout << "add 5 elements" << endl;
+    // dset.addelements(5);
+    // cout << "setsize: " << dset.setsize() << endl;
+    // dset.print();
+
+    // cout << "add 0 elements" << endl;
+    // dset.addelements(0);
+    // cout << "setsize: " << dset.setsize() << endl;
+    // dset.print();
+
+    cout << "add 1 element" << endl;
+    dset.addelements(1);
+    cout << "setsize: " << dset.setsize() << endl;
+    dset.print();
+
     cout << "find every element" << endl;
 
     for (int i = 0; i < dset.setsize(); i++) {
@@ -48,7 +63,9 @@ int main()
 
     cout << "set union the last two sets" << endl;
 
-    dset.setunion(1, 7); //change this to the other order, and it should flip
+
+    //if the addelements function joined together the sets
+    // dset.setunion(1, 7); //change this to the other order, and it should flip
     // dset.setunion(7, 9); //test this separately
 
     cout << "find every element" << endl;

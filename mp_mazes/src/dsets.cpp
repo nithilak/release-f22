@@ -1,5 +1,6 @@
 /* Your code here! */
 #include "dsets.h"
+#include <cmath>
 
 void DisjointSets::addelements(int num) {
     /**Your code here*/
@@ -7,11 +8,14 @@ void DisjointSets::addelements(int num) {
         return;
     }
     //counter is the new index
-    int counter = disjointSets.size();
+    // int counter = disjointSets.size();
+    // int counter_end = counter + num;
+    int counter_final = -1; // (counter_end + counter) - 1; //(counter_end + counter) / 2;
+
     for (int i = 0; i < num; i++) {
-        disjointSets.push_back(counter);
+        disjointSets.push_back(counter_final);
     }
-    disjointSets.at(counter) = (-1)*num;
+    // disjointSets.at(counter_final) = (-1)*num;
 }
 
 int DisjointSets::find(int elem) {
