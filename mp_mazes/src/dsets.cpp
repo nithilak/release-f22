@@ -16,8 +16,8 @@ void DisjointSets::addelements(int num) {
 
 int DisjointSets::find(int elem) {
     /**Your code here*/
-    int size = disjointSets.size();
-    if (size == 0 || elem < 0 || elem >= size) {
+    int setsize = disjointSets.size();
+    if (setsize == 0 || elem < 0 || elem >= setsize) {
         return -1;
     }
     int current = elem;
@@ -47,13 +47,28 @@ void DisjointSets::setunion(int a, int b) {
 
 int DisjointSets::size(int elem) {
     /**Your code here*/
-    if (elem >= 0 || elem < disjointSets.size()) {
-        return -1*(disjointSets.at(find(elem)));
+    int setsize = disjointSets.size();
+    if (elem >= 0 || elem < setsize) {
+        int output = -1*(disjointSets.at(find(elem)));
+        if (output >= 0) {
+            return output;
+        }
     }
     return -1;
 }
 
 
+//helpers
+int DisjointSets::setsize() const {
+    return disjointSets.size();
+}
 
+void DisjointSets::print() const {
+    std::cout << "";
+    for (int elem : disjointSets) {
+        std::cout << std::to_string(elem) + " ";
+    }
+    std::cout << std::endl;
+}
 
 

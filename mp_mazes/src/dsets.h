@@ -4,6 +4,10 @@
 
 #include <vector>
 
+#include <string>
+
+#include <iostream>
+
 class DisjointSets {
     public:
 
@@ -49,6 +53,17 @@ class DisjointSets {
      */
     int size(int elem);
 
+    //helpers
+
+    //returns the size of the union of all sets
+    int setsize() const;
+
+    //prints every element in the vector disjointedSets
+    void print() const;
+
     private:
     std::vector<int> disjointSets;
+
+    //helper functions
+    // int setsize() const;
 };
