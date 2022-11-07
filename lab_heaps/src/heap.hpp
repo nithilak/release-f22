@@ -80,6 +80,7 @@ template <class T, class Compare>
 heap<T, Compare>::heap(const std::vector<T>& elems) 
 {
     // @TODO Construct a heap using the buildHeap algorithm
+    _elems = elems;
 }
 
 template <class T, class Compare>
@@ -93,6 +94,9 @@ template <class T, class Compare>
 T heap<T, Compare>::peek() const
 {
     // @TODO Return, but do not remove, the element with highest priority
+    if (!_elems.empty()) {
+        return _elems.at(0);
+    }
     return T();
 }
 
