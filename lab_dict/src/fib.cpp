@@ -10,6 +10,8 @@
 #include "fib.h"
 
 #include <map>
+#include <iostream>
+#include <vector>
 
 using std::map;
 
@@ -22,7 +24,18 @@ using std::map;
 unsigned long fib(unsigned long n)
 {
     /* Your code goes here! */
-    return 0;
+    if (n == 0) {
+        return 0;
+    }
+    if (n == 1) {
+        return 1;
+    }
+    std::vector<unsigned long> output = {0, 1};
+    for (int i = 1; i < static_cast<int>(n); i++) {
+        output.push_back(output.at(0) + output.at(1));
+        output.erase(output.begin());
+    }
+    return output.at(output.size() - 1);
 }
 
 /**
@@ -34,5 +47,16 @@ unsigned long fib(unsigned long n)
 unsigned long memoized_fib(unsigned long n)
 {
     /* Your code goes here! */
-    return 0;
+    static std::map<unsigned long, unsigned long> map {{0, 0}, {1, 1}};
+
+    const std::map<unsigned long, unsigned long>::iterator& find = map.find(n);
+    
+    if (find != map.end()) {
+        return find->second;
+    } else {
+        unsigned long output = memoized_fib(n - 1) + memoized_fib(n - 2);
+        map[n] = output;
+        // std::cout << "output: " << output << std::endl;
+        return output;
+    }
 }
