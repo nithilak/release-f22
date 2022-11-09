@@ -86,6 +86,9 @@ int main()
     // cout << "3: " << dset.size(6) << endl;
     // cout << "2: " << dset.size(8) << endl;
     // cout << "4: " << dset.size(12) << endl;
+    
+    SquareMaze maze;
+    maze.makeMaze(4, 4);
 
     return 0;
 }

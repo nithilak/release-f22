@@ -14,7 +14,7 @@ class SquareMaze {
      * 
      * Creates an empty maze.
     */
-    SquareMaze();
+    // SquareMaze();
 
     /**
      * Makes a new SquareMaze of the given height and width.
@@ -151,5 +151,6 @@ class SquareMaze {
     cs225::PNG* drawMazeWithSolution();
 
     private:
+    std::vector<bool> maze;
 
 };
